@@ -1,0 +1,62 @@
+﻿<div class="title">
+    <div id="LocationCompareDataHead1" class="display-IB">
+        <img src="http://analyticsv1.azurewebsites.net/images/icon/dollar-sign-and-piles-of-coins.png" alt=""><h3>TOP INSTRUMENTS <!--BY LOCATIONS--></h3>
+    </div>
+    <div class="pull-right right-menu">
+        <ul>
+            <li class="dropdown">
+                <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span ng-bind="vm.Timeline.DisplayName"></span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu graph-filters-fix-width-height">
+                    <li ng-repeat="timeLine in vm.TimeLines" class="border-top" ng-class="vm.getClass(timeLine)">
+                        <!--<a href="#" prevent-default ng-click="vm.getTopPinnedUsersByFilters(); vm.Timeline = timeLine">{{timeLine.DisplayName}}</a>-->
+                        <a ng-click="vm.Timeline = timeLine">{{timeLine.DisplayName}}</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <div class="multiselect-button hidden" ng-dropdown-multiselect="" checkboxes="true" options="vm.Countries"
+                     ng-hide="vm.IsDrillDownVisible || vm.IsDrillDown2Visible" selected-model="vm.SelectedCountries" extra-settings="vm.CountrySettings"></div>
+                <div ng-dropdown-multiselect="" checkboxes="true" options="vm.Cities" ng-show="vm.IsDrillDownVisible" class="hidden"
+                     selected-model="vm.SelectedCities" extra-settings="vm.CitySettings"></div>
+                <div ng-dropdown-multiselect="" checkboxes="true" options="vm.Accounts" ng-show="vm.IsDrillDown2Visible" class="hidden"
+                     selected-model="vm.SelectedAccounts" extra-settings="vm.AccountSettings"></div>
+            </li>
+            <li class="dropdown">
+                <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-line-chart" ng-if="vm.chartType == 'line'"></i>
+                    <i class="fa fa-bar-chart" ng-if="vm.chartType == 'column'"></i>
+                    <i class="fa fa-area-chart" ng-if="vm.chartType == 'areaspline'"></i>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" prevent-default ng-click="vm.chartType = 'line';vm.click()"><i class="fa fa-line-chart"></i></a></li>
+                    <li><a href="#" prevent-default ng-click="vm.chartType = 'column';vm.click()"><i class="fa fa-bar-chart"></i></a></li>
+                    <li><a href="#" prevent-default ng-click="vm.chartType = 'areaspline';vm.click()"><i class="fa fa-area-chart"></i></a></li>
+                </ul>
+            </li>
+            <li class="dropdown" ng-if="vm.isEmbedWidget">
+                <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" prevent-default>Embed Widget</a></li>
+                    <!--<li><a prevent-default href="#">Export API</a></li>-->
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<div id="locationInstrumentsContainer" style="min-width: 310px; margin: 0 auto" class="body" ng-show="vm.loadComplete"></div>
+
+<div class="loader" ng-show="!vm.loadComplete">
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__ball"></div>
+</div>
+
+<!--<div class="sk-rotating-plane margin-top-150" ng-show="!vm.loadComplete"></div>-->

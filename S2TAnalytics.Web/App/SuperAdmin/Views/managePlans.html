@@ -1,0 +1,51 @@
+﻿
+
+<div class="site-content-nonav">
+    <div class="content-area py-1">
+        <div class="container-fluid">
+            <h1 class="page-title">
+                MANAGE PLANS
+                <div class="float-xs-right">
+                    <div class="btn-group">
+                        <button type="button" ng-click="vm.UpdatePlans()" class="btn btn-secondary btn-sm active">Update</button>
+                    </div>
+                </div>
+            </h1>
+            <div class="row row-md mb-2">
+                <div>
+                    <div class="card">
+                        <div>
+                            <div class="box-block-small">
+                                <table class="table table-striped table-bordered dataTable" id="table-2" style="font-size:11px;">
+                                    <tr>
+                                        <th>FEATURES</th>
+                                        <th ng-repeat="plan in vm.AllplansValues"> {{plan.Name}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Infrastructure Cost</th>
+                                        <th ng-repeat="plan in vm.AllPlansWidget"><input type="number" ng-model="plan.InfrastructureCost" /></th>
+                                        <!--<th ng-repeat="plan in vm.AllplansValues"> <input type="text" ng-model="plan.InfrastructureCost" /></th>-->
+                                    </tr>
+
+                                    <tbody>
+                                        <tr ng-repeat="w in vm.AllWidget">
+                                            <td>{{w.DisplayName}}</td>
+                                            <td ng-repeat="plan in vm.AllPlansWidget">
+                                                <span ng-repeat="p in plan.WidgetsAccess ">
+                                                    <input ng-if="p.WidgetID==w.intValue" type="checkbox" name="" id="" ng-checked="p.HasAccess" ng-model="p.HasAccess" ng-change="vm.checkPermission()" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

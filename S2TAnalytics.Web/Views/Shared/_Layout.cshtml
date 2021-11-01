@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>@ViewBag.Title</title>
+
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/lodash.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+
+    <script type="text/javascript">
+        var serviceBase = '@Url.Content("~/")';
+    </script>
+
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/services")
+    @Scripts.Render("~/bundles/directives")
+    @Scripts.Render("~/bundles/controllers")
+    @Scripts.Render("~/bundles/components")
+    <link href="~/Content/MonthPicker.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jspdf.debug.js"></script>
+    <script src="~/Scripts/MonthPicker.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/icon/favicon.ico">
+    <link rel="stylesheet" href="~/Content/rzslider.min.css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/owl.carousel.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/jquery.pagepiling.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js"></script>
+    <script src="~/Scripts/countrySelect.min.js"></script>
+    <link href="~/Content/countrySelect.min.css" rel="stylesheet" />
+   
+    @*@Styles.Render("~/Content/css")*@
+    <script src="~/Scripts/radial-progress-bar.js"></script>
+    <link href="~/Content/toastr/toastr.min.css" rel="stylesheet" />
+    <script src="~/Scripts/ng-tags-input.min.js"></script>
+    <link href="~/Content/ng-tags-input.min.css" rel="stylesheet" />
+    @*<link href="~/Content/angular-datepicker.css" rel="stylesheet" />
+        <script src="~/Scripts/angular-datepicker.js"></script>*@
+    @*<link href="~/Content/jquery.pagepiling.min.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+
+    <script src="~/Scripts/intlTelInput.js"></script>
+    <link href="~/Content/intlTelInput.css" rel="stylesheet" />
+
+</head>
+<body class="">
+    <div ng-app="S2TAnalyticsApp" ui-view>
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/highchart")
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-toggle.min.js"></script>
+   
+    <script src="~/Scripts/bootstrap-dialog.min.js"></script>
+    <script src="~/Scripts/owl.carousel.min.js"></script>
+    <script src="~/Scripts/toastr/toastr.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/rzslider.min.js"></script>
+
+    @*<div class="container body-content">
+                <div class="row" ng-app="AngularApp">
+                    <div ng-view="">
+
+                        @RenderBody()
+                    </div>
+
+                </div>
+                <hr />
+
+            </div>
+        </div>*@
+
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    @*@RenderSection("scripts", required: false)*@
+    <script>
+        Highcharts.setOptions({
+            lang: {
+                thousandsSep: ",",
+                noData: "No Data To Display"
+            },
+            //colors: ['#99b841', '#687444', '#cbfea6', '#687444', '#caee62'],
+            colors: ['#a3bf2c', '#1a420d', '#2a3229', '#fcc449', '#fb702b', '#a185eb', '#d5429b', '#34495e', '#677F57', '#36b888'],
+        });
+
+    </script>
+</body>
+</html>
+
+
+
+

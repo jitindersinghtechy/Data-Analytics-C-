@@ -1,0 +1,104 @@
+﻿
+
+    <div class="title">
+        <!--ng-show="vm.loadComplete"-->
+        <img src="http://analyticsv1.azurewebsites.net/images/icon/group1.png" alt="">
+        <h4 style="display: inline-block;vertical-align: super;">TRENDING PERFOMERS</h4>
+
+        <div class="pull-right right-menu">
+            <ul>
+                <li class="dropdown">
+                    <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span ng-bind="vm.TimeLine.DisplayName"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu graph-filters-fix-width-height">
+                        <li ng-repeat="timeLine in vm.TimeLines" class="border-top" ng-class="vm.getClass(timeLine)">
+                            <a href="#" prevent-default
+                               ng-click="vm.TimeLine = timeLine; vm.getTopPerformersByFilters(); ">{{timeLine.DisplayName}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>Risk Value<span class="red-text fsize20" style="margin-left: 3px" ng-bind="vm.RORForTimeline">4.5</span></li>
+             
+                <li class="dropdown">
+                    <!--<a href="#"><i class="fa fa-filter"></i></a>-->
+                    <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+                        <i class="fa fa-filter"></i>
+                    </a>
+                    <ul class="dropdown-menu width-300" ng-click="$event.stopPropagation()">
+                        <li class="no-box-shadow">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <span>Order by :</span>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="form-control" ng-model="vm.sortPerformersBy" ng-change="vm.getTopPerformersByFilters()">
+                                        <option value="roi">ROI</option>
+                                        <option value="maxDD">Max DD</option>
+                                        <option value="winRate">WIN Rate</option>
+                                        <option value="sharpRatio">Sharp Ratio</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="no-box-shadow">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <span>User Group :</span>
+                                </div>
+                                <div class="col-md-7 user-group-multiselect-top-performer-only">
+                                    <div class="multiselect-button form-control custom-multi custom-multi-2" ng-dropdown-multiselect="" checkboxes="true" options="vm.UserGroups"
+                                         selected-model="vm.SelectedUserGroups" extra-settings="vm.UserGroupsSettings"
+                                         events="{ onItemSelect: vm.onUserGroupsSelect, onItemDeselect: vm.onUserGroupsDeselect }"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="body" ng-if="vm.loadComplete">
+        <div id="topPerformres">
+            <div class="item" ng-repeat="performer in vm.Performers">
+                <div class="performers-card" ng-class="vm.getValueAndLabelByIndex(0, performer) > 0 ? 'green' : 'red'">
+                    <h4>
+                        <strong>{{performer.PerformerName}}</strong>
+                    </h4>
+                    <h4><font style="font-weight: bold;font-size: 17px;">({{performer.AccountNumber}})</font></h4>
+                    <!--<span ng-bind="vm.getValueAndLabelByIndex(0, performer) | number" ></span>-->
+                    <h2 ng-bind="vm.getValueAndLabelByIndex(0, performer) | number"></h2>
+                    <!--<h2 ng-bind="vm.ValueByIndex | number" ng-class="vm.ValueByIndex > 0 ? 'text-green': 'text-red'"></h2>-->
+                    <h4 ng-bind="vm.LabelByIndex"></h4>
+                    <h3>
+                        <span ng-bind="vm.getValueAndLabelByIndex(1, performer) | number"></span>
+                        <span ng-bind="vm.LabelByIndex" class="pull-left"></span>
+                        <!--<span ng-bind="vm.ValueByIndex | number"></span>-->
+                    </h3>
+                    <br />
+                    <h3>
+                        <span ng-bind="vm.getValueAndLabelByIndex(2, performer) | number"></span>
+                        <span ng-bind="vm.LabelByIndex" class="pull-left"></span>
+                        <!--<span ng-bind="vm.ValueByIndex | number"></span>-->
+                    </h3>
+                    <br /><h3>
+                        <span ng-bind="vm.getValueAndLabelByIndex(3, performer) | number"></span>
+                        <span ng-bind="vm.LabelByIndex" class="pull-left"></span>
+                        <!--<span ng-bind="vm.ValueByIndex | number"></span>-->
+                    </h3>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="loader" ng-if="!vm.loadComplete">
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__ball"></div>
+</div>
+

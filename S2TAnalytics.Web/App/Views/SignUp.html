@@ -1,0 +1,84 @@
+﻿<div class="container-fluid">
+    <div class="sign-form">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 px-3">
+                <div class="box b-a-0">
+                    <div class="p-2 text-xs-center">
+                        <h5>Join us today</h5>
+                    </div>
+                    <form class="form-material" name="SignUpForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" maxlength="20" placeholder="First Name" name="FirstName" data-ng-model="userVM.User.FirstName"
+                                   required-error-message="Required" validator="required">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" maxlength="20" placeholder="Last Name" name="LastName" data-ng-model="userVM.User.LastName"
+                                   required-error-message="Required" validator="required">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" maxlength="50" placeholder="Email" name="EmailID" data-ng-model="userVM.User.EmailID"
+                                   required-error-message="Required" validator="required,email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" maxlength="20" placeholder="Password" name="Password" data-ng-model="userVM.User.Password"
+                                   required-error-message="Required" validator="required,passwordlength">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="password" maxlength="20" class="form-control" placeholder="Confirm password" name="ConfirmPassword"
+                                   data-ng-model="userVM.User.ConfirmPassword" data-pwd={{userVM.User.Password}}
+                                   required-error-message="Required" validator="required,confirmpassword,passwordlength">
+                        </div>
+                        <div class="px-2 form-group mb-0">
+                            <button type="button" validation-submit="SignUpForm" data-ng-click="userVM.createNewUser()" class="btn btn-purple btn-block text-uppercase">
+                                Sign up
+                            </button>
+                        </div>
+                    </form>
+                    <div class="p-2 text-xs-center text-muted">
+                        Already have an account? <a class="text-black" ui-sref="login" href="#"><span class="underline">Sign in</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--<form role="form">
+    <div class="row">
+        <div class="col-md-2">
+            &nbsp;
+        </div>
+        <div class="col-md-4">
+            <h2 class="form-login-heading col-md-12">Login</h2>
+            <div class="col-md-12 PaddingTop">
+                <input type="text" class="form-control" placeholder="First Name" data-ng-model="userVM.User.FirstName">
+            </div>
+            <div class="col-md-12 PaddingTop">
+                <input type="text" class="form-control" placeholder="Last Name" data-ng-model="userVM.User.LastName">
+            </div>
+
+            <div class="col-md-12 PaddingTop">
+                <input  type="email" class="form-control" placeholder="Email" data-ng-model="userVM.User.EmailID">
+            </div>
+            <div class="col-md-12 PaddingTop">
+                <input type="password" class="form-control" placeholder="Password" data-ng-model="userVM.User.Password">
+            </div>
+            <div class="col-md-12 PaddingTop">
+                <input type="password" class="form-control" placeholder="Confirm Password" data-ng-model="userVM.User.ConfirmPassword" compare-to="User.Password" required aria-invalid="true">
+            </div>
+
+
+
+
+                <div class="col-md-12 PaddingTop">
+                    <button class="btn btn-md btn-info btn-block" type="button" data-ng-click="userVM.createNewUser()">Save</button>
+                </div>
+            </div>
+
+
+    </div>
+</form>-->

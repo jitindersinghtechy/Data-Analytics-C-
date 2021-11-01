@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C05C442-D235-4398-B925-24DC9DC64FF5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>S2TAnalytics.DAL</RootNamespace>
+    <AssemblyName>S2TAnalytics.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MongoDB.Bson, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.4.0\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.4.0\lib\net45\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.4.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Legacy, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.2.4.0\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OANDACustomRestLibrary">
+      <HintPath>..\S2TAnalyticsELT\Connectors\Oanda\OANDACustomRestLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="P23.MetaTrader4.Manager.Contracts">
+      <HintPath>..\S2TAnalyticsELT\Connectors\MT4\P23.MetaTrader4.Manager.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Models\AccountDetailWithHighestValue.cs" />
+    <Compile Include="Models\AccountStats.cs" />
+    <Compile Include="Models\AccountDetail.cs" />
+    <Compile Include="Models\AccountTransactionHistory.cs" />
+    <Compile Include="Models\ContactUs.cs" />
+    <Compile Include="Models\CouponDetail.cs" />
+    <Compile Include="Models\DailyEquity.cs" />
+    <Compile Include="Models\Datasource.cs" />
+    <Compile Include="Models\DataSourceQueue.cs" />
+    <Compile Include="Models\InstrumentMaster.cs" />
+    <Compile Include="Models\InstrumentStats.cs" />
+    <Compile Include="Models\EquityByDate.cs" />
+    <Compile Include="Models\OandaAccount.cs" />
+    <Compile Include="Models\PinnedUsers.cs" />
+    <Compile Include="Models\PlanTermLength.cs" />
+    <Compile Include="Models\RateOfReturns.cs" />
+    <Compile Include="Models\RiskFreeRatesForSharpRatio.cs" />
+    <Compile Include="Models\SubscriptionPlan.cs" />
+    <Compile Include="Models\TimeLineMaster.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\MT4UserRequest.cs" />
+    <Compile Include="Models\UserBillingInfo.cs" />
+    <Compile Include="Models\UserCard.cs" />
+    <Compile Include="Models\UserCredit.cs" />
+    <Compile Include="Models\UserEmailNotificationSettings.cs" />
+    <Compile Include="Models\UserEmbedWidgetPermission.cs" />
+    <Compile Include="Models\UserInvoiceHistory.cs" />
+    <Compile Include="Models\UserPlan.cs" />
+    <Compile Include="Models\UserRequest.cs" />
+    <Compile Include="Models\UserSubscriptionDeductionQueue.cs" />
+    <Compile Include="Models\WidgetAccess.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\S2TAnalytics.Common\S2TAnalytics.Common.csproj">
+      <Project>{9BB798FC-75C9-47C6-81F9-19CA68BC4CD6}</Project>
+      <Name>S2TAnalytics.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

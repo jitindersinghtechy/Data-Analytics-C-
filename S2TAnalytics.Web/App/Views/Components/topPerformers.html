@@ -1,0 +1,458 @@
+﻿<div class="title">
+    <!--ng-show="vm.loadComplete"-->
+    <img src="../images/icon/group1.png" alt="">
+    <h4 style="display: inline-block;vertical-align: super;">TRENDING PERFORMERS</h4>
+
+    <div class="pull-right right-menu">
+        <ul>
+            <li class="dropdown">
+                <a href="#" prevent-default class="dropdown-toggle border" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span ng-bind="vm.TimeLine.DisplayName"></span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu graph-filters-fix-width-height">
+                    <li ng-repeat="timeLine in vm.TimeLines" class="border-top" ng-class="vm.getClass(timeLine)">
+                        <a href="#" prevent-default
+                           ng-click="vm.TimeLine = timeLine; vm.getTopPerformersByFilters(); ">{{timeLine.DisplayName}}</a>
+                    </li>
+                </ul>
+                <!--<select class="form-control performers-filters pull-right margin-right-5px" ng-model="vm.TimeLine" ng-change="vm.getTopPerformersByFilters()"
+                        ng-options="timeLine.DisplayName for timeLine in vm.TimeLines track by timeLine.stringValue">
+                    <option value="">TimeLine</option>
+                </select>-->
+            </li>
+            <li style="line-height: 30px">Standard ROR<span class="red-text fsize20" style="margin-left: 7px; vertical-align: bottom" ng-bind="vm.RORForTimeline">4.5</span></li>
+            <!--<li class="dropdown">
+                <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span ng-bind="vm.Country == '' ? 'All' : vm.Country"></span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu graph-filters-fix-width-height">
+                    <li>
+                        <a href="" prevent-default ng-click="vm.Country = ''; vm.getTopPerformersByFilters();">All</a>
+                    </li>
+                    <li ng-repeat="country in vm.Countries" class="border-top">
+                        <a href="#" prevent-default ng-click="vm.Country = country; vm.getTopPerformersByFilters(); ">{{country}}</a>
+                    </li>
+                </ul>
+                <!--<select class="form-control performers-filters  pull-right" ng-model="vm.Country" ng-change="vm.getTopPerformersByFilters()"
+                        ng-options="country for country in vm.Countries">
+                    <option value="">Country</option>
+                </select>-a->
+            </li>-->
+            <li class="dropdown">
+                <!--<a href="#"><i class="fa fa-filter"></i></a>-->
+                <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+                    <i class="fa fa-filter"></i>
+                </a>
+                <ul class="dropdown-menu width-300" ng-click="$event.stopPropagation()">
+                    <li class="no-box-shadow">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <span>Order by :</span>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="form-control" ng-model="vm.sortPerformersBy" ng-change="vm.getTopPerformersByFilters()">
+                                    <option value="roi">ROI</option>
+                                    <option value="maxDD">Max DD</option>
+                                    <option value="winRate">WIN Rate</option>
+                                    <option value="sharpRatio">Sharp Ratio</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="no-box-shadow">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <span>User Group :</span>
+                            </div>
+                            <div class="col-md-7 user-group-multiselect-top-performer-only">
+                                <div class="multiselect-button form-control custom-multi custom-multi-2" ng-dropdown-multiselect="" checkboxes="true" options="vm.UserGroups"
+                                     selected-model="vm.SelectedUserGroups" extra-settings="vm.UserGroupsSettings"
+                                     events="{ onItemSelect: vm.onUserGroupsSelect, onItemDeselect: vm.onUserGroupsDeselect }"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <ul class="dropdown-menu">
+                    <li ng-if="vm.isEmbedWidget"><a href="#" prevent-default ng-click="vm.ShowScript()">Embed Widget</a></li>
+                    <li ng-if="vm.isApiWidget"><a href="#" prevent-default ng-click="vm.EmbedAPI()">Export API</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="body" ng-if="vm.loadComplete">
+    <div id="topPerformres">
+        <div class="item" ng-repeat="performer in vm.Performers">
+            <div class="performers-card" ng-class="vm.getValueAndLabelByIndex(0, performer) > 0 ? 'green' : 'red'">
+                <h4>
+                    <strong>{{performer.PerformerName}}</strong>
+                </h4>
+                <h4><font style="font-weight: bold;font-size: 17px;">({{performer.AccountNumber}})</font></h4>
+                <!--<span ng-bind="vm.getValueAndLabelByIndex(0, performer) | number" ></span>-->
+                <h2 ng-bind="vm.getValueAndLabelByIndex(0, performer) | number"></h2>
+                <!--<h2 ng-bind="vm.ValueByIndex | number" ng-class="vm.ValueByIndex > 0 ? 'text-green': 'text-red'"></h2>-->
+                <h4 ng-bind="vm.LabelByIndex"></h4>
+                <h3>
+                    <span ng-bind="vm.getValueAndLabelByIndex(1, performer) | number"></span>
+                    <span ng-bind="vm.LabelByIndex" class="pull-left"></span>
+                    <!--<span ng-bind="vm.ValueByIndex | number"></span>-->
+                </h3>
+                <br />
+                <h3>
+                    <span ng-bind="vm.getValueAndLabelByIndex(2, performer) | number"></span>
+                    <span ng-bind="vm.LabelByIndex" class="pull-left"></span>
+                    <!--<span ng-bind="vm.ValueByIndex | number"></span>-->
+                </h3>
+                <br /><h3>
+                    <span ng-bind="vm.getValueAndLabelByIndex(3, performer) | number"></span>
+                    <span ng-bind="vm.LabelByIndex" class="pull-left"></span>
+                    <!--<span ng-bind="vm.ValueByIndex | number"></span>-->
+                </h3>
+                <div class="floater">
+                    <span ng-bind="vm.getIfUserPinned(performer.AccountDetailId)"></span>
+                    <ul class="floater__list">
+                        <li class="floater__list-item" ng-if="!vm.isUserPinned && vm.isPinnedUsers" ng-click="vm.updatePinnedUsers(performer.AccountDetailId)">
+                            <div class="floater__list-item-label">Pin User</div>
+                            <i class=""><img src="/Images/icon/push-pin.png" alt=""></i>
+                        </li>
+                        <li class="floater__list-item" ng-if="vm.isUserPinned && vm.isPinnedUsers" ng-click="vm.unpinUser(performer.AccountDetailId)">
+                            <div class="floater__list-item-label">Unpin User</div>
+                            <i class=""><img src="/Images/icon/unpinusers.png" alt=""></i>
+                        </li>
+                        <li class="floater__list-item" ng-if="vm.isCompare" ng-click="vm.updateCompareUsers(performer.AccountDetailId)">
+                            <div class="floater__list-item-label">Compare User</div>
+                            <i class=""><img src="/Images/icon/weight-balance.png" alt=""></i>
+                        </li>
+                        <li class="floater__list-item" ng-if="vm.isViewDetail" ng-click="vm.viewUserDetails(performer.AccountDetailId)" title="View Details">
+                            <div class="floater__list-item-label">View User</div>
+                            <i class="fa fa-eye"></i>
+                        </li>
+                        <li class="floater__list-item" ng-if="vm.isExcludeUser" ng-click="vm.updateExcludeUsers(performer.AccountDetailId)">
+                            <div class="floater__list-item-label">Delete User</div>
+                            <i class="fa fa-trash"></i>
+                        </li>
+                    </ul>
+                    <div class="floater__btn" open-close-icons>
+                        <!--<i class="fa fa-bars"></i>
+                        <i class="fa fa-close"></i>-->
+                        <i class="fa fa-ellipsis-v"></i>
+                    </div>
+                </div>
+                <!--<div class="card-overlay">
+                    <ul>
+                        <a href="#" ng-if="vm.isExcludeUser" prevent-default ng-click="vm.updateExcludeUsers(performer.AccountDetailId)" class="delete-icon"><i class="fa fa-trash"></i></a>
+                        <li ng-if="vm.isPinnedUsers">
+                            <span ng-bind="vm.getIfUserPinned(performer.AccountDetailId)"></span>
+                            <a href="#" prevent-default id="pin-user" title="Pin User" ng-if="!vm.isUserPinned" ng-click="vm.updatePinnedUsers(performer.AccountDetailId)">
+                                <img src="/Images/icon/push-pin.png" alt="">
+                            </a>
+                            <a href="#" prevent-default ng-if="vm.isUserPinned" ng-click="vm.unpinUser(performer.AccountDetailId)" class="button">
+                                <img src="/Images/icon/unpinusers.png" alt="">
+                            </a>
+                        </li>
+                        <li ng-if="vm.isCompare">
+                            <a href="#" prevent-default title="Compare" ng-click="vm.updateCompareUsers(performer.AccountDetailId)">
+                                <img src="/Images/icon/weight-balance.png" alt="">
+                            </a>
+                        </li>
+                        <li ng-if="vm.isViewDetail">
+                            <a href="#" prevent-default ng-click="vm.viewUserDetails(performer.AccountDetailId)" title="View Details">
+                                <img src="/Images/icon/eye.png" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="embedScriptTrendingPopup" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content black">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title bold fsize20" id="myModalLabel">Embed Script</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="copy-clip">
+                            <div class="scrolly-auto" id="divTrendingScript">
+
+                            </div>
+                            <textarea id="txtTrendingScript" style="display:none"></textarea>
+                            <button type="button" class="btn btn-success btn-lg btn-block confirm-btn" ng-click="vm.CopyToClipboard()">COPY TO CLIPBOARD</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="add-link">
+                            <h2>Add Domain Link</h2>
+                            <div class="form-group">
+                                <!--<input type="text" class="form-control" id="" placeholder="Add Domain ">-->
+                                <tags-input ng-model="vm.tags" placeholder="Add Domain" on-tag-adding="vm.checkDomain($tag)">
+                                    <auto-complete load-on-focus="true" min-length="0"
+                                                   load-on-empty="false"></auto-complete>
+                                </tags-input>
+                                <a class="btn btn-success" href="#" prevent-default ng-click="vm.SaveEmbedWidgetPermission()">PROCEED</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <!--<form name="ChangePasswordForm">
+                        <div class="form-group">
+                            <textarea rows="8" style="width:100%" readonly="readonly" id="txtTrendingScript"></textarea>
+
+                        </div>
+                        <div class="form-group">
+                            <tags-input ng-model="vm.tags" placeholder="Add Domain" on-tag-adding="vm.checkDomain($tag)">
+                                <auto-complete load-on-focus="true" min-length="0"
+                                               load-on-empty="false"></auto-complete>
+                            </tags-input>
+                            <button ng-click="vm.SaveEmbedWidgetPermission()">Apply</button>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="text-center">
+                            <button class="green-button" style="width:auto" ng-click="vm.CopyToClipboard()">Copy to Clipboard</button>
+                        </div>
+
+                    <!--</form>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="embedAPIPopup" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content black">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title bold fsize20" id="myModalLabel">Export API</h4>
+            </div>
+            <div class="modal-body">
+                <div class="padding-5">
+                    <div>
+                        <div class="col-lg-3 col-xs-12">
+                            <h2>API Link : </h2>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 embed-script-text-border">
+                            <span class="word-wrap" id="apiLinkText"></span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="col-lg-3">
+                            <h2>Token KEY :</h2>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 embed-script-text-border">
+                            <span class="word-wrap" id="EmbedAPIToken"></span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="col-lg-3">
+                            <h2>Param:</h2>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 embed-script-text-border">
+                            <span class="word-wrap" id="ExportAPIParams"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center">
+                            <button class="green-button" style="width:auto" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loader" ng-if="!vm.loadComplete">
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__ball"></div>
+</div>
+<script>
+    //$(document).ready(function () {
+    //    var $floater = $('.floater .floater__btn');
+    //    $floater.on('click', function (e) {
+    //        var click = $(this).parents();
+    //        if (click.hasClass("is-active")) {
+    //            console.log(click);
+    //            $(this).parents('.floater').removeClass('is-active');
+
+    //        } else {
+    //            console.log(click);
+    //            $('.floater').removeClass('is-active');
+    //            $(this).parents('.floater').toggleClass('is-active');
+    //            e.stopPropagation();
+    //        }
+    //    });
+
+
+
+    //    $('.container').on('click', function () {
+    //        $('.floater').removeClass('is-active');
+    //    });
+    //})
+</script>
+<!--<div class="sk-double-bounce" ng-if="!vm.loadComplete">
+    <div class="sk-child sk-double-bounce1"></div>
+    <div class="sk-child sk-double-bounce2"></div>
+</div>-->
+<!--<div class="row">
+    <div class="col-md-12">
+        <div class="widget-main-container">
+            <div class="panel-title">
+                <h3><i class="fa fa-dashboard"></i>TRENDING PERFORMERS</h3>
+                <div class="panel-title-actions pull-right">
+                    <form class="form-material">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item dropdown">
+                                <select class="form-control performers-filters  pull-right" ng-model="vm.Country" ng-change="vm.getTopPerformersByFilters()"
+                                        ng-options="country for country in vm.Countries">
+                                    <option value="">Country</option>
+                                </select>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <select class="form-control performers-filters pull-right margin-right-5px" ng-model="vm.TimeLine" ng-change="vm.getTopPerformersByFilters()"
+                                        ng-options="timeLine.DisplayName for timeLine in vm.TimeLines track by timeLine.stringValue">
+                                    <option value="">TimeLine</option> <!--ng-click="getAllConversations()"-a->
+                                </select>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            <div class="box box-block bg-white tile tile-1 mb-2 main-widget-box col-2-fix">
+                <div class="row row-md">
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12" ng-repeat="performer in vm.Performers">
+                        <div class="box box-block bg-white tile tile-1 mb-0">
+                            <div class="overlay-icons">
+                                <ul class="overlay-icons-list">
+                                    <li ng-click="vm.updatePinnedUsers(performer.AccountDetailId)" title="Pin User"><span class="ti-pin2"></span></li>
+                                    <li title="Compare"><i class="fa fa-balance-scale"></i></li>
+                                    <li title="View Details">
+                                        <a href="#UserDetails/{{performer.AccountDetailId}}">
+                                            <span class="ti-eye"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="t-content">
+                                <h6 class="text-uppercase mb-1" ng-bind="performer.PerformerName"></h6>
+                                <h1 class="mb-1" ng-bind="performer.ROI"></h1>
+                                <div class="row tile-content">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">ROI %</div>
+                                </div>
+                                <div class="row tile-content">
+                                    <div class="col-md-8 col-sm-8 col-xs-8 tile-content-titles">Max DD% :</div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4" ng-bind="performer.DD"></div>
+                                </div>
+                                <div class="row tile-content">
+                                    <div class="col-md-8 col-sm-8 col-xs-8 tile-content-titles">Win% :</div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4" ng-bind="performer.WIN"></div>
+                                </div>
+                                <div class="row tile-content">
+                                    <div class="col-md-8 col-sm-8 col-xs-8 tile-content-titles">Sharp Ratio% :</div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4" ng-bind="performer.SharpRatio"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<div class="box box-block bg-white ">
+    <div id="table-1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap4" ng-show="vm.showTopFerformers">
+        <div class="row padding-5px-right-left font-weight-bold">
+            <div class="col-md-3">
+                <h5 class="mb-1">Top Performers </h5>
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <form class="form-material">
+                    <select class="form-control performers-filters  pull-right" ng-model="vm.Country" ng-change="vm.getTopPerformersByFilters()"
+                            ng-options="country for country in vm.Countries">
+                        <option value="">Country</option>
+                    </select>
+                    <select class="form-control performers-filters pull-right margin-right-5px" ng-model="vm.TimeLine" ng-change="vm.getTopPerformersByFilters()"
+                            ng-options="timeLine.DisplayName for timeLine in vm.TimeLines track by timeLine.stringValue">
+                        <option value="">TimeLine</option> <!--ng-click="getAllConversations()"--
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="row padding-5px-right-left">
+            <div class="col-md-12">
+                <ul class="top-performers">
+                    <li class="text-center" ng-repeat="performer in vm.Performers">
+                        <!--<a href="#" prevent-default class="" ng-click="vm.openPerformerDetails(performer)">--
+                        <a href="#UserDetails/{{performer.AccountDetailId}}">
+                            <div class="col-md-12 padding-bottom-10px">
+                                <span class="top-performer-name" ng-bind="performer.Name"></span><br />
+                                <span class="top-performer-roi-percent" ng-bind="vm.getAccountStatsValueByTimeLine('ROI', performer)"></span><br />
+                                <span class="margin-bottom-20px">ROI%</span><br />
+                                <div class="col-md-7 col-md-offset-1 text-left">
+                                    <span class="">Max DD% :</span><br />
+                                </div>
+                                <div class="col-md-4 text-left">
+                                    <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('DD', performer)"></span><br />
+                                </div>
+                                <div class="col-md-7 col-md-offset-1 text-left">
+                                    <span class="">Win% :</span><br />
+                                </div>
+                                <div class="col-md-4 text-left">
+                                    <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('WINRate', performer)"></span><br />
+                                </div>
+                                <div class="col-md-7 col-md-offset-1 text-left">
+                                    <span class="">Sharpe Ratio :</span><br />
+                                </div>
+                                <div class="col-md-4 text-left">
+                                    <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('SharpRatio', performer)"></span><br />
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<script>
+    $(window).load(function () {
+        $('#performres').owlCarousel({
+            loop: true,
+            autoPlay: 2500,
+            items: 5,
+            nav: true,
+            responsive: {
+                1024: { items: 5 },
+                801: { items: 4 },
+                667: { items: 3 },
+                568: { items: 2 },
+                320: { items: 1 }
+            }
+        });
+        $('.performres #pin-user').click(function () {
+            event.preventDefault();
+            alert('USER was added to your pin users list');
+        });
+    });
+</script>-->

@@ -1,0 +1,20 @@
+0	2017.02.06 14:52:33.216		MetaTrader 4 Manager API build 985 initialized
+0	2017.02.06 14:52:33.954	US05-live.mt4tradeserver.com:443	Connect
+0	2017.02.06 14:52:34.265	US05-live.mt4tradeserver.com:443	'899': login (server build 1031)
+0	2017.02.06 14:52:48.787	US05-live.mt4tradeserver.com:443	'899': disconnect
+0	2017.02.06 14:52:48.788		Remove: manager 27FF1C58
+0	2017.02.06 20:19:13.785		MetaTrader 4 Manager API build 985 initialized
+0	2017.02.06 20:19:14.248	US05-live.mt4tradeserver.com:443	Connect
+0	2017.02.06 20:19:14.553	US05-live.mt4tradeserver.com:443	'899': login (server build 1031)
+0	2017.02.06 20:19:23.514	US05-live.mt4tradeserver.com:443	'899': disconnect
+0	2017.02.06 20:19:23.514		Remove: manager 27AB9380
+0	2017.02.06 20:20:06.215		MetaTrader 4 Manager API build 985 initialized
+0	2017.02.06 20:20:06.551	US05-live.mt4tradeserver.com:443	Connect
+0	2017.02.06 20:20:06.918	US05-live.mt4tradeserver.com:443	'899': login (server build 1031)
+0	2017.02.06 20:20:19.219	US05-live.mt4tradeserver.com:443	'899': disconnect
+0	2017.02.06 20:20:19.291		Remove: manager 27AB9380
+0	2017.02.06 20:20:25.966		MetaTrader 4 Manager API build 985 initialized
+0	2017.02.06 20:20:26.065	US05-live.mt4tradeserver.com:443	Connect
+0	2017.02.06 20:20:26.370	US05-live.mt4tradeserver.com:443	'899': login (server build 1031)
+0	2017.02.06 20:20:39.969	US05-live.mt4tradeserver.com:443	'899': disconnect
+0	2017.02.06 20:20:39.969		Remove: manager 27AB9380

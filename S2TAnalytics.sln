@@ -1,0 +1,103 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2TAnalyticsELT", "S2TAnalyticsELT\S2TAnalyticsELT.csproj", "{567D3586-13F2-400F-B6DD-07B97E8D38D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2TAnalytics.DAL", "S2TAnalytics.DAL\S2TAnalytics.DAL.csproj", "{0C05C442-D235-4398-B925-24DC9DC64FF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2TAnalytics.Infrastructure", "S2TAnalytics.Infrastructure\S2TAnalytics.Infrastructure.csproj", "{EEE794A7-ED48-454D-BD8A-0890EDF5994B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2TAnalytics.Web", "S2TAnalytics.Web\S2TAnalytics.Web.csproj", "{04964A76-560D-44EB-A629-80B96A99D0DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2TAnalytics.Common", "S2TAnalytics.Common\S2TAnalytics.Common.csproj", "{9BB798FC-75C9-47C6-81F9-19CA68BC4CD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2TAnalyticsUtil", "S2TAnalyticsUtil\S2TAnalyticsUtil.csproj", "{52D989E8-F27A-4125-AF01-3C3F2129DDE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceComparisonNotification", "PerformanceComparisonNotification\PerformanceComparisonNotification.csproj", "{48767F56-A5C8-4592-B2FC-D90A163E5630}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2TAnalytics.StripeRecurring", "S2TAnalytics.StripeRecurring\S2TAnalytics.StripeRecurring.csproj", "{C8C69D15-449B-48EC-B9B6-423F1C788AEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S2TAnalytics.ExistingDatasourcesELT", "S2TAnalytics.ExistingDatasourcesELT\S2TAnalytics.ExistingDatasourcesELT.csproj", "{E6E75747-3534-4F3C-B154-6FD1388F4B2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{567D3586-13F2-400F-B6DD-07B97E8D38D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{567D3586-13F2-400F-B6DD-07B97E8D38D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{567D3586-13F2-400F-B6DD-07B97E8D38D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{567D3586-13F2-400F-B6DD-07B97E8D38D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C05C442-D235-4398-B925-24DC9DC64FF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C05C442-D235-4398-B925-24DC9DC64FF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C05C442-D235-4398-B925-24DC9DC64FF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C05C442-D235-4398-B925-24DC9DC64FF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEE794A7-ED48-454D-BD8A-0890EDF5994B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE794A7-ED48-454D-BD8A-0890EDF5994B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE794A7-ED48-454D-BD8A-0890EDF5994B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE794A7-ED48-454D-BD8A-0890EDF5994B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04964A76-560D-44EB-A629-80B96A99D0DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04964A76-560D-44EB-A629-80B96A99D0DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04964A76-560D-44EB-A629-80B96A99D0DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04964A76-560D-44EB-A629-80B96A99D0DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BB798FC-75C9-47C6-81F9-19CA68BC4CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BB798FC-75C9-47C6-81F9-19CA68BC4CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BB798FC-75C9-47C6-81F9-19CA68BC4CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BB798FC-75C9-47C6-81F9-19CA68BC4CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52D989E8-F27A-4125-AF01-3C3F2129DDE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52D989E8-F27A-4125-AF01-3C3F2129DDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52D989E8-F27A-4125-AF01-3C3F2129DDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52D989E8-F27A-4125-AF01-3C3F2129DDE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48767F56-A5C8-4592-B2FC-D90A163E5630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48767F56-A5C8-4592-B2FC-D90A163E5630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48767F56-A5C8-4592-B2FC-D90A163E5630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48767F56-A5C8-4592-B2FC-D90A163E5630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8C69D15-449B-48EC-B9B6-423F1C788AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8C69D15-449B-48EC-B9B6-423F1C788AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8C69D15-449B-48EC-B9B6-423F1C788AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8C69D15-449B-48EC-B9B6-423F1C788AEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6E75747-3534-4F3C-B154-6FD1388F4B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6E75747-3534-4F3C-B154-6FD1388F4B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6E75747-3534-4F3C-B154-6FD1388F4B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6E75747-3534-4F3C-B154-6FD1388F4B2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 10
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tech4jc.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = S2TAnalyticsELT\\S2TAnalyticsELT.csproj
+		SccProjectName1 = S2TAnalyticsELT
+		SccLocalPath1 = S2TAnalyticsELT
+		SccProjectUniqueName2 = S2TAnalytics.DAL\\S2TAnalytics.DAL.csproj
+		SccProjectName2 = S2TAnalytics.DAL
+		SccLocalPath2 = S2TAnalytics.DAL
+		SccProjectUniqueName3 = S2TAnalytics.Infrastructure\\S2TAnalytics.Infrastructure.csproj
+		SccProjectName3 = S2TAnalytics.Infrastructure
+		SccLocalPath3 = S2TAnalytics.Infrastructure
+		SccProjectUniqueName4 = S2TAnalytics.Web\\S2TAnalytics.Web.csproj
+		SccProjectName4 = S2TAnalytics.Web
+		SccLocalPath4 = S2TAnalytics.Web
+		SccProjectUniqueName5 = S2TAnalytics.Common\\S2TAnalytics.Common.csproj
+		SccProjectName5 = S2TAnalytics.Common
+		SccLocalPath5 = S2TAnalytics.Common
+		SccProjectUniqueName6 = S2TAnalyticsUtil\\S2TAnalyticsUtil.csproj
+		SccProjectName6 = S2TAnalyticsUtil
+		SccLocalPath6 = S2TAnalyticsUtil
+		SccProjectUniqueName7 = PerformanceComparisonNotification\\PerformanceComparisonNotification.csproj
+		SccProjectName7 = PerformanceComparisonNotification
+		SccLocalPath7 = PerformanceComparisonNotification
+		SccProjectUniqueName8 = S2TAnalytics.StripeRecurring\\S2TAnalytics.StripeRecurring.csproj
+		SccProjectName8 = S2TAnalytics.StripeRecurring
+		SccLocalPath8 = S2TAnalytics.StripeRecurring
+		SccProjectUniqueName9 = S2TAnalytics.ExistingDatasourcesELT\\S2TAnalytics.ExistingDatasourcesELT.csproj
+		SccProjectName9 = S2TAnalytics.ExistingDatasourcesELT
+		SccLocalPath9 = S2TAnalytics.ExistingDatasourcesELT
+	EndGlobalSection
+EndGlobal

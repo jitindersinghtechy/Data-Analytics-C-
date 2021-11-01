@@ -1,0 +1,466 @@
+﻿<div class="manage-table perfomer-table">
+    <div class="text-center">
+        <img src="../images/icon/perfomers.png" alt=""><br>
+        <h2><strong>PERFORMERS LIST </strong></h2>
+    </div>
+    <div class="asign">
+        <form>           
+            <select id="CountryMultiSelect" multiple="multiple" class=""></select>
+            <!--<select class="form-control performers-filters" ng-model="vm.Country" ng-change="vm.changeGridByFilters()"
+                    ng-options="country for country in vm.Countries">
+                <option value="">Country</option>
+            </select>-->
+            <!--<div class="multiselect-button form-control custom-multi" ng-dropdown-multiselect="" checkboxes="true" options="vm.Countries"
+                 selected-model="vm.SelectedCountries" extra-settings="vm.CountrySettings"
+                 events="{ onItemSelect: vm.onCountrySelect, onItemDeselect: vm.onCountryDeselect }"></div>-->
+        </form>
+        <br />
+        <span class="display-IB padding-left-15 margin-top-20-responsive">
+            WIN%
+        </span>
+        <rzslider class="performers-slider-filter display-IB margin-top-20-responsive" rz-slider-model="vm.winSlider.minValue" rz-slider-high="vm.winSlider.maxValue"
+                  rz-slider-options="vm.winSlider.options" rz-slider-change="vm.changeGridByFilters()"></rzslider>
+    </div>
+    <div class="asign">
+        <form>
+            <select id="UserGroupMultiSelect" multiple="multiple" class=""></select>
+            <!--<select class="form-control performers-filters " ng-model="vm.UserGroup" ng-change="vm.changeGridByFilters()"
+                    ng-options="userGroup for userGroup in vm.UserGroups">
+                <option value="">User Group</option>
+            </select>-->
+            <!--<div class="multiselect-button form-control custom-multi custom-multi-2" ng-dropdown-multiselect="" checkboxes="true" options="vm.UserGroups"
+                 selected-model="vm.SelectedUserGroups" extra-settings="vm.UserGroupsSettings"
+                 events="{ onItemSelect: vm.onUserGroupsSelect, onItemDeselect: vm.onUserGroupsDeselect }"></div>-->
+        </form>
+        <br />
+        <span class="display-IB padding-left-15 margin-top-20-responsive">
+            ROI%
+        </span>
+        <rzslider class="performers-slider-filter display-IB margin-top-20-responsive" rz-slider-model="vm.roiSlider.minValue" rz-slider-high="vm.roiSlider.maxValue"
+                  rz-slider-options="vm.roiSlider.options" rz-slider-change="vm.changeGridByFilters()"></rzslider>
+    </div>
+    <div class="asign"> <!-- width-20-percent -->
+        <form>
+            <select class="form-control performers-filters" ng-model="vm.TimeLine" ng-change="vm.changeGridByFilters()"
+                    ng-options="timeLine.DisplayName for timeLine in vm.TimeLines track by timeLine.stringValue">
+            </select>
+        </form>
+        <br />
+        <span class="display-IB padding-left-15 margin-top-20-responsive">
+            Max DD%
+        </span>
+        <rzslider class="performers-slider-filter display-IB margin-top-20-responsive" style="width:100px;" rz-slider-model="vm.maxDDSlider.minValue" rz-slider-high="vm.maxDDSlider.maxValue" 
+                  rz-slider-options="vm.maxDDSlider.options"rz-slider-change="vm.changeGridByFilters()"></rzslider>
+    </div>
+    <div class="asign pull-right">
+        <div class="search">
+            <form>
+                <i class="fa fa-search"></i>
+                <input type="text" class="form-control" placeholder="Search By User Or Account No." ng-model="vm.Search" ng-change="vm.changeGridByFilters()">
+            </form>
+        </div>
+
+        <div class="action-icon block">
+            <a ng-if="vm.isExportData" href="#" prevent-default ng-click="vm.export()" title="Export"><i class="fa fa-download"></i></a>
+            <a ng-if="vm.isExcludeUser" href="#" prevent-default ng-click="vm.updateExcludeUsers()" title="Exclude User"><i class="fa fa-trash"></i></a>
+            <a ng-if="vm.isViewDetail" href="#" prevent-default ng-click="vm.viewUserDetails()"><img src="../images/icon/eye.png" alt="" title="View User"></a>
+            <a ng-if="vm.isCompare" href="#" prevent-default ng-click="vm.UpdateCompareData()"><img src="../images/icon/weight-balance.png" alt="" title="Compare"></a>
+            <a ng-if="vm.isPinnedUsers" href="#" prevent-default ng-click="vm.updatePinnedUsers()"><img src="../images/icon/push-pin.png" alt="" title="Pin User"></a>
+            <!--<a href="#" prevent-default ng-click="vm.updateExcludeUsers()"><img src="../images/icon/push-pin.png" alt="" title="Exclude User"></a>-->
+        </div>
+
+        <!--<div class="search">
+            <!--<div class="col-lg-6 search">-a->
+            <form>
+                <i class="fa fa-search"></i>
+                <input type="text" class="form-control" placeholder="Search By User Or Account No." ng-model="vm.Search" ng-change="vm.changeGridByFilters()">
+            </form>
+        </div>
+        <!--<div class="col-lg-6 action-icon">-a->
+        <div class="action-icon block text-center" action-icon">
+            <a href="#" prevent-default ng-click="vm.updateExcludeUsers()" title="Exclude User"><i class="fa fa-trash"></i></a>
+            <a href="#" prevent-default ng-click="vm.viewUserDetails()"><img src="../images/icon/eye.png" alt="" title="View User"></a>
+            <a href="#" prevent-default ng-click="vm.UpdateCompareData()"><img src="../images/icon/weight-balance.png" alt="" title="Compare"></a>
+            <a href="#" prevent-default ng-click="vm.updatePinnedUsers()"><img src="../images/icon/push-pin.png" alt="" title="Pin User"></a>
+            <!--<a href="#" prevent-default ng-click="vm.updateExcludeUsers()"><img src="../images/icon/push-pin.png" alt="" title="Exclude User"></a>-a->
+        </div>-->
+
+    </div>
+</div>
+<div class="clearfix"></div>
+<div ng-if="vm.loadComplete">
+    <div class="table-outer">
+        <table class="table responsive-table table-hover">    <!--manage-user-->
+            <thead>
+                <tr>
+                    <th width="2%">
+                    </th>
+                    <th width="22%" ng-click="vm.SortPerformers('Name')">
+                        Name
+                        <i ng-class="vm.sortColumn =='Name' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                        <i ng-class="vm.sortColumn != 'Name' ?'fa fa-sort':''"></i>
+                    </th>
+                    <th width="12%" ng-click="vm.SortPerformers('AccountNumber')">
+                        AccountNumber
+                        <i ng-class="vm.sortColumn =='AccountNumber' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                        <i ng-class="vm.sortColumn != 'AccountNumber' ?'fa fa-sort':''"></i>
+                    </th>
+                    <th width="10%" ng-click="vm.SortPerformers('NAV')">
+                        Equity
+                        <i ng-class="vm.sortColumn =='NAV' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                        <i ng-class="vm.sortColumn != 'NAV' ?'fa fa-sort':''"></i>
+                    </th>
+                    <th width="7%" ng-click="vm.SortPerformers('ROI')">
+                        ROI
+                        <i ng-class="vm.sortColumn =='ROI' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                        <i ng-class="vm.sortColumn != 'ROI' ?'fa fa-sort':''"></i>
+                    </th>
+                    <th width="7%" ng-click="vm.SortPerformers('WIN')">
+                        WIN
+                        <i ng-class="vm.sortColumn =='WIN' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                        <i ng-class="vm.sortColumn != 'WIN' ?'fa fa-sort':''"></i>
+                    </th>
+                    <th width="7%" ng-click="vm.SortPerformers('DD')">
+                        DD
+                        <i ng-class="vm.sortColumn =='DD' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                        <i ng-class="vm.sortColumn != 'DD' ?'fa fa-sort':''"></i>
+                    </th>
+                    <th width="8%" ng-click="vm.SortPerformers('Leverage')">
+                        Leverage
+                        <i ng-class="vm.sortColumn =='Leverage' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                        <i ng-class="vm.sortColumn != 'Leverage' ?'fa fa-sort':''"></i>
+                    </th>
+                    <th width="11%" ng-click="vm.SortPerformers('Country')">
+                        Country
+                        <i ng-class="vm.sortColumn =='Country' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                        <i ng-class="vm.sortColumn != 'Country' ?'fa fa-sort':''"></i>
+                    </th>
+                    <th width="13%" ng-click="vm.SortPerformers('UserGroup')">
+                        UserGroup
+                        <i ng-class="vm.sortColumn =='UserGroup' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                        <i ng-class="vm.sortColumn != 'UserGroup' ?'fa fa-sort':''"></i>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="performer in vm.Performers" role="row" ng-class="'color' + ($index % 2)">
+                    <th scope="row" class="text-align-left">
+                        <input type="checkbox" ng-model="vm.selectedAccounts.accountId[performer.AccountDetailId]" name="id{{performer.AccountDetailId}}" id="{{performer.AccountDetailId}}" class="css-checkbox">
+                        <label for="{{performer.AccountDetailId}}" class="css-label"></label>
+                    </th>
+                    <td>{{performer.PerformerName}} </td>
+                    <td>{{performer.AccountNumber}}</td>
+                    <td>{{performer.NAV | number}}</td>
+                    <td>{{performer.ROI}}</td>
+                    <td>{{performer.WINRate}}</td>
+                    <td>{{performer.DD}}</td>
+                    <td>{{performer.Leverage | number}}  </td>
+                    <td>{{performer.Location}}  </td>
+                    <td>{{performer.UserGroup}}  </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-11 margin-top-10 margin-bottom-10">
+        <div class="pull-right padding-5px-left ">
+            <label class="padding-10px-right-left">
+                <span class="display-IB ">Rows Per Page</span>
+                <span class="display-IB ">
+                    <select class="form-control padding-0" ng-model="vm.selectedPageSize" ng-change="vm.changePageSize()"
+                            ng-options="pageSize for pageSize  in vm.PageSizes"></select>
+                </span>
+            </label>
+            <span class="padding-10px-right-left ">
+                <span ng-bind="vm.StartingRecordNumber"></span> - <span ng-bind="vm.ToRecordNumber"></span> of <span ng-bind="vm.TotalRecords"></span>
+            </span>
+        </div>
+    </div>
+    <div class="col-md-1 margin-top-10 margin-bottom-10">
+        <div class="dataTables_paginate paging_simple_numbers " id="table-1_paginate">
+            <ul class="pagination">
+                <li class="paginate_button page-item previous" id="table-1_previous">
+                    <a href="#" prevent-default class="page-link margin-right-5px" ng-click="vm.changePage(-1)">
+                        <i class="fa fa-chevron-left"></i>
+                    </a>
+                </li>
+                <li class="paginate_button page-item next" id="table-1_next">
+                    <a href="#" prevent-default class="page-link" ng-click="vm.changePage(1)">
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="loader" ng-if="!vm.loadComplete">
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__ball"></div>
+</div>
+<!--<div class="sk-rotating-plane" ng-if="!vm.loadComplete"></div>-->
+<!--<div class="row">
+    <div class="col-md-12">
+        <div class="widget-main-container">
+            <div class="panel-title">
+                <form class="form-material">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h3 class="" style="text-align:center;margin-top:10px"><i class="fa fa-dashboard"></i> <br>PERFORMERS LIST</h3>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-dropdowns ">
+                                        <table class="table m-0">
+                                            <tr>
+                                                <th>
+                                                    <div>
+                                                        <ul class="nav navbar-nav">
+                                                            <li class="nav-item dropdown">
+                                                                <select class="form-control performers-filters" ng-model="vm.Country" ng-change="vm.changeGridByFilters()"
+                                                                        ng-options="country for country in vm.Countries">
+                                                                    <option value="">Country</option> <!--ng-click="getAllConversations()"-a->
+                                                                </select>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div>
+                                                        <ul class="nav navbar-nav">
+                                                            <li class="nav-item dropdown">
+                                                                <select class="form-control performers-filters " ng-model="vm.UserGroup" ng-change="vm.changeGridByFilters()"
+                                                                        ng-options="userGroup for userGroup in vm.UserGroups">
+                                                                    <option value="">User Group</option> <!--ng-click="getAllConversations()"-a->
+                                                                </select>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div>
+                                                        <ul class="nav navbar-nav">
+                                                            <li class="nav-item dropdown">
+                                                                <select class="form-control performers-filters" ng-model="vm.TimeLine" ng-change="vm.changeGridByFilters()"
+                                                                        ng-options="timeLine.DisplayName for timeLine in vm.TimeLines track by timeLine.stringValue">
+                                                                    <option value="">TimeLine</option> <!--ng-click="getAllConversations()"-a->
+                                                                </select>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>-a->
+                                <div class="col-md-12">
+                                    <div class="table-dropdowns ">
+                                        <table class="table m-0">
+                                            <tr>
+                                                <th>
+                                                    <span>
+                                                        ROI%
+                                                    </span>
+                                                    <rzslider class="performers-slider-filter" rz-slider-model="vm.roiSlider.value" rz-slider-options="vm.roiSlider.options"
+                                                              rz-slider-change="vm.changeGridByFilters()">
+                                                    </rzslider>
+                                                </th>
+                                                <th>
+                                                    <span>
+                                                        WIN%
+                                                    </span>
+                                                    <rzslider class="performers-slider-filter" rz-slider-model="vm.winSlider.value" rz-slider-options="vm.winSlider.options"
+                                                              rz-slider-change="vm.changeGridByFilters()">
+                                                    </rzslider>
+                                                </th>
+                                                <th>
+                                                    <span>
+                                                        Max DD%
+                                                    </span>
+                                                    <rzslider class="performers-slider-filter" rz-slider-model="vm.maxDDSlider.value" rz-slider-options="vm.maxDDSlider.options"
+                                                              rz-slider-change="vm.changeGridByFilters()">
+                                                    </rzslider>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel-title-actions pull-right ">
+                                <div class="form-group">
+                                    <input type="search" class="form-control input-sm" ng-model="vm.Search" ng-change="vm.changeGridByFilters()"
+                                           placeholder="Search by account or name" aria-controls="table-1">
+                                </div>
+                                <ul class="table-header-icons m-0">
+                                    <li ng-click="vm.updatePinnedUsers()"><span class="ti-pin2"></span></li>
+                                    <li><i class="fa fa-balance-scale"></i></li>
+                                    <li><span class="ti-eye"></span></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div></div></div></div>
+            <!--<div class="box box-block bg-white tile tile-1 mb-2 main-widget-box p-0">
+                <div class="row row-md">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered dataTable" id="table-1" role="grid" aria-describedby="table-1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="text-center">
+                                    </th>
+                                    <th class="text-center">
+                                        Name
+                                        <span>
+                                            <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('Name','desc')"></i>
+                                            <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('Name', 'asc')"></i>
+                                        </span>
+                                    </th>
+                                    <th class="text-center">
+                                        Account Number
+                                        <span>
+                                            <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('AccountNumber','desc')"></i>
+                                            <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('AccountNumber', 'asc')"></i>
+                                        </span>
+                                    </th>
+                                    <th class="text-center">
+                                        ROI%
+                                        <!--<span>
+                                            <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('ROI','desc')"></i>
+                                            <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('ROI', 'asc')"></i>
+                                        </span>-a->
+                                    </th>
+                                    <th class="text-center">
+                                        Win%
+                                        <!--<span>
+                                            <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('WINRate','desc')"></i>
+                                            <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('WINRate', 'asc')"></i>
+                                        </span>-a->
+                                    </th>
+                                    <th class="text-center">
+                                        Max DD%
+                                        <!--<span>
+                                            <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('DD','desc')"></i>
+                                            <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('DD', 'asc')"></i>
+                                        </span>-a->
+                                    </th>
+                                    <th class="text-center">
+                                        Leverage
+                                        <span>
+                                            <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('Leverage','desc')"></i>
+                                            <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('Leverage', 'asc')"></i>
+                                        </span>
+                                    </th>
+                                    <th class="text-center">
+                                        Country
+                                        <span>
+                                            <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('Country','desc')"></i>
+                                            <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('Country', 'asc')"></i>
+                                        </span>
+
+                                    </th>
+                                    <th class="text-center">
+                                        UserGroup
+                                        <span>
+                                            <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('UserGroup','desc')"></i>
+                                            <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="vm.SortPerformers('UserGroup', 'asc')"></i>
+                                        </span>
+
+                                    </th>
+                                    <!--<th class="sorting_asc" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 175.25px;">Rendering engine</th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 226.25px;">Browser</th>
+                                    <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 204.25px;">Platform(s)</th>
+                                    <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 148.25px;">Engine version</th>
+                                    <th class="sorting" tabindex="0" aria-controls="table-1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 105.25px;">CSS grade</th>-a->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="performer in vm.Performers" role="row" ng-class="'color' + ($index % 2)">
+                                    <td><input type="checkbox" ng-model="vm.selectedAccounts.accountId[performer.AccountDetailId]" name="group" id="{{performer.AccountDetailId}}" /></td>
+                                    <td>{{performer.Name}} </td>
+                                    <td>{{performer.AccountNumber}}</td>
+                                    <td><span ng-bind="vm.getAccountStatsValueByTimeLine('ROI', performer)"></span>
+                                    <td><span ng-bind="vm.getAccountStatsValueByTimeLine('WINRate', performer)"></span></td>
+                                    <td><span ng-bind="vm.getAccountStatsValueByTimeLine('DD', performer)"></span></td>
+                                    <td>{{performer.Leverage}}  </td>
+                                    <td>{{performer.Country}}  </td>
+                                    <td>{{performer.UserGroup}}  </td>
+                                    <!--<td>
+                                        <a href="#" ng-click="dashboardCntrl.showDailyStats(performer.AccountDetailId)" prevent-default class="text-primary">
+                                            <span class="underline">Daily Stats</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" ng-click="dashboardCntrl.showTransactionHistories(accountDetail.AccountDetailId)" prevent-default class="text-primary">
+                                            <span class="underline">Transaction Histories</span>
+                                        </a>
+                                    </td>-a->
+                                </tr>
+                                <!--<tr role="row" class="odd">
+                                    <td class="sorting_1">Gecko</td>
+                                    <td>Firefox 1.0</td>
+                                    <td>Win 98+ / OSX.2+</td>
+                                    <td>1.7</td>
+                                    <td>A</td>
+                                </tr>
+                                <tr role="row" class="even">
+                                    <td class="sorting_1">Gecko</td>
+                                    <td>Firefox 1.5</td>
+                                    <td>Win 98+ / OSX.2+</td>
+                                    <td>1.8</td>
+                                    <td>A</td>
+                                </tr>-a->
+                            </tbody>
+                            <!--<tfoot>
+                                <tr><th rowspan="1" colspan="1">Rendering engine</th><th rowspan="1" colspan="1">Browser</th><th rowspan="1" colspan="1">Platform(s)</th><th rowspan="1" colspan="1">Engine version</th><th rowspan="1" colspan="1">CSS grade</th></tr>
+                            </tfoot>--a>
+                        </table>
+                    </div>
+                    <!--<div class="row padding-5px-right-left">-a->
+                    <form  class="form-material">
+                        <div class=" ">
+                            <div class="col-md-10 ">
+                                <div class="pull-right padding-5px-left ">
+                                    <label class="padding-10px-right-left">
+                                        <span class="display-IB ">Rows Per Page</span>
+                                        <span class="display-IB ">
+                                            <select class="form-control padding-0" ng-model="vm.selectedPageSize" ng-change="vm.changePageSize()"
+                                                    ng-options="pageSize for pageSize  in vm.PageSizes"></select>
+                                        </span>
+                                    </label>
+                                    <span class="padding-10px-right-left ">
+                                        <span ng-bind="vm.StartingRecordNumber"></span> - <span ng-bind="vm.ToRecordNumber"></span> of <span ng-bind="vm.TotalRecords"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="dataTables_paginate paging_simple_numbers " id="table-1_paginate">
+                                    <ul class="pagination custom-pagination">
+                                        <li class="paginate_button page-item previous" id="table-1_previous">
+                                            <a href="#" prevent-default class="page-link margin-right-5px" ng-click="vm.changePage(-1)">
+                                                <i class="fa fa-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                        <li class="paginate_button page-item next" id="table-1_next">
+                                            <a href="#" prevent-default class="page-link" ng-click="vm.changePage(1)">
+                                                <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--</div>-a->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->

@@ -1,0 +1,5 @@
+0	2017.01.20 15:45:45.731		MetaTrader 4 Manager API build 985 initialized
+0	2017.01.20 15:45:46.042	US05-live.mt4tradeserver.com:443	Connect
+0	2017.01.20 15:45:46.453	US05-live.mt4tradeserver.com:443	'899': login (server build 1010)
+0	2017.01.20 15:47:17.609	US05-live.mt4tradeserver.com:443	'899': disconnect
+0	2017.01.20 15:47:17.610		Remove: manager 2855C398

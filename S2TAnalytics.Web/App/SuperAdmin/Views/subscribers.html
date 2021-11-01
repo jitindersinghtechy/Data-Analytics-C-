@@ -1,0 +1,150 @@
+﻿<div class="site-content-nonav">
+    <!-- Content -->
+    <div class="content-area py-1">
+        <div class="container-fluid">
+            <h1 class="page-title">SUBSCRIBERS</h1>
+            <div class="row row-md mb-2">
+                <div>
+                    <div class="card">
+                        <div class="card-header text-uppercase">
+                            <div class="float-xs-left">
+                                <b>SUBSCRIBERS LIST</b>
+                            </div>
+                            <div class="float-xs-right">
+                                <div class="float-xs-left padding-sm-sub">
+                                    FILTER BY:&nbsp;
+                                    <select class="custom-select" style="height:auto;padding-bottom:1px;padding-top:1px;" ng-model="vm.PlanFilter" ng-change="vm.changeGridByFilters()" ng-options="p.intValue as p.stringValue for p in vm.Plans">
+                                        <option selected value="">ALL PLANS</option>
+
+                                    </select>&nbsp;
+                                    <!--<select class="custom-select" style="height:auto;padding-bottom:1px;padding-top:1px;" ng-model="vm.PaymentFilter" ng-change="vm.changeGridByFilters()">
+                                        <option selected value="">PAYMENT STATUS</option>
+                                        <option value="Edit">Edit</option>
+                                        <option value="Approve">Approve</option>
+                                        <option value="Delete">Delete</option>
+                                        <option value="Spam">Spam</option>
+                                    </select>-->
+                                </div>
+                                <div class="float-xs-left padding-sm-sub">
+                                    EXTEND TRIAL:&nbsp;
+                                    <select class="custom-select" style="height:auto;padding-bottom:1px;padding-top:1px;" ng-model="vm.ExtendDays">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">50</option>
+                                    </select>
+                                    <button type="button" class="btn icon-btn-go" ng-click="vm.ExtendUserTrial()"></button>
+                                </div>
+                                <div class="float-xs-left padding-sm-sub">
+                                    ENABLE/DISABLE:&nbsp;
+
+                                    <button type="button" class="btn icon-btn-enable" ng-click="vm.updateUserActivation(true)"></button>
+                                    <button type="button" class="btn icon-btn-disable" ng-click="vm.updateUserActivation(false)"></button>
+                                </div>
+
+
+
+                                <div class="float-xs-left padding-sm-sub">
+                                    SEND REMINDERS:&nbsp;
+                                    <select class="custom-select" style="height:auto;padding-bottom:1px;padding-top:1px;" ng-model="vm.ReminderId" ng-options="r.intValue as r.stringValue for r in vm.Reminders">
+                                        <option selected value="">Select Type</option>
+                                    </select>
+                                    <button type="button" class="btn icon-btn-go" ng-click="vm.SendReminders()"></button>
+                                </div>
+                                <!--<div class="float-xs-left padding-sm-sub">
+                                    SEND REMINDERS:&nbsp;
+                                    <button type="button" class="btn icon-btn-reminders" ng-click="vm.SendReminders()"></button>
+                                </div>-->
+                                <div class="float-xs-left">
+                                    VIEW DETAILS:&nbsp;
+                                    <button type="button" ng-click="vm.viewSubscribersList()" class="btn icon-btn-view-details"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+
+                            <div class="box-block-small">
+                                <table class="table table-striped table-bordered dataTable no-footer" id="table-2" style="font-size:11px;">
+                                    <thead>
+                                        <tr>
+                                            <!--<i ng-class="vm.sortColumn =='Name' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                                            <i ng-class="vm.sortColumn != 'Name' ?'fa fa-sort':''"></i>-->
+                                            <th class="no-sort">
+                                                <!--<input ng-model="vm.checkedAll" ng-checked="vm.checkedAllValue" ng-change="vm.checkAll()" type="checkbox" />-->
+                                            </th>
+                                            <th ng-click="vm.SortSubscribers('Name')" ng-class="vm.sortColumn =='Name' ?vm.orderBy==true?'sorting_desc':'sorting_asc':'sorting'">CUSTOMER NAME</th>
+                                            <th ng-click="vm.SortSubscribers('PlanName')" ng-class="vm.sortColumn =='PlanName' ?vm.orderBy==true?'sorting_desc':'sorting_asc':'sorting'">CURRENT PLAN</th>
+                                            <th ng-click="vm.SortSubscribers('Email')" ng-class="vm.sortColumn =='Email' ?vm.orderBy==true?'sorting_desc':'sorting_asc':'sorting'">EMAIL ADDRESS</th>
+                                            <th ng-click="vm.SortSubscribers('Phone')" ng-class="vm.sortColumn =='Phone' ?vm.orderBy==true?'sorting_desc':'sorting_asc':'sorting'">CONTACT NUMBER</th>
+                                            <th ng-click="vm.SortSubscribers('ReportUser')" ng-class="vm.sortColumn =='ReportUser' ?vm.orderBy==true?'sorting_desc':'sorting_asc':'sorting'">REPORT USERS</th>
+                                            <th ng-click="vm.SortSubscribers('MonthlyRates')" ng-class="vm.sortColumn =='MonthlyRates' ?vm.orderBy==true?'sorting_desc':'sorting_asc':'sorting'">MONTHLY RATES<br />PER ACCOUNT</th>
+                                            <th ng-click="vm.SortSubscribers('Bill')" ng-class="vm.sortColumn =='Bill' ?vm.orderBy==true?'sorting_desc':'sorting_asc':'sorting'">BILL AMOUNT</th>
+                                            <th ng-click="vm.SortSubscribers('PaymentStatus')" ng-class="vm.sortColumn =='PaymentStatus' ?vm.orderBy==true?'sorting_desc':'sorting_asc':'sorting'">PAYMENT STATUS</th>
+                                            <th ng-click="vm.SortSubscribers('Request')" ng-class="vm.sortColumn =='Request' ?vm.orderBy==true?'sorting_desc':'sorting_asc':'sorting'"> OPEN REQUEST</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="user in vm.Subscribers">
+                                            <th scope="row" class="text-align-left">
+                                                <input type="checkbox" ng-checked="user.checked" ng-model="vm.selectedSubscriber.UserId[user.UserID]" name="id{{user.UserID}}" id="{{user.UserID}}"
+                                                       class="css-checkbox" ng-change="vm.singleCheck()">
+                                                <label for="{{user.UserID}}" class="css-label"></label>
+                                            </th>
+                                            <td>{{user.Name}}</td>
+                                            <td>{{user.PlanName}}</td>
+                                            <td>{{user.EmailID}}</td>
+                                            <td>{{user.PhoneNumber}}</td>
+                                            <td>{{user.ReportUser}}</td>
+                                            <td>{{user.MonthlyRatePerAccount}}</td>
+                                            <td>{{user.BillAmount}}</td>
+                                            <td class="status-active">{{user.PaymentStatus}}</td>
+                                            <td>{{user.OpenRequest}}</td>
+                                        </tr>
+                                        <tr class="odd" ng-if="vm.TotalRecords<1"><td valign="top" colspan="10" class="dataTables_empty">No data available in table</td></tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row" ng-if="vm.TotalRecords >0">
+                                    <div class="col-md-11 margin-top-10 margin-bottom-10">
+                                        <div class="pull-right padding-5px-left ">
+                                            <label class="padding-10px-right-left">
+                                                <span class="display-IB ">Rows Per Page</span>
+                                                <span class="display-IB ">
+                                                    <select class="form-control padding-0" ng-model="vm.selectedPageSize" ng-change="vm.changePageSize()"
+                                                            ng-options="pageSize for pageSize  in vm.PageSizes"></select>
+                                                </span>
+                                            </label>
+                                            <span class="padding-10px-right-left ">
+                                                <span ng-bind="vm.StartingRecordNumber"></span> - <span ng-bind="vm.ToRecordNumber"></span> of <span ng-bind="vm.TotalRecords"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 margin-top-10 margin-bottom-10">
+                                        <div class="dataTables_paginate paging_simple_numbers " id="table-1_paginate">
+                                            <ul class="pagination">
+                                                <li class="paginate_button page-item previous" id="table-1_previous">
+                                                    <a href="#" prevent-default class="page-link margin-right-5px" ng-click="vm.changePage(-1)">
+                                                        <i class="fa fa-chevron-left"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="paginate_button page-item next" id="table-1_next">
+                                                    <a href="#" prevent-default class="page-link" ng-click="vm.changePage(1)">
+                                                        <i class="fa fa-chevron-right"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

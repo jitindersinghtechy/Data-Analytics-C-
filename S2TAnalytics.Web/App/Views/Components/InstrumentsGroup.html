@@ -1,0 +1,158 @@
+﻿<div class="title">
+    <div id="GroupCompareDataHead1" class="display-IB">
+        <img src="../images/icon/businessman.png" alt=""><h3>TOP USER GROUPS</h3>
+    </div>
+        <div class="pull-right right-menu">
+            <ul>
+                <li class="dropdown ">
+                    <a href="#" prevent-default class="dropdown-toggle border" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span ng-bind="vm.Timeline.DisplayName"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu graph-filters-fix-width-height">
+                        <li ng-repeat="timeLine in vm.TimeLines" class="border-top" ng-class="vm.getClass(timeLine)">
+                            <!--<a href="#" prevent-default ng-click="vm.getTopPinnedUsersByFilters(); vm.Timeline = timeLine">{{timeLine.DisplayName}}</a>-->
+                            <a  ng-click="vm.Timeline = timeLine">{{timeLine.DisplayName}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <div ng-dropdown-multiselect="" checkboxes="true" options="vm.Groups" ng-hide="vm.IsDrillDownVisible"  class="hidden"
+                         selected-model="vm.SelectedGroups" extra-settings="vm.GroupSettings"></div>
+                    <div ng-dropdown-multiselect="" checkboxes="true" options="vm.Accounts" ng-show="vm.IsDrillDownVisible"  class="hidden"
+                         selected-model="vm.SelectedAccounts" extra-settings="vm.AccountSettings"></div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-line-chart" ng-if="vm.chartType == 'line'"></i>
+                        <i class="fa fa-bar-chart" ng-if="vm.chartType == 'column'"></i>
+                        <i class="fa fa-area-chart" ng-if="vm.chartType == 'areaspline'"></i>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" prevent-default ng-click="vm.chartType = 'line';vm.click()"><i class="fa fa-line-chart"></i></a></li>
+                        <li><a href="#" prevent-default ng-click="vm.chartType = 'column';vm.click()"><i class="fa fa-bar-chart"></i></a></li>
+                        <li><a href="#" prevent-default ng-click="vm.chartType = 'areaspline';vm.click()"><i class="fa fa-area-chart"></i></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown" >
+                    <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                    <ul class="dropdown-menu">
+                        <li ng-if="vm.isEmbedWidget"><a href="#" prevent-default ng-click="vm.ShowScript()">Embed Widget</a></li>
+                        <li ng-if="vm.isApiWidget"><a href="#" prevent-default ng-click="vm.EmbedAPI()">Export API</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+<div id="groupInstrumentsContainer" style="width:100%; margin: 0 auto" class="body" ng-show="vm.loadComplete"></div>
+<div class="modal" id="embedScriptIGPopup" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content black">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title bold fsize20" id="myModalLabel">Embed Script</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="copy-clip">
+                            <div class="scrolly-auto" id="divInstrumentsGroupScript">
+                            </div>
+                            <textarea id="txtInstrumentsGroupScript" style="display:none"></textarea>
+                            <button type="button" class="btn btn-success btn-lg btn-block confirm-btn" ng-click="vm.CopyToClipboard()">COPY TO CLIPBOARD</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="add-link">
+                            <h2>Add Domain Link</h2>
+                            <div class="form-group">
+                                <!--<input type="text" class="form-control" id="" placeholder="Add Domain ">-->
+                                <tags-input ng-model="vm.tags" placeholder="Add Domain" on-tag-adding="vm.checkDomain($tag)">
+                                    <auto-complete load-on-focus="true" min-length="0"
+                                                   load-on-empty="false"></auto-complete>
+                                </tags-input>
+                                <a class="btn btn-success" href="#" prevent-default ng-click="vm.SaveEmbedWidgetPermission()">PROCEED</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <form name="ChangePasswordForm">
+                        <div class="form-group">
+                            <textarea rows="8" style="width:100%" readonly="readonly" id="txtInstrumentsGroupScript"></textarea>
+
+                        </div>
+                        <div class="form-group">
+                            <tags-input ng-model="vm.tags" placeholder="Add Domain" on-tag-adding="vm.checkDomain($tag)">
+                                <auto-complete load-on-focus="true" min-length="0"
+                                               load-on-empty="false"></auto-complete>
+                            </tags-input>
+                            <button ng-click="vm.SaveEmbedWidgetPermission()">Apply</button>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="text-center">
+                            <button class="green-button" style="width:auto" ng-click="vm.CopyToClipboard()">Copy to Clipboard</button>
+                        </div>
+
+                    </form>
+                </div>-->
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="embedAPIPopupIG" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content black">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title bold fsize20" id="myModalLabel">Export API</h4>
+            </div>
+            <div class="modal-body">
+                <div class="padding-5">
+                    <div>
+                        <div class="col-lg-3 col-xs-12">
+                            <h2>API Link : </h2>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 embed-script-text-border">
+                            <span class="word-wrap" id="apiLinkTextIG"></span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="col-lg-3 col-xs-12">
+                            <h2>Token KEY :</h2>
+                        </div>
+                        <div class="col-lg-9 col-xs-12 embed-script-text-border">
+                            <span class="word-wrap" id="EmbedAPITokenIG"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center">
+                            <button class="green-button" style="width:auto" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loader" ng-show="!vm.loadComplete">
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__ball"></div>
+</div>
+
+<!--<div class="sk-rotating-plane margin-top-150" ng-show="!vm.loadComplete"></div>-->

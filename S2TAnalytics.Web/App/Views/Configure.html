@@ -1,0 +1,487 @@
+﻿<div class="block configure">
+    <div class="container shadow-none">
+        <div class="col-md-9 configure-data">
+            <div class="pin-title">
+                <img src="../images/icon/setting-red.png" alt="">
+                <h3>Configure Data Sources</h3>
+                <div class="pull-right right-menu">
+                    <ul>
+                        <li class="dropdown">
+                            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" prevent-default ng-click="configureVm.AddDataSource()"> Add Data Sources</a></li>
+
+                            </ul>-->
+                        </li>
+                    </ul>
+                </div>
+                <hr class="border">
+            </div>
+            <!--<div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+            </div>-->
+            <div id="configure" class="configure">
+                <div ng-repeat="configuredDatasource in configureVm.ConfiguredDatasources">
+                    <div class="item" ng-if="!configuredDatasource.IsProceed && !configuredDatasource.IsROR && !configuredDatasource.IsConfigured && !configuredDatasource.InProcess && !configuredDatasource.editROR">
+                        <div class="">
+                            <div class="configure-block first-block">
+                                <i class="fa fa-close close-btn" ng-click="configureVm.RemoveDataSource($index)"></i>
+                                <h4><i class="fa fa-plus-circle"></i>ADD A DATA SOURCE </h4>
+                                <form name="DataSourceForm">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <input type="text" name="name" class="form-control" ng-model="configuredDatasource.Name" placeholder="Data Source Name"
+                                                   required-error-message="Required" validator="required">
+                                        </div>
+                                        <select name="dataSource" class="form-control" ng-model="configuredDatasource.DatasourceId" required-error-message="Required" validator="required"
+                                                ng-options="datasource.stringValue as datasource.DisplayName for datasource in configuredDatasource.Datasources">
+                                            <option value="">Select a Data Source</option>
+                                        </select>
+                                    </div>
+                                    <button validation-submit="DataSourceForm" class="loder-button green-button" ng-click="configureVm.Proceed($index,configuredDatasource)">PROCEED</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item" ng-if="configuredDatasource.IsProceed  && !configuredDatasource.IsROR  &&  !configuredDatasource.IsConfigured && !configuredDatasource.InProcess && !configuredDatasource.editROR">
+                        <div class="">
+                            <div class="configure-block ror">
+                                <i class="fa fa-close close-btn fa-caret-left" ng-click="configureVm.BackToFirstStep($index,configuredDatasource)"></i>
+                                <h4><i class="fa fa-plus-circle"></i>Standard ROR </h4>
+                                <form name="AddRORForm" class="addRORForm">
+                                    <div class="col-xs-6">
+                                        <div class="form-group" ng-repeat="ROR in configuredDatasource.RateOfReturns.slice(0, 5)">
+                                            <label ng-bind="ROR.label"></label>
+                                            <input type="text" class="form-control" id="" ng-model="ROR.RateOfReturn" name="ROR{{$index}}" validator="required,numbersAndDecimals"
+                                                   required-error-message="Required">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group" ng-repeat="ROR in configuredDatasource.RateOfReturns.slice(5, 10)">
+                                            <label ng-bind="ROR.label"></label>
+                                            <input type="text" class="form-control" id="" ng-model="ROR.RateOfReturn" name="ROR2{{$index}}" validator="required,numbersAndDecimals"
+                                                   required-error-message="Required">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <a class="green-button" href="#" validation-submit="AddRORForm" prevent-default ng-click="configureVm.Proceed($index,configuredDatasource)">SUBMIT</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item" ng-if="configuredDatasource.IsProceed && configuredDatasource.IsROR && !configuredDatasource.InProcess && !configuredDatasource.editROR">
+                        <div class="">
+                            <div class="configure-block">
+                                <i class="fa fa-close close-btn fa-caret-left" ng-click="configureVm.BackToROR($index,configuredDatasource)"></i>
+                                <h4><i class="fa fa-plus-circle"></i><span ng-bind="configuredDatasource.Name"></span></h4>
+                                <form name="MT4Form">
+
+                                    <div class="form-group">
+                                        <input type="text" name="serverName" class="form-control" ng-model="configuredDatasource.Server" placeholder="Add Server URl" required-error-message="Required" validator="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="login" class="form-control" ng-model="configuredDatasource.LoginId" placeholder="MT4 Login" required-error-message="Required" validator="required">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="passwoard" class="form-control" ng-model="configuredDatasource.Password" placeholder="MT4 Password" required-error-message="Required" validator="required">
+                                    </div>
+                                    <button class="green-button _datasource test_connection{{$index}}" validation-submit="MT4Form" ng-disabled="configuredDatasource.IsButtonDisabled" ng-click="configureVm.Proceed($index,configuredDatasource)">
+                                        SUBMIT
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item" ng-if="configuredDatasource.IsConnected && !configuredDatasource.InProcess">
+                        <div class="">
+                            <div class="configure-block active third-block">
+                                <h6><i class="fa fa-check"></i>active</h6>
+                                <img src="../images/icon/meta-trader.png" alt="">
+                                <p>Name: {{configuredDatasource.Name}}</p>
+                                <p>Server: {{configuredDatasource.Server}}</p>
+                                <p>User: {{configuredDatasource.LoginId}}</p>
+                                <!--<p>Risk Free Rate: 8.5</p>-->
+                                <a href="#" prevent-default ng-click="configureVm.changeROR($index,configuredDatasource)">Change ROR</a>
+                                <button ng-click="configureVm.DisconnectDatasource(configuredDatasource)" class="green-button red">DISCONNECT</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item" ng-if="configuredDatasource.IsFailed">
+                        <div class="">
+                            <div class="configure-block active connection error third-block">
+                                <h6 class="red-text"><i class=""><img src="../images/icon/cloud-computing (2).png" alt=""></i>ERROR RETRIEVING DATA</h6>
+                                <img src="../images/icon/cloud.jpg" alt="">
+                                <a class="green-button " href="#" prevent-default ng-click="configuredDatasource.IsProceed=true;configuredDatasource.IsFailed=false;configuredDatasource.IsConfigured=false;">TRY AGAIN</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item" ng-if="configuredDatasource.InProcess">
+                        <div class="">
+                            <div class="configure-block active  connection start third-block">
+                                <h6 class="red-text"><i class=""><img src="../images/icon/cloud-start.png" alt=""></i>STARTED RETRIEVING DATA</h6>
+                                <div id="timer{{$index}}" class="example"></div>
+
+                                <button class="green-button " ng-click="configureVm.CancelSynchronizing(configuredDatasource)" ng-disabled="true">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item" ng-if="configuredDatasource.editROR && !configuredDatasource.IsConfigured && !configuredDatasource.InProcess">
+                        <div class="">
+                            <div class="configure-block ror">
+                                <h4><i class="fa fa-plus-circle"></i>Standard ROR </h4>
+                                <form name="EditRORForm" class="editRORForm">
+                                    <div class="col-xs-6">
+                                        <div class="form-group" ng-repeat="ROR in configuredDatasource.RateOfReturns.slice(0, 5)">
+                                            <label ng-bind="ROR.label"></label>
+                                            <input type="text" class="form-control" id="" ng-model="ROR.RateOfReturn" name="ROREdit{{$index}}" validator="required,numbersAndDecimals"
+                                                   required-error-message="Required">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group" ng-repeat="ROR in configuredDatasource.RateOfReturns.slice(5, 10)">
+                                            <label ng-bind="ROR.label"></label>
+                                            <input type="text" class="form-control" id="" ng-model="ROR.RateOfReturn" name="ROREdit2{{$index}}" validator="required,numbersAndDecimals"
+                                                   required-error-message="Required">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <a class="green-button" href="#" validation-submit="EditRORForm" prevent-default ng-click="configureVm.updateROR($index,configuredDatasource)">SUBMIT</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item" ng-click="configureVm.AddDataSource()">
+                    <div class="">
+                        <div class="add-button configure-block second-block">
+                            <a href="#" prevent-default>
+
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div id="configure-two" class="configure">
+            </div>
+            <!--<div class="col-md-4">
+                <div class="add-block">
+                    <h4><i class="fa fa-plus-circle"></i>ADD A DATA SOURCE </h4>
+                </div>
+            </div>-->
+        </div>
+        <div class="col-md-3 add-user" ng-if="mainVM.isAddReport">
+            <h2><i class="fa fa-users"></i>Add Users</h2>
+            <form name="AddUserForm" class="addUserForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="" name="Name" placeholder="Full Name" validator="required" required-error-message="Required" ng-model="configureVm.ReportUserDetails.Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="" name="email" placeholder="E-Mail" validator="required,email" required-error-message="Required" ng-model="configureVm.ReportUserDetails.EmailID">
+                </div>
+                <div class="form-group">
+                    <!--<div class="country-dd">
+                        <p id="addusergroup">
+                            User Group(s)
+                            <span class="caret"></span>
+                        </p>
+                        <ul class="multi-select-menu dropdown-menu">
+                            <li ng-repeat="userGroup in configureVm.UserGroups">
+                                <input type="checkbox" name="addUserGroupId{{$index}}" id="addUserGroupId{{$index}}" class="css-checkbox" ng-model="userGroup.IsSelected">
+                                <label for="addUserGroupId{{$index}}" class="css-label"></label>{{userGroup.label}}
+                            </li>
+                            <li class="submit"><a class="green-button" href="#" prevent-default ng-click="configureVm.addUserGroup()">Submit</a></li>
+                        </ul>
+                    </div>-->
+                    <select id="UserGroupMultiSelect" multiple="multiple" class="add-user-multiselect"></select>
+                    <!--<div class="multiselect-button form-control custom-multi" ng-dropdown-multiselect="" checkboxes="true" options="configureVm.UserGroupsForAdd"
+                         selected-model="configureVm.ReportUserDetails.UserGroups" extra-settings="configureVm.UserGroupSettings" translation-texts="configureVm.UserGroupTexts" events="configureVm.onItemSelect(configureVm.ReportUserDetails.UserGroups)"></div>-->
+                    <!--<select multiple class="form-control " ng-model="configureVm.UserDetails.UserGroup"
+                            ng-options="userGroup for userGroup in configureVm.UserGroups">
+                        <option value="">User Group</option>
+                    </select>-->
+                </div>
+                <div class="form-group">
+                    <!--<div class="country-dd">
+                        <p id="adddatasource">
+                            Data Source(s)
+                            <span class="caret"></span>
+                        </p>
+                        <ul class="multi-select-menu dropdown-menu">
+                            <li ng-repeat="dataSource in configureVm.dataSources">
+                                <input type="checkbox" name="addDataSourceId{{$index}}" id="addDataSourceId{{$index}}" class="css-checkbox" ng-model="dataSource.IsSelected">
+                                <label for="addDataSourceId{{$index}}" class="css-label"></label>{{dataSource.label}}
+                            </li>
+                            <li class="submit"><a class="green-button" href="#" prevent-default ng-click="configureVm.addDataSource()">Submit</a></li>
+                        </ul>
+                    </div>-->
+                    <select id="DataSourceMultiSelect" multiple="multiple" class="add-user-multiselect"></select>
+                    <!--<div class="multiselect-button form-control custom-multi" ng-dropdown-multiselect="" checkboxes="true" options="configureVm.dataSourcesForAdd"
+                         selected-model="configureVm.ReportUserDetails.DatasourceIds" extra-settings="configureVm.DataSourceSettings" translation-texts="configureVm.DataSourceTexts"></div>-->
+                    <!--<select multiple class="form-control " ng-model="configureVm.UserDetails.DataSource"
+                            ng-options="dataSource for dataSource in configureVm.dataSources">
+                        <option value="">User Group</option>
+                    </select>-->
+                </div>
+                <div class="form-group">
+                    <select required-error-message="Required" name="userTitle" class="form-control " validator="required" ng-model="configureVm.ReportUserDetails.RoleID"
+                            ng-options="userRole.stringValue as userRole.DisplayName for userRole in configureVm.userRoles">
+
+                        <!--<option value="">User Title</option>-->
+                    </select>
+                    <!--<select class="form-control" ng-model="configureVm.UserDetails.UserTitle">
+                        <option>User Title</option>
+                        <option>User Title</option>
+                    </select>-->
+                </div>
+                <button class="green-button addUser" ng-disabled="configureVm.IsAddButtonDisabled" validation-submit="AddUserForm" ng-click="configureVm.AddUser()">ADD</button>
+                <button class="_reset" validation-reset="AddUserForm" style="display:none"></button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div ng-show="mainVM.isAddReport" class="block report-user">
+    <div class="container">
+        <div class="manage-table">
+            <div><img src="../images/icon/manage-user.png" alt=""><h2><strong> CONFIGURE USERS</strong></h2></div>
+            <div class="asign-user">
+                Assign User groups
+                <form>
+                    <div class="country-dd">
+                        <p id="country">
+                            User Group(s)
+                            <span class="caret"></span>
+                        </p>
+
+                        <ul class="multi-select-menu dropdown-menu">
+                            <li ng-click="configureVm.checkAllUserGroup()" ng-if="configureVm.UserGroups.length!=0">
+                                <input type="checkbox" name="allUserGroup" id="allUserGroup" class="css-checkbox" ng-model="configureVm.SelectAllUserGroup">
+                                <label for="allUserGroup" class="css-label"></label>All
+                            </li>
+
+                            <li ng-repeat="userGroup in configureVm.UserGroups">
+                                <input type="checkbox" name="userGroupId{{$index}}" id="userGroupId{{$index}}" class="css-checkbox" ng-model="userGroup.IsChecked">
+                                <label for="userGroupId{{$index}}" class="css-label"></label>{{userGroup.label}}
+                            </li>
+                            <li class="submit" ng-if="configureVm.UserGroups.length!=0"><a class="green-button" href="#" prevent-default ng-click="configureVm.changeUserGroup()">Submit</a></li>
+                            <li ng-if="configureVm.UserGroups.length==0">No User Group</li>
+                        </ul>
+                    </div>
+                </form>
+                <!--<form>
+                    <div class="multiselect-button form-control custom-multi width-150" ng-dropdown-multiselect="" checkboxes="true" options="configureVm.UserGroups"
+                         selected-model="configureVm.SelectedUserGroups" onItemSelect="configureVm.changeUserGroup()" extra-settings="configureVm.UserGroupSettings" translation-texts="configureVm.UserGroupTexts"></div>
+                     <!--<select class="form-control" ng-options="userGroup.label for userGroup in configureVm.UserGroups track by userGroup.id"
+                            ng-model="configureVm.selectedUserGroup" ng-change="configureVm.changeUserGroup()">
+                        <option value="">Select a User Group</option>
+
+                    </select>
+                </form>-->
+            </div>
+            <div class="asign-data">
+                Assign Data Source
+                <form>
+                    <div class="country-dd">
+                        <p id="datasource">
+                            Data Source(s)
+                            <span class="caret"></span>
+                        </p>
+                        <ul class="multi-select-menu dropdown-menu">
+                            <li ng-click="configureVm.checkAllDataSource()" ng-if="configureVm.dataSources.length!=0">
+                                <input type="checkbox" name="allDataSource" id="allDataSource" class="css-checkbox" ng-model="configureVm.SelectAllDataSource">
+                                <label for="allDataSource" class="css-label"></label>All
+                            </li>
+                            <li ng-repeat="dataSource in configureVm.dataSources">
+                                <input type="checkbox" name="dataSourceId{{$index}}" id="dataSourceId{{$index}}" class="css-checkbox" ng-model="dataSource.IsChecked">
+                                <label for="dataSourceId{{$index}}" class="css-label"></label>{{dataSource.label}}
+                            </li>
+                            <li class="submit" ng-if="configureVm.dataSources.length!=0"><a class="green-button" href="#" prevent-default ng-click="configureVm.changeDataSource()">Submit</a></li>
+                            <li ng-if="configureVm.dataSources.length==0">No Data Source</li>
+                        </ul>
+                    </div>
+                    <!--<form>
+            <div class="multiselect-button form-control custom-multi width-150" ng-dropdown-multiselect="" checkboxes="true" options="configureVm.dataSources"
+                 selected-model="configureVm.SelectedDatasourceIds" onItemSelect="configureVm.changeDataSource()" extra-settings="configureVm.DataSourceSettings" translation-texts="configureVm.DataSourceTexts"></div>
+
+        </form>-->
+                </form>
+            </div>
+
+            <div class="action">
+                <form>
+                    <button ng-disabled="configureVm.UsersList.length==0" ng-click="configureVm.RemoveAccess(true)"><i class="fa fa-ban"></i></button>
+                    <button ng-disabled="configureVm.UsersList.length==0" ng-click="configureVm.RemoveAccess(false)"><i class="fa fa-unlock"></i></button>
+                    <button ng-disabled="configureVm.UsersList.length==0" ng-click="configureVm.DeleteUsers()"><i class="fa fa-trash"></i></button>
+                </form>
+            </div>
+            <div class="search">
+                <form>
+                    <i class="fa fa-search"></i>
+                    <input type="text" class="form-control" ng-model="configureVm.Name" ng-change="configureVm.Search()" placeholder="Search By User">
+                </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <table class="table-editable table table-hover responsive-table" ng-show="configureVm.loadComplete">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" ng-model="configureVm.selectAllUsers" ng-click="configureVm.selectAll()" name="id" id="id" class="css-checkbox">
+                        <label for="id" class="css-label"></label>
+                    </th>
+                    <th ng-click="configureVm.SortUsers('Name')">
+                        Full Name  <i ng-class="configureVm.sortColumn =='Name' ?configureVm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i><i ng-class="configureVm.sortColumn != 'Name' ?'fa fa-sort':''"></i>
+                        <!--<div class="header-sort-icon">
+                            <span>
+                                Name
+                            </span>
+                            <span>
+                                <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="configureVm.SortUsers('Name','desc')"></i>
+                                <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="configureVm.SortUsers('Name', 'asc')"></i>
+                            </span>
+                        </div>-->
+                    </th>
+                    <!--<th>Last Name
+                        <span>
+                            <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="configureVm.SortUsers('LastName','desc')"></i>
+                            <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="configureVm.SortUsers('LastName', 'asc')"></i>
+                        </span>
+                    </th>-->
+                    <th ng-click="configureVm.SortUsers('Email')">
+                        E-MAIL ADDRESS<i ng-class="configureVm.sortColumn =='Email' ?configureVm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i><i ng-class="configureVm.sortColumn != 'Email' ?'fa fa-sort':''"></i>
+                        <!--<div class="header-sort-icon">
+                            <span>
+                                Email ID
+                            </span>
+                            <span>
+                                <i class="fa fa-sort-asc sort-up-icon _sort-icon" aria-hidden="true" ng-click="configureVm.SortUsers('Email','desc')"></i>
+                                <i class="fa fa-sort-desc sort-bottom-icon _sort-icon" aria-hidden="true" ng-click="configureVm.SortUsers('Email', 'asc')"></i>
+                            </span>
+                        </div>-->
+                    </th>
+                    <th>
+                        User Title
+
+                    </th>
+                    <th>
+                        Data Sources
+
+                    </th>
+                    <th>
+                        User Group
+
+                    </th>
+                    <th>
+                        Status
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in configureVm.UsersList">
+                    <td scope="row">
+                        <input ng-model="user.IsChecked" type="checkbox" ng-change="configureVm.checkedUser()" name="id{{$index}}" id="id{{$index}}" class="css-checkbox">
+                        <label for="id{{$index}}" class="css-label"></label>
+                    </td>
+                    <td>{{user.FirstName}} {{user.LastName}}</td>
+                    <td>{{user.EmailID}}</td>
+                    <td>
+                        <select required-error-message="Required" name="userTitle" class="form-control " validator="required" ng-model="user.RoleID"
+                                ng-options="userRole.stringValue as userRole.DisplayName for userRole in configureVm.userRoles"></select>
+
+
+
+                        <!--{{user.RoleName}}-->
+                    </td>
+                    </td>
+                    <td class
+                    <td class="label-yellow"><span ng-repeat="datasource in user.Datasources">{{datasource}}</span></td>
+                    <td class="label-blue"><span ng-repeat="userGroup in user.UserGroups">{{userGroup}}</span></td>
+                    <td class="label-blue" ng-show="user.IsActive"><span>Active</span></td>
+                    <td class="label-blue" ng-show="!user.IsActive"><span>In-Active</span></td>
+                </tr>
+                <tr ng-if="configureVm.UsersList.length==0">
+                    <td colspan="7" class="text-center">No User Found</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="loader" ng-show="!configureVm.loadComplete">
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__bar"></div>
+            <div class="loader__ball"></div>
+        </div>
+        <!--<div class="sk-rotating-plane" ng-show="!configureVm.loadComplete"></div>-->
+        <div class="col-md-11 ">
+            <div class="pull-right padding-5px-left ">
+                <label class="padding-10px-right-left">
+                    <span class="display-IB ">Rows Per Page</span>
+                    <span class="display-IB ">
+                        <select class="form-control padding-0" ng-model="configureVm.selectedPageSize" ng-change="configureVm.changePageSize()"
+                                ng-options="pageSize for pageSize  in configureVm.PageSizes"></select>
+                    </span>
+                </label>
+                <span class="padding-10px-right-left ">
+                    <span ng-bind="configureVm.StartingRecordNumber"></span> - <span ng-bind="configureVm.ToRecordNumber"></span> of <span ng-bind="configureVm.TotalRecords"></span>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="dataTables_paginate paging_simple_numbers " id="table-1_paginate">
+                <ul class="pagination" style="margin: 0">
+                    <li class="paginate_button page-item previous" id="table-1_previous">
+                        <a href="#" prevent-default class="page-link margin-right-5px" ng-click="configureVm.changePage(-1)">
+                            <i class="fa fa-chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="paginate_button page-item next" id="table-1_next">
+                        <a href="#" prevent-default class="page-link" ng-click="configureVm.changePage(1)">
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#country').click(function () {
+            $(this).toggleClass('open');
+        });
+        $('.multi-select-menu.dropdown-menu li.submit a').click(function () {
+            $('#country').removeClass('open');
+        });
+        $('#datasource').click(function () {
+            $(this).toggleClass('open');
+        });
+        $('.multi-select-menu.dropdown-menu li.submit a').click(function () {
+            $('#datasource').removeClass('open');
+        });
+        $('#adddatasource').click(function () {
+            $(this).toggleClass('open');
+        });
+        $('.multi-select-menu.dropdown-menu li.submit a').click(function () {
+            $('#adddatasource').removeClass('open');
+        });
+        $('#addusergroup').click(function () {
+            $(this).toggleClass('open');
+        });
+        $('.multi-select-menu.dropdown-menu li.submit a').click(function () {
+            $('#addusergroup').removeClass('open');
+        });
+    });
+</script>
+
+
+
+
+
+

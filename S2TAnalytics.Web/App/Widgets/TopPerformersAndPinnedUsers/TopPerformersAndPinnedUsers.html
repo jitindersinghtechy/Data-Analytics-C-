@@ -1,0 +1,271 @@
+﻿<div class="block first-block">
+    <div class="container">
+        <div class="title">
+            <img src="http://analyticsv1.azurewebsites.net/images/icon/group1.png" alt="">
+            <div class="tab" ng-click="vm.switchView(true,false)" ng-class="vm.showTopPerformers ? 'active' : ''">
+                <a href="#" prevent-default>TOP 5 PERFORMERS</a>
+            </div>
+            <div class="tab" ng-click="vm.switchView(false,true)" ng-class="vm.showPinnedUsers ? 'active' : ''">
+                <a href="#" prevent-default>TOP 5 PINNED USERS</a>
+            </div>
+
+            <div class="pull-right right-menu" ng-show="vm.showTopPerformers">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span ng-bind="vm.TimeLine.DisplayName"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu graph-filters-fix-width-height">
+                            <li ng-repeat="timeLine in vm.TimeLines" class="border-top" ng-class="vm.getClass(timeLine)">
+                                <a href="#" prevent-default ng-click="vm.TimeLine = timeLine; vm.getTopPerformersByFilters(); ">{{timeLine.DisplayName}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--<li class="dropdown">
+                        <select class="form-control performers-filters pull-right margin-right-5px" ng-model="vm.TimeLine" ng-change="vm.getTopPerformersByFilters()"
+                                ng-options="timeLine.DisplayName for timeLine in vm.TimeLines track by timeLine.stringValue">
+                            <option value="">TimeLine</option> <!--ng-click="getAllConversations()"-a->
+                        </select>
+                    </li>-->
+                     <!--<li class="dropdown">
+                        <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span ng-bind="vm.Country == '' ? 'All' : vm.Country"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu graph-filters-fix-width-height">
+                            <li>
+                                <a href="" prevent-default ng-click="vm.Country = '';vm.getTopPerformersByFilters(); ">All</a>
+                            </li>
+                            <li ng-repeat="country in vm.Countries" class="border-top">
+                                <a href="#" prevent-default ng-click="vm.Country = country;vm.getTopPerformersByFilters(); ">{{country}}</a>
+                            </li>
+                        </ul>
+                        <!--<select class="form-control performers-filters  pull-right" ng-model="vm.Country" ng-change="vm.getTopPerformersByFilters()"
+                                ng-options="country for country in vm.Countries">
+                            <option value="">Country</option>
+                        </select>-a->
+                    </li>-->
+                    <li class="dropdown">
+                        <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-filter"></i>
+                        </a>
+                        <ul class="dropdown-menu width-300" ng-click="$event.stopPropagation()">
+                            <li class="no-box-shadow">
+                                <div class="">
+                                    <div class="col-md-5">
+                                        <span>Order by :</span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="vm.sortPerformersBy" ng-change="vm.getTopPerformersByFilters()">
+                                            <option value="roi">ROI</option>
+                                            <option value="maxDD">Max DD</option>
+                                            <option value="winRate">WIN Rate</option>
+                                            <option value="sharpRatio">Sharp Ratio</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="no-box-shadow">
+                                <div class="">
+                                    <div class="col-md-5">
+                                        <span>User Group :</span>
+                                    </div>
+                                    <div class="col-md-7 user-group-multiselect">
+                                        <div class="multiselect-button form-control custom-multi custom-multi-2" ng-dropdown-multiselect="" checkboxes="true" options="vm.UserGroups"
+                                             selected-model="vm.SelectedUserGroups" extra-settings="vm.UserGroupsSettings"
+                                             events="{ onItemSelect: vm.onUserGroupsSelect, onItemDeselect: vm.onUserGroupsDeselect }"></div>
+                                    </div>  
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="pull-right right-menu" ng-show="vm.showPinnedUsers">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span ng-bind="vm.pinnedUserTimeLine.DisplayName"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu graph-filters-fix-width-height">
+                            <li ng-repeat="timeLine in vm.pinnedUserTimeLines" class="border-top">
+                                <a href="#" prevent-default ng-click="vm.pinnedUserTimeLine = timeLine; vm.getTopPinnedUsersByFilters();">{{timeLine.DisplayName}}</a>
+                            </li>
+                        </ul>
+                        <!--<select class="form-control performers-filters pull-right margin-right-5px" ng-model="vm.pinnedUserTimeLine" ng-change="vm.getTopPinnedUsersByFilters ()"
+                                ng-options="timeLine.DisplayName for timeLine in vm.pinnedUserTimeLines track by timeLine.stringValue">
+                            <option value="">TimeLine</option>
+                        </select>-->
+                    </li>
+                    <!--<li class="dropdown">
+                        <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span ng-bind="vm.pinnedUserCountry == '' ? 'All' : vm.pinnedUserCountry"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu graph-filters-fix-width-height">
+                            <li>
+                                <a href="" prevent-default ng-click="vm.pinnedUserCountry = ''; vm.getTopPinnedUsersByFilters(); ">All</a>
+                            </li>
+                            <li ng-repeat="country in vm.pinnedUserCountries" class="border-top">
+                                <a href="#" prevent-default ng-click="vm.pinnedUserCountry = country; vm.getTopPinnedUsersByFilters(); ">{{country}}</a>
+                            </li>
+                        </ul>
+                        <!--<select class="form-control performers-filters  pull-right" ng-model="vm.pinnedUserCountry" ng-change="vm.getTopPinnedUsersByFilters ()"
+                                ng-options="country for country in vm.pinnedUserCountries">
+                            <option value="">Country</option>
+                        </select>-a->
+                    </li>-->
+                    <li class="dropdown">
+
+                        <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-filter"></i>
+                        </a>
+                        <ul class="dropdown-menu width-300" ng-click="$event.stopPropagation()">
+                            <li class="no-box-shadow">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span>Order by :</span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="vm.sortPinnedPerformersBy" ng-change="vm.getTopPinnedUsersByFilters()">
+                                            <option value="roi">ROI</option>
+                                            <option value="maxDD">Max DD</option>
+                                            <option value="winRate">WIN Rate</option>
+                                            <option value="sharpRatio">Sharp Ratio</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="no-box-shadow">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span>User Group :</span>
+                                    </div>
+                                    <div class="col-md-7 user-group-multiselect">
+                                        <!--<select id="UserGroupPinnedUserMultiSelect" multiple="multiple" class=""></select>-->
+                                        <div class="multiselect-button form-control custom-multi custom-multi-2" ng-dropdown-multiselect="" checkboxes="true" options="vm.UserGroupsPinnedUser"
+                                             selected-model="vm.SelectedUserGroupsPinnedUser" extra-settings="vm.UserGroupsPinnedUserSettings"
+                                             events="{ onItemSelect: vm.onUserGroupsSelectPinnedUser, onItemDeselect: vm.onUserGroupsDeselectPinnedUser }"></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="body" ng-show="vm.showTopPerformers" >
+            <div id="topPerformres" ng-if="vm.loadComplete">
+                <div class="item" ng-repeat="performer in vm.Performers">
+                    <!--<span ng-bind="vm.getValueAndLabelByIndex(0, performer)"></span>-->
+                    <div class="performers-card" ng-class="vm.getValueAndLabelByIndex(0, performer) > 0 ? 'green' : 'red'">
+                        <h4>
+                            <strong>{{performer.PerformerName}}</strong>
+                        </h4>
+                        <h4>
+                            <font style="font-weight: bold;font-size: 17px;">({{performer.AccountNumber}})</font>
+                        </h4>
+                        <h2 ng-bind="vm.getValueAndLabelByIndex(0, performer) | number"></h2>
+                        <h4 ng-bind="vm.LabelByIndex"></h4>
+                        <h3>
+                            <span ng-bind="vm.getValueAndLabelByIndex(1, performer) | number"></span>
+                            <span ng-bind="vm.LabelByIndex " class="pull-left"></span>
+                            <!--<span ng-bind="vm.ValueByIndex | number"></span>-->
+                        </h3>
+                        <br />
+                        <h3>
+                            <span ng-bind="vm.getValueAndLabelByIndex(2, performer) | number"></span>
+                            <span ng-bind="vm.LabelByIndex" class="pull-left"></span>
+                            <!--<span ng-bind="vm.ValueByIndex | number"></span>-->
+                        </h3>
+                        <br /><h3>
+                            <span ng-bind="vm.getValueAndLabelByIndex(3, performer) | number"></span>
+                            <span ng-bind="vm.LabelByIndex" class="pull-left"></span>
+                            <!--<span ng-bind="vm.ValueByIndex | number"></span>-->
+                        </h3>
+                      
+                    </div>
+                </div>
+            </div>
+
+            <div class="loader" ng-if="!vm.loadComplete">
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__ball"></div>
+            </div>
+            <!--<div class="sk-rotating-plane" ng-if="!vm.loadComplete"></div>-->
+            <!--<div class="LoaderDiv" ng-if="!vm.loadComplete"><img src="../../../Images/Loader.gif" /></div>-->
+            
+        </div>
+
+
+
+        <div class="body" ng-show="vm.showPinnedUsers" >
+            <div id="pinnedUsers" ng-if="vm.loadCompletePinnedUser">
+                <div class="item" ng-repeat="pinnedUser in vm.PinnedUsers" ng-hide="vm.NoPinnedUserFound">
+                    <div class="performers-card" ng-class="vm.getValueAndLabelByIndexPinnedUser(0, pinnedUser) > 0 ? 'green' : 'red'">
+                        <h4>
+                            <strong>{{pinnedUser.PerformerName}}</strong>
+                        </h4>
+                        <h4>
+                            <font style="font-weight: bold;font-size: 17px;">({{pinnedUser.AccountNumber}})</font>
+                        </h4>
+                        <h2 ng-bind="vm.getValueAndLabelByIndexPinnedUser(0, pinnedUser) | number"></h2>
+                        <!--<h2 ng-bind="vm.getValueAndLabelByIndexPinnedUser(0, pinnedUser) | number" ng-class="vm.ValueByIndexPinnedUser > 0 ? 'text-green': 'text-red'"></h2>-->
+                        <h4 ng-bind="vm.LabelByIndexPinnedUser"></h4>
+                        <h3>
+                            <span ng-bind="vm.getValueAndLabelByIndexPinnedUser(1, pinnedUser) | number"></span>
+                            <span ng-bind="vm.LabelByIndexPinnedUser" class="pull-left"></span>
+                            <!--<span ng-bind="vm.ValueByIndexPinnedUser | number"></span>-->
+                        </h3>
+                        <br />
+                        <h3>
+                            <span ng-bind="vm.getValueAndLabelByIndexPinnedUser(2, pinnedUser) | number"></span>
+                            <span ng-bind="vm.LabelByIndexPinnedUser" class="pull-left"></span>
+                            <!--<span ng-bind="vm.ValueByIndexPinnedUser | number"></span>-->
+
+                        </h3>
+                        <br /><h3>
+                            <span ng-bind="vm.getValueAndLabelByIndexPinnedUser(3, pinnedUser) | number"></span>
+                            <span ng-bind="vm.LabelByIndexPinnedUser" class="pull-left"></span>
+                            <!--<span ng-bind="vm.ValueByIndexPinnedUser | number"></span>-->
+                        </h3>
+                    </div>
+                </div>
+                <div class="widget-main-container" ng-show="vm.NoPinnedUserFound">
+                    <div class="box box-block bg-white tile tile-1 mb-2 main-widget-box">
+                        <div class="row row-md">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                                <div>
+                                    <div class="t-content no-result">
+                                        No user pinned yet.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="loader" ng-if="!vm.loadCompletePinnedUser">
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__ball"></div>
+            </div>
+            <!--<div class="sk-rotating-plane" ng-if="!vm.loadCompletePinnedUser"></div>-->
+            
+        </div>
+
+    </div>
+</div>
+
+<!--<top-performers ng-show="dashboardVM.showTopPerformers"></top-performers>
+<top-five-pinned-users ng-show="dashboardVM.showPinnedUsers"></top-five-pinned-users>-->

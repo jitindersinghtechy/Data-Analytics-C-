@@ -1,0 +1,329 @@
+﻿<div class="container">
+    <div class="popup" id="view">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="vm.previousLoaction()"><span aria-hidden="true">&times;</span></button>-->
+                <div class="pull-left">
+                    <div class="slug ">
+                        <a href="#" prevent-default ng-click="vm.previousLoaction()">{{vm.previousLocation}}</a>
+                        <i class="fa fa-angle-right"></i> <a href="#" prevent-default>User Details</a>
+                    </div>
+                    <h2 ng-bind="vm.PerformerData.Name"></h2> 
+                    <!--<h2>({{vm.PerformerData.AccountNumber}})</h2>-->
+                    &nbsp;&nbsp;&nbsp;
+                    <h6>
+                        Last Trade:  {{vm.PerformerData.LastActiveOn}}  &nbsp;&nbsp;&nbsp;Since: {{vm.PerformerData.ActiveSince}} <br>
+                        Account ID: {{vm.PerformerData.AccountNumber}} &nbsp;&nbsp;  Equity:  {{vm.TotalBalance | number:2}}
+                    </h6>
+                </div>
+                <div class="pull-right model-right-menu">
+                    <form>
+                        <select class="form-control performers-filters margin-bottom-10 pull-right user-detail-timeline-border" ng-model="vm.PerformerTimeLine" ng-change="vm.changePerformersDataByTimelineId()"
+                                ng-options="performerTimeLine.DisplayName for performerTimeLine in vm.PerformerTimeLines track by performerTimeLine.stringValue">
+                            <!--<option value="">TimeLine</option>-->
+                        </select>
+                    </form>
+                    
+                    <a href="#"  prevent-default ng-if="vm.isPinnedUsers&&!vm.userPinned" ng-click="vm.updatePinnedUsers()" class="button">
+                        <img src="/Images/icon/pinuser-button.png" alt="">
+                    </a>
+                    <a href="#" prevent-default ng-if="vm.isPinnedUsers&&vm.userPinned" ng-click="vm.unpinUser(vm.PerformerData.AccountDetailId)" class="button">
+                        <img src="/Images/icon/unpin.png" alt="">
+                    </a>
+                    <a href="#" ng-if="vm.isCompare" class="button" prevent-default ng-click="vm.updateCompareUsers(vm.PerformerData.AccountDetailId)"><img src="/Images/icon/comparebutton.png" alt=""></a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-body" ng-if="vm.loadComplete">
+                <div class="col-md-9 left-chart">
+                    <div>
+                        <div class="title text-left">
+                           
+                                <img src="/Images/icon/performers.png" alt="">
+                                <h2>PERFORMANCE</h2>
+                            
+                            <div class="pull-right">
+                                <!--<img src="/Images/icon/chart-lable.png" alt="">-->
+                                <ul class="pull-right">
+                                    <li class="dropdown">
+                                        <a prevent-default href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-line-chart" ng-if="vm.performanceChartType == 'line'"></i>
+                                            <i class="fa fa-bar-chart" ng-if="vm.performanceChartType == 'column'"></i>
+                                            <i class="fa fa-area-chart" ng-if="vm.performanceChartType == 'areaspline'"></i>
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#" prevent-default ng-click="vm.performanceChartType = 'line';vm.changePerformanceChartType()">
+                                                    <i class="fa fa-line-chart"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" prevent-default ng-click="vm.performanceChartType = 'column';vm.changePerformanceChartType()">
+                                                    <i class="fa fa-bar-chart"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" prevent-default ng-click="vm.performanceChartType = 'areaspline';vm.changePerformanceChartType()">
+                                                    <i class="fa fa-area-chart"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div id="performanceData"> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 tile-block">
+                    <div class="tile">
+                        <h2 ng-class="vm.getAccountStatsValueByTimeLine('BestPL', vm.PerformerData) > 0 ? 'text-green' : 'text-red'">
+                            <!--$ <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('BestPL', vm.PerformerData) | number"></span>-->
+                            <span class="" ng-bind="vm.getValueByColumnName('BestPL', vm.PerformerData)"></span>
+                        </h2>
+                        <h4>Best P/L</h4>
+                    </div>
+                    <div class="tile">
+                        <h2 ng-class="vm.getAccountStatsValueByTimeLine('WorstPL', vm.PerformerData) > 0 ? 'text-green': 'text-red'">
+                            <!--$ <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('WorstPL', vm.PerformerData) | number"></span>-->
+                            <span class="" ng-bind="vm.getValueByColumnName('WorstPL', vm.PerformerData)"></span>
+                        </h2>
+                        <h4>Worst P/L</h4>
+                    </div>
+                    <div class="tile">
+                        <h2 ng-class="vm.getAccountStatsValueByTimeLine('DD', vm.PerformerData) > 0 ? 'text-green': 'text-red'">
+                            <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('DD', vm.PerformerData) | number"></span>%
+                        </h2>
+                        <h4>Max DD</h4>
+                    </div>
+                    <div class="tile">
+                        <h2 ng-class="vm.getAccountStatsValueByTimeLine('ROI', vm.PerformerData) > 0 ? 'text-green': 'text-red'">
+                            <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('ROI', vm.PerformerData) | number"></span>%
+                        </h2>
+                        <h4>ROI</h4>
+                    </div>
+                    <div class="tile">
+                        <h2 ng-class="vm.getAccountStatsValueByTimeLine('SharpRatio', vm.PerformerData) > 0 ? 'text-green': 'text-red'">
+                            <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('SharpRatio', vm.PerformerData) | number"></span>%
+                        </h2>
+                        <h4>Sharpe Ratio</h4>
+                    </div>
+                    <div class="tile">
+                        <h2 ng-class="vm.getAccountStatsValueByTimeLine('WINRate', vm.PerformerData) > 0 ? 'text-green': 'text-red'">
+                            <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('WINRate', vm.PerformerData) | number"></span>%
+                        </h2>
+                        <h4>WIN</h4>
+                    </div>
+                </div>
+                <div class="col-md-9 left-chart">
+                    <div>
+                        <div class="title text-left">
+                          
+                                <img src="/Images/imgs/nav-graph.png" alt="">
+                                <h2>EQUITY</h2>
+                          
+                                <div class="pull-right">
+                                    <ul class="pull-right">
+                                        <li class="dropdown">
+                                            <a prevent-default href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-line-chart" ng-if="vm.NAVChartType == 'line'"></i>
+                                                <i class="fa fa-bar-chart" ng-if="vm.NAVChartType == 'column'"></i>
+                                                <i class="fa fa-area-chart" ng-if="vm.NAVChartType == 'areaspline'"></i>
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="#" prevent-default ng-click="vm.NAVChartType = 'line';vm.changeNAVChartType()">
+                                                        <i class="fa fa-line-chart"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" prevent-default ng-click="vm.NAVChartType = 'column';vm.changeNAVChartType()">
+                                                        <i class="fa fa-bar-chart"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" prevent-default ng-click="vm.NAVChartType = 'areaspline';vm.changeNAVChartType()">
+                                                        <i class="fa fa-area-chart"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        <div class="body">
+                            <div id="NavChart"> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 right-chart instruments-chart">
+                    <div>
+                        <div class="title text-left">
+                            <div id="InstrumentsGraphHeader">
+                                <img src="/Images/imgs/nav-graph.png" alt="">
+                                <h2>INSTRUMENTS</h2>
+                            </div>                   
+                            <div class="pull-right right-menu">
+                                <ul class="">
+
+                                    <li class="dropdown ">
+                                        <a href="#" prevent-default class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <span ng-bind="vm.SelctInstrumentLimit"></span>
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu graph-filters-fix-width-height">
+                                           
+                                            <li class="border-top" ng-class="vm.getClass('Top5')">
+                                                <a ng-click="vm.SelctInstrumentLimit = 'Top5'; vm.getInstrumentsByRecords(5);">Top 5</a>
+                                            </li>
+                                            <li class="border-top" ng-class="vm.getClass('Top10')">
+                                                <a ng-click="vm.SelctInstrumentLimit = 'Top10'; vm.getInstrumentsByRecords(10);">Top 10</a>
+                                            </li>
+                                            <li class="border-top" ng-class="vm.getClass('All')">
+                                                <a ng-click="vm.SelctInstrumentLimit = 'All'; vm.getInstrumentsByRecords(100);">All</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <!--<a prevent-default href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-line-chart" ng-if="vm.instrumentsChartType == 'line'"></i>
+                                            <i class="fa fa-bar-chart" ng-if="vm.instrumentsChartType == 'column'"></i>
+                                            <i class="fa fa-pie-chart" ng-if="vm.instrumentsChartType == 'pie'"></i>
+                                            <span class="caret"></span>
+                                        </a>-->
+                                        <!--<ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#" prevent-default ng-click="vm.instrumentsChartType = 'line';vm.changeInstrumentsChartType()">
+                                                    <i class="fa fa-line-chart"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" prevent-default ng-click="vm.instrumentsChartType = 'column';vm.changeInstrumentsChartType()">
+                                                    <i class="fa fa-bar-chart"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" prevent-default ng-click="vm.instrumentsChartType = 'pie';vm.changeInstrumentsChartType()">
+                                                    <i class="fa fa-pie-chart"></i>
+                                                </a>
+                                            </li>
+                                        </ul>-->
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div id="InstrumentalTradeChart"> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="loader" ng-if="!vm.loadComplete">
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__ball"></div>
+            </div>
+
+            <!--<div class="sk-rotating-plane" ng-if="!vm.loadComplete"></div>-->
+
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div class="box box-block bg-white ">
+    <div id="table-1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap4">
+        <div class="row padding-5px-right-left font-weight-bold" style="margin-bottom:10px;border-bottom:1px solid #ccc">
+            <div class="col-md-3">
+                <h5 class="margin-0 header-user-name" ng-bind="vm.PerformerData.Name">Performer Data </h5>
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <!--<a href="#" prevent-default class="pull-right margin-left-10px margin-top-5px" ng-click="vm.showTopPerformers()">
+                    <span class="close-button">X</span>
+                </a>-a->
+                <input type="submit" value="Pin User" class="pull-right header-green-buttons" ng-click="vm.updatePinnedUsers()" />
+                <form class="form-material">
+                    <select class="form-control performers-filters margin-bottom-10 pull-right" ng-model="vm.PerformerTimeLine" ng-change="vm.changePerformersDataByTimelineId()"
+                            ng-options="performerTimeLine.DisplayName for performerTimeLine in vm.PerformerTimeLines track by performerTimeLine.stringValue">
+                        <option value="">TimeLine</option> <!--ng-click="getAllConversations()"-a->
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="row padding-5px-right-left">
+            <div class="col-md-9">
+                <div id="performanceData"> </div>
+            </div>
+            <div class="col-md-3">
+                <ul class="performer-data user-details">
+                    <li class="text-center">
+                        <div class="col-md-12 user-details-color">
+                            <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('BestPL', vm.PerformerData)"></span>%
+                        </div>
+                        <div class="col-md-12">
+                            Best P/L %
+                        </div>
+                    </li>
+                    <li class="text-center">
+                        <div class="col-md-12 user-details-color">
+                            <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('WorstPL', vm.PerformerData)"></span>%
+                        </div>
+                        <div class="col-md-12">
+                            Worst P/L %
+                        </div>
+                    </li>
+                    <li class="text-center">
+                        <div class="col-md-12 user-details-color">
+                            <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('DD', vm.PerformerData)"></span>%
+                        </div>
+                        <div class="col-md-12">
+                            Max DD
+                        </div>
+                    </li>
+                    <li class="text-center">
+                        <div class="col-md-12 user-details-color">
+                            <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('ROI', vm.PerformerData)"></span>%
+                        </div>
+                        <div class="col-md-12">
+                            ROI
+                        </div>
+                    </li>
+                    <li class="text-center">
+                        <div class="col-md-12 user-details-color">
+                            <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('SharpRatio', vm.PerformerData)"></span>%
+                        </div>
+                        <div class="col-md-12">
+                            Sharpe Ratio
+                        </div>
+                    </li>
+                    <li class="text-center">
+                        <div class="col-md-12 user-details-color">
+                            <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('WINRate', vm.PerformerData)"></span>%
+                        </div>
+                        <div class="col-md-12">
+                            Win%
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <div id="NavChart"> </div>
+            </div>
+            <div class="col-md-3">
+                <div id="InstrumentalTradeChart"> </div>
+            </div>
+        </div>
+    </div>
+</div>-->

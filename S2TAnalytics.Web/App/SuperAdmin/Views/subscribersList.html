@@ -1,0 +1,322 @@
+﻿<div class="site-content-nonav">
+    <!-- Content -->
+    <div class="content-area py-1">
+        <div class="container-fluid">
+            <div class="site-breadcrump">
+                <a href="subscribers.html">Subscribers List</a> >{{ vm.User.Name}}
+            </div>
+            <h1 class="page-title">
+                AXISELECT ACCOUNT
+                <div class="float-xs-right" style="font-size:12px;color:#000;">
+                    ACCOUNT STATUS&nbsp;&nbsp;
+
+                    <select class="custom-select" style="height:auto;padding-bottom:1px;padding-top:1px;" ng-model="vm.User.IsActive"
+                            ng-options="vm.boolToStrUserActive(item) for item in [true, false]" ng-change="vm.updateUserActivation()"></select>
+                </div>
+            </h1>
+            <div class="row row-md mb-1">
+                <div class="col-md-6">
+                    <div class="card email-query">
+                        <div class="card-header text-uppercase">
+                            <b>CONTACT DETAILS</b>
+                            <div class="float-xs-right">
+                                <button type="button" ng-click="vm.updateSubscriberContact()" class="btn btn-secondary btn-sm active">SAVE</button>
+                            </div>
+                        </div>
+                        <div class="box-block modal static-modal custom-modal-4 sub-details-height">
+                            <div class="col-md-7 padding-none">
+                                <div class="form-group form-Website">
+                                    <input type="text" class="form-control" id="Website" ng-model="vm.User.WebSite" placeholder="https://www.axiselect.com">
+                                </div>
+                                <div class="form-group form-Telephone">
+                                    <input user-phone id="phone1" ng-model="vm.User.PhoneNumber" class="form-control">
+                                    <!--<div class="col-xs-4 padding-none-left">
+                                        <div class="form-group">
+                                            <select class="custom-select w-100 mr-1" ng-model="vm.User.CountryCode">
+                                                <option value="91">+1 (USA)</option>
+                                                <option value="1">+65 (SG)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8 padding-none">
+                                        <div class="form-group">
+                                            <input type="phone" ng-model="vm.User.PhoneNumber" class="form-control" id="exampleInputEmail1" placeholder="987654321">
+                                        </div>
+                                    </div>-->
+                                </div>
+                                <div class="form-group form-Email">
+                                    <input type="email" class="form-control" ng-model="vm.User.EmailID" id="exampleInputPassword1" placeholder="sample@axiselect.com">
+                                </div>
+                                <div class="form-group form-Location">
+                                    <input id="userCountry" type="text" class="userCountrySelector" ng-model="vm.User.Country" />
+                                    <input type="hidden" id="user_country_code" />
+                                    <!--<input type="text" class="form-control" ng-model="vm.User.Country" id="exampleInputPassword1" placeholder="New York, USA">-->
+                                </div>
+                                <div class="form-group form-Calendar">
+                                    Joined on 12/01/2017
+                                </div>
+                            </div>
+                            <!--<div class="col-md-5" style="text-align:center;">
+                                <img src="/Images/SuperAdmin/map.jpg" />
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card email-query">
+                        <div class="card-header text-uppercase">
+                            <b>ACCOUNT SUMMARY</b>
+                            <div class="float-xs-right">
+                                <button type="button" class="btn btn-secondary btn-sm active" ng-click="vm.updateSubscriberSummary()">SAVE</button>
+                            </div>
+                        </div>
+                        <div class="box-block modal static-modal custom-modal-4 sub-details-height">
+                            <div class="col-md-4 padding-none padding-sm">
+                                <div class="active-plan-content">
+
+                                    <div>
+                                        <div class="txt-align-center">
+                                            <img src="/Images/SuperAdmin/AcitvePlan.png" />
+                                        </div>
+                                        <div class="txt-align-center txt-active-plan">
+                                            ACTIVE PLAN
+                                        </div>
+                                        <div class="txt-align-center custom-select-padding custom-select-cnt">
+                                            <select class="custom-select" ng-model="vm.selectedPlan" validator="required"
+                                                    ng-options="a.PlanID as a.Name for a in vm.SubscribersPlans"></select>
+                                        </div>
+                                        <div class="txt-align-center custom-select-cnt">
+                                            <!--<select class="custom-select" ng-model="vm.selectedPlanExpireDate">
+                                                <option selected>{{vm.Plans.ExpireDate | date:'dd-MMM'}}</option>
+                                            </select>-->
+                                            <input type="number" class="custom-select custom-select-background" ng-model="vm.User.MonthlyRatePerAccount" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 txt-align-center">
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="box tile tile-3 mb-2">
+                                        <div class="t-content">
+                                            <h2 class="mb-0 font-bold icon-report-users">{{vm.TotalReposrtUsers}}</h2>
+                                            <h6 class="text-uppercase text-success text-black font-bold">REPORT USERS</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="box tile tile-3 mb-2">
+                                        <div class="t-content">
+                                            <h2 class="mb-0 font-bold icon-report-Database">{{vm.TotalDataSources}}</h2>
+                                            <h6 class="text-uppercase text-danger text-black font-bold">NO. DATA SOURCES</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="box tile tile-3 mb-2">
+                                        <div class="t-content">
+                                            <h2 class="mb-0 font-bold icon-report-Report-Users">{{vm.TotalAccounts}}</h2>
+                                            <h6 class="text-uppercase text-primary text-black font-bold">NO. OF ACCOUNTS</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--<div class="col-sm-6 col-xs-12">
+                                    <div class="box tile tile-3 mb-2">
+                                        <div class="t-content">
+                                            <h2 class="mb-0 font-bold icon-report-Receipt">2</h2>
+                                            <h6 class="text-uppercase text-warning text-black font-bold">MONTHLY RATES($)</h6>
+                                        </div>
+                                    </div>
+                                </div>-->
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="box tile tile-3 mb-2">
+                                        <div class="t-content">
+                                            <h2 class="mb-0 font-bold icon-report-Receipt" ng-bind="vm.Plans.ExpireDate | date:'dd-MMM-yyyy'"></h2>
+                                            <h6 class="text-uppercase text-warning text-black font-bold">Due Date</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-md mb-1">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-uppercase">
+                            <b>PAYMENT DETAILS</b>
+                            <div class="float-xs-right">
+                                <button type="button" ng-click="vm.sendOverdueReminder ()" class="btn btn-secondary btn-sm active">SEND REMINDERS</button>
+                                <button type="button" ng-click="vm.DownloadInvoice()" class="btn btn-secondary btn-sm active">DOWNLOAD</button>
+                            </div>
+                        </div>
+                        <div class="box-block-small sub-details-height">
+                            <a href="#" id="downloadPDF" download ng-hide="true"></a>
+
+                            <table class="table table-striped table-bordered dataTable" id="table-2" style="font-size:11px;">
+                                <thead>
+                                    <tr>
+                                        <th class="no-sort">
+                                            <!--<input ng-model="vm.checkedAll" ng-checked="vm.checkedAllValue" ng-change="vm.checkAll()" type="checkbox" name="1" id="1" class="css-checkbox"><label for="1" class="css-label"></label>-->
+                                        </th>
+                                        <th>MONTH/YEAR</th>
+                                        <th>CURRENT PLAN</th>
+                                        <th>BILL AMOUNT</th>
+                                        <th>RATES<br />PER ACCOUNT</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in vm.PaymentDetailList">
+                                        <th>
+                                            <input type="checkbox" ng-checked="item.checked" ng-model="vm.selectedInvoice.Invoice[item.Id]" name="id{{item.Id}}" id="{{item.Id}}"
+                                                   class="css-checkbox" ng-change="vm.singleCheck()">
+                                            <label for="{{item.Id}}" class="css-label"></label>
+
+                                            <!--<input type="checkbox" name="2" id="2" class="css-checkbox"><label for="2" class="css-label" name="id{{item.Id}}" id="{{user.UserID}}"
+                                               ng-model="vm.selectedInvoice.Invoice[item.Id]" ng-change="vm.singleCheck()" >
+                                                {{vm.PlanId}}
+                                            </label>-->
+                                        </th>
+                                        <td>{{item.TransactionDate | date:'MMM-yyyy'}}</td>
+                                        <td>{{item.PlanName}}</td>
+                                        <td>${{item.Price}}</td>
+                                        <td>${{item.Price}}</td>
+                                        <td class="status-active">{{item.Status}}</td>
+                                    </tr>
+                                    <tr ng-if="vm.TotalRecords==0">
+                                        <td colspan="6" class="text-center">No Record Found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <div class="row" ng-if="vm.TotalRecords!=0">
+                                <div class="col-md-5">
+                                    <div class="pull-right padding-5px-left ">
+                                        <label class="padding-10px-right-left">
+                                            <span class="display-IB ">Rows Per Page</span>
+                                            <span class="display-IB ">
+                                                <select class="form-control padding-0" ng-model="vm.selectedPageSize" ng-change="vm.changePageSize()"
+                                                        ng-options="pageSize for pageSize  in vm.PageSizes"></select>
+                                            </span>
+                                        </label>
+                                        <span class="padding-10px-right-left ">
+                                            <span ng-bind="vm.StartingRecordNumber"></span> - <span ng-bind="vm.ToRecordNumber"></span> of <span ng-bind="vm.TotalRecords"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="dataTables_paginate paging_simple_numbers pull-right" id="table-2_paginate">
+
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item previous" aria-controls="datatable-responsive" tabindex="0" id="datatable-responsive_previous">
+                                                <a href="#" prevent-default class="page-link margin-right-5px" ng-click="vm.changePage(-1)">
+                                                    Previous
+                                                </a>
+                                            </li>
+                                            <li class="paginate_button page-item" ng-class="{active: n == CurrentPage}" ng-repeat="n in [] | range: TotalPages:CurrentPage"><a prevent-default ng-click="vm.SetPage(n)" aria-controls="table-2" data-dt-idx="1" tabindex="0" class="page-link">{{n}}</a></li>
+
+                                            <!--<li class="paginate_button page-item" ng-class="{disabled: n == CurrentPage}" ng-repeat="n in [] | range: TotalPages:CurrentPage"><a ng-click="vm.SetPage(n)">{{n}}</a></li>-->
+                                            <li class="paginate_button page-item next" aria-controls="datatable-responsive" tabindex="0" id="datatable-responsive_next">
+                                                <a href="#" prevent-default class="page-link" ng-click="vm.changePage(1)">
+                                                    Next
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-uppercase">
+                            <b>ACCOUNT SUMMARY</b>
+                            <!--<div class="float-xs-right">
+                                <select class="custom-select" style="height:auto;padding-bottom:1px;padding-top:1px;">
+                                    <option selected="">ACTIONS</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>-->
+                        </div>
+                        <div class="box-block-small sub-details-height">
+                            <table class="table table-striped table-bordered dataTable" id="table-3" style="font-size:11px;">
+                                <thead>
+                                    <tr>
+                                        <!--<th class="no-sort"><input type="checkbox" name="1" id="1" class="css-checkbox"><label for="1" class="css-label"></label></th>
+                                        <th>NAME</th>-->
+                                        <th>REQUEST/QUERY TYPE</th>
+                                        <th>DETAILS</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in vm.UserRequest">
+                                        <!--<th><input type="checkbox" name="2" id="2" class="css-checkbox"><label for="2" class="css-label">{{vm.PlanId}}</label></th>-->
+                                        <!--<td>{{item.TransactionDate | date:'MMM-yyyy'}}</td>-->
+                                        <td ng-bind="vm.getUserRequestTypeById(item.RequestType)"></td>
+                                        <td>{{item.Details}}</td>
+                                        <td class="status-inactive" ng-bind="vm.getUserRequestStatusById(item.StatusID)">{{item.StatusID}}</td>
+                                    </tr>
+                                    <tr ng-if="vm.TotalRecordsUserRequest==0">
+                                        <td colspan="3" class="text-center">No Record Found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row" ng-if="vm.TotalRecordsUserRequest!=0">
+                                <div class="col-md-5">
+                                    <div class="pull-right padding-5px-left ">
+                                        <label class="padding-10px-right-left">
+                                            <span class="display-IB ">Rows Per Page</span>
+                                            <span class="display-IB ">
+                                                <select class="form-control padding-0" ng-model="vm.selectedPageSizeUserRequest" ng-change="vm.changePageSizeUserRequest()"
+                                                        ng-options="pageSize for pageSize  in vm.PageSizes"></select>
+                                            </span>
+                                        </label>
+                                        <span class="padding-10px-right-left ">
+                                            <span ng-bind="vm.StartingRecordNumberUserRequest"></span> - <span ng-bind="vm.ToRecordNumberUserRequest"></span> of <span ng-bind="vm.TotalRecordsUserRequest"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="dataTables_paginate paging_simple_numbers pull-right" id="table-2_paginate">
+
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item previous" aria-controls="datatable-responsive" tabindex="0" id="datatable-responsive_previous">
+                                                <a href="#" prevent-default class="page-link margin-right-5px" ng-click="vm.changePageUserRequest(-1)">
+                                                    Previous
+                                                </a>
+                                            </li>
+                                            <li class="paginate_button page-item" ng-class="{active: n == CurrentPageUserRequest}" ng-repeat="n in [] | range: TotalPagesUserRequest:CurrentPageUserRequest">
+                                                <a prevent-default ng-click="vm.SetPageUserRequest(n)" aria-controls="table-2" data-dt-idx="1" tabindex="0" class="page-link">{{n}}</a>
+                                            </li>
+
+                                            <!--<li class="paginate_button page-item" ng-class="{disabled: n == CurrentPage}" ng-repeat="n in [] | range: TotalPages:CurrentPage"><a ng-click="vm.SetPage(n)">{{n}}</a></li>-->
+                                            <li class="paginate_button page-item next" aria-controls="datatable-responsive" tabindex="0" id="datatable-responsive_next">
+                                                <a href="#" prevent-default class="page-link" ng-click="vm.changePageUserRequest(1)">
+                                                    Next
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script>
+
+   $("#country").countrySelect();
+</script>-->

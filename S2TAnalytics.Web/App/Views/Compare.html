@@ -1,0 +1,481 @@
+﻿<div class="container compare">
+    <div class="popup">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+                <button type="button" class="close" aria-label="Close" ng-click="compareVm.previousLoaction()"><span aria-hidden="true">&times;</span></button>
+                <div class="pull-left" ng-show="compareVm.loadComplete">
+                    <div class="slug ">
+                        <a prevent-default ng-click="compareVm.previousLoaction()">{{compareVm.previousLocation}}</a> <i class="fa fa-angle-right"></i>
+                        <a href="#" prevent-default>Comparison</a>
+                    </div>
+                    <h2>Compare {{compareVm.CompareUserName}} Profile</h2>
+                </div>
+                <div class="pull-right right-menu padding-right-50">
+                  
+                        <!--<select class="form-control" ng-options="option.DisplayName for option in compareVm.Timelines">
+                            <option>Last Month</option>
+                        </select>-->
+                        
+                        <!--<select class="form-control" data-ng-model="compareVm.SelectedTimeLine" ng-change="compareVm.DataByTimeline()">
+                            <option data-ng-repeat="t in compareVm.Timelines" value="{{t.stringValue}}">{{t.DisplayName}}</option>
+                        </select>-->
+
+                        <ul>
+                            <li class="dropdown ">
+                                <a href="#" prevent-default class="dropdown-toggle border" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span ng-bind="compareVm.SelectedTimeLine.DisplayName"></span>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu graph-filters-fix-width-height" ng-class="compareVm.getClass(timeLine)" >
+                                    <li ng-repeat="timeLine in compareVm.Timelines" class="border-top">
+                                        <a href="#" prevent-default ng-click="compareVm.SelectedTimeLine = timeLine; 
+                                           compareVm.DataByTimeline(); ">{{timeLine.DisplayName}}</a>
+                                    </li>
+                                </ul>
+                           </li>
+                            </ul>
+
+                        
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-body" style="padding: 20px;">
+                <table class="table table-responsive compare-table" ng-show="compareVm.loadComplete">
+                    <thead>
+                        <tr>
+                            <th class="bold">Parameters</th>
+                            <th class="bold" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber!=''">
+                                {{account.Name}} - ({{account.AccountNumber}})<i class="fa fa-close close-btn" ng-click="compareVm.removeAccount(account,$index)"> </i>
+                            </th>
+                            <th class="bold" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber==''">
+                                SELECT USER
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Active since</th>
+                            <td align="center" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber!=''">
+                                <!--JAN 2016-->
+                                {{account.ActiveSince}}
+                            </td>
+                            </td>
+                            <!--<td>JAN 2014</td>
+                            <td>SEP 2014</td>
+                            <td>NOV 2014</td>-->
+                            <td ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber==''" rowspan="10" class="compare-form" style="vertical-align: top !important">
+
+                                <form>
+                                    <div class="form-group">
+                                        <label>TOP 5 PERFORMERS</label>
+                                        <select class="form-control" data-ng-model="account.SelectedTopPerformer" data-ng-change="compareVm.topPerformersChange($index)">
+                                            <option ng-selected="selected" value="">Select any One</option>
+                                            <option data-ng-repeat="performer in account.TopPerformers" value="{{performer.AccountNumber}}">{{performer.PerformerName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>PINNED USERS</label>
+                                        <select class="form-control" data-ng-model="account.SelectedPinnedPerformer" data-ng-change="compareVm.pinnedPerformerChange($index)">
+                                            <option ng-selected="selected" value="">Select any One</option>
+                                            <option data-ng-repeat="pinnedPerformer in account.PinUsers" value="{{pinnedPerformer.AccountNumber}}">{{pinnedPerformer.PerformerName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ACCOUNT ID</label>
+                                        <input type="text" class="form-control" placeholder="Please enter account ID" data-ng-model="account.AccountNumberModel" data-ng-change="compareVm.accountNumberModelChange($index)">
+                                    </div>
+                                    <a class="green-button" prevent-default ng-click="compareVm.Compare(account,$index)">COMPARE</a>
+                                </form>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">LAST TRADED</th>
+                            <td align="center" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber!=''">
+                                <!--05/12/2016 09:00am-->  {{account.LastTradedDate}}
+                            </td>
+                        </tr>
+                        <tr class="compare-font">
+                            <th scope="row">Avg Trades</th>
+                            <td style="text-align: center;" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber!=''">
+                                <!--314--> {{account.AvgTrade | number}}
+                            </td>
+                        </tr>
+                        <tr class="compare-font">
+                            <th scope="row">Sharp Ratio</th>
+                            <td style="text-align: center;" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber!=''">
+                                {{account.SharpRatio | number}}%<br>
+                                <!--<div id="sharpeRatioGraph{{$index}}" class="compare-chart">
+
+                                </div>-->
+                            </td>
+                        </tr>
+                        <tr class="compare-font">
+                            <th>Best PL</th>
+                            <td style="text-align: center;" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber!=''">
+                                {{account.BestPL | number}}<br>
+                                <rzslider class="performers-slider-filter display-IB" rz-slider-model="account.BestPL" rz-slider-options="compareVm.bestPLSlider.options"></rzslider>
+                            </td>
+
+                        </tr>
+                        <tr class="compare-font">
+                            <th scope="row">Worst PL</th>
+                            <td style="text-align: center;" ng-repeat="account in compareVm.CompareData"  ng-if="account.AccountNumber!=''"> <!--ng-init="account.WorstPL=20"  -->
+                                {{account.WorstPL | number}}<br>
+                                <rzslider class="performers-slider-filter display-IB" rz-slider-model="account.WorstPL" rz-slider-options="compareVm.worstPLSlider.options"></rzslider>
+                            </td>
+                        </tr>
+                        <tr class="compare-font">
+                            <th scope="row">Current Equity</th>
+                            <td style="text-align: center;" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber!=''">
+                                {{account.NAV | number}}
+                                <br>
+                                <div id="navGraph{{$index}}" class="compare-chart">
+
+                                </div>
+                                <!--<img src="../images/icon/cruv-progress.png" alt="">-->
+                            </td>
+
+                        </tr>
+                        <tr class="compare-font">
+                            <th scope="row">ROI%</th>
+                            <td style="text-align: center;" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber!=''">
+                                {{account.ROI | number}}%
+                                <br>
+                                <div id="roiGraph{{$index}}" class="compare-chart">
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="compare-font">
+                            <th scope="row">WIN%</th>
+                            <td style="text-align: center;" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber!=''">
+                                {{account.WINRate | number}}%
+                                <br>
+                                <div id="winGraph{{$index}}" class="compare-chart">
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="compare-font">
+                            <th scope="row">MAX DD</th>
+                            <td style="text-align: center;" ng-repeat="account in compareVm.CompareData" ng-if="account.AccountNumber!=''">
+                                {{account.DD | number}}%
+                                <br>
+                                <div id="maxDDGraph{{$index}}" class="compare-chart">
+
+                                </div>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+
+                <div class="loader" ng-show="!compareVm.loadComplete">
+                    <div class="loader__bar"></div>
+                    <div class="loader__bar"></div>
+                    <div class="loader__bar"></div>
+                    <div class="loader__bar"></div>
+                    <div class="loader__bar"></div>
+                    <div class="loader__ball"></div>
+                </div>
+
+                <!--<div class="sk-rotating-plane" ng-show="!compareVm.loadComplete"></div>-->
+            </div>
+
+
+            <!--<div class="col-md-2" style="padding:0px;margin:0px;" >
+                <table class="table table-responsive compare-table col-md-2">
+                    <thead><tr><th>Parameters</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row" style="height:40px;">Active Sence</th></tr>
+                        <tr><th scope="row" style="height:40px;">Last Traded Date</th></tr>
+                        <tr><th scope="row" style="height:40px;">Avg Trades</th></tr>
+                        <tr><th scope="row" style="height:94px;">Best PL</th></tr>
+                        <tr><th scope="row" style="height:94px;">Worst PL</th></tr>
+                        <tr><th scope="row" style="height:94px;">Current Nav</th></tr>
+                        <tr>  <th scope="row" style="height:94px;">ROI%</th></tr>
+                        <tr> <th scope="row" style="height:94px;">WIN%</th> </tr>
+                        <tr> <th scope="row" style="height:94px;">MAX DD</th> </tr>
+                        <tr> <th scope="row" style="height:94px;">SHARPE RATIO</th> </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+                <div class="col-md-2" style="padding:0px;margin:0px;" ng-show="compareVm.c1" data-ng-repeat="data in compareVm.CompareData">
+                    <table class="table table-responsive compare-table col-md-2">
+                        <thead><tr><th>ROBERT BROWN<i class="fa fa-close close-btn" ng-click="compareVm.cmp1($index)"></i></th></tr></thead>
+                        <tbody>
+                            <tr><td style="height:47px;"></td></tr>
+                            <tr><td style="height:47px;">05/12/2016 09:00am</td></tr>
+                            <tr><td style="height:47px;">321</td></tr>
+                            <tr class="compare-font"> <td> 20%<br><img src="../images/icon/green-progress.png" alt=""></td></tr>
+                            <tr class="compare-font"><td>10%<br><img src="../images/icon/red-progress.png" alt=""></td></tr>
+                            <tr class="compare-font"><td>1232323<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+                            <tr class="compare-font"> <td>10%<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+                            <tr class="compare-font"><td>10%<br><img src="../images/icon/cruv-progress.png" alt=""></td> </tr>
+                            <tr class="compare-font"><td>10%<br><img src="../images/icon/cruv-progress.png" alt=""></td> </tr>
+                            <tr class="compare-font"> <td>10%<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-2" style="padding:0px;margin:0px;" ng-hide="compareVm.c1" data-ng-repeat="account in compareVm.CompareData">
+                    <table class="table table-responsive compare-table col-md-2">
+
+                        <tbody>
+                            <tr>
+                                <td rowspan="10" class="compare-form" style="vertical-align: top !important">
+
+                                    <form>
+                                        <div class="form-group">
+                                            <label>TOP 5 PERFOMERS</label>
+                                            <select class="form-control" data-ng-model="account.SelectedTopPerformer" data-ng-change="compareVm.Top5PerformerFirstChange()">
+                                                <option ng-selected="selected" value="">Select any One</option>
+                                                <option data-ng-repeat="performer in account.TopPerformers" value="{{performer.AccountDetailId}}">{{performer.AccountNumber}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>PIN USERS</label>
+                                            <select class="form-control" data-ng-model="account.SelectedPinnedPerformer" data-ng-change="compareVm.PinedUserFirstChange()">
+                                                <option ng-selected="selected" value="">Select any One</option>
+                                                <option data-ng-repeat="pinnedPerformer in compareVm.PinUsers" value="{{pined.AccountDetailId}}">{{pined.AccountNumber}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>ACCOUNT ID</label>
+                                            <input type="text" class="form-control" placeholder="Please enter account ID" data-ng-model="compareVm.AccountIdfirst">
+                                        </div>
+                                        <a class="green-button" ng-click="compareVm.Compare($index)">COMPARE</a>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>-->
+            <!--<div class="col-md-2" style="padding:0px;margin:0px;" ng-show="compareVm.c2" >
+                <table class="table table-responsive compare-table col-md-2">
+                    <thead><tr><th>ROBERT BROWN<i class="fa fa-close close-btn" ng-click="compareVm.cmp2()"></i></th></tr></thead>
+                    <tbody>
+                        <tr><td style="height:47px;">JAN 2014</td></tr>
+                        <tr><td style="height:47px;">05/12/2016 09:00am</td></tr>
+                        <tr><td style="height:47px;">321</td></tr>
+                        <tr  class="compare-font"> <td style="height:65px;"> 20%<br><img src="../images/icon/green-progress.png" alt=""></td></tr>
+                        <tr  class="compare-font"><td style="height:65px;">10%<br><img src="../images/icon/red-progress.png" alt=""></td></tr>
+                        <tr  class="compare-font"><td style="height:80px;">1232323<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+                        <tr  class="compare-font"> <td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+                        <tr  class="compare-font"><td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td> </tr>
+                        <tr  class="compare-font"><td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td> </tr>
+                        <tr  class="compare-font"> <td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2" style="padding:0px;margin:0px;" ng-hide="compareVm.c2">
+                <table class="table table-responsive compare-table col-md-2">
+
+                    <tbody>
+                        <tr>
+                            <td rowspan="10" class="compare-form" style="vertical-align: top !important">
+
+                                <form>
+                                    <div class="form-group">
+                                        <label>TOP 5 PERFOMERS</label>
+                                        <select class="form-control" data-ng-model="compareVm.Top5second" data-ng-change="compareVm.Top5PerformerSecondChange()">
+                                            <option ng-selected="selected" value="">Select any One</option>
+                                            <option data-ng-repeat="performer in compareVm.top5performer" value="{{performer.AccountDetailId}}">{{performer.AccountNumber}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>PIN USERS</label>
+                                        <select class="form-control" data-ng-model="compareVm.Pinedsecond" data-ng-change="compareVm.PinedUserSecondChange()">
+                                            <option ng-selected="selected" value="">Select any One</option>
+                                            <option data-ng-repeat="pined in compareVm.pineduser" value="{{pined.AccountDetailId}}">{{pined.AccountNumber}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ACCOUNT ID</label>
+                                        <input type="text" class="form-control" placeholder="Please enter account ID" data-ng-model="compareVm.AccountIdsecond">
+                                    </div>
+                                    <a class="green-button" ng-click="compareVm.compareSecond()">COMPARE</a>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-2" style="padding:0px;margin:0px;" ng-show="compareVm.c3">
+                <table class="table table-responsive compare-table col-md-2">
+                    <thead><tr><th>ROBERT BROWN<i class="fa fa-close close-btn" ng-click="compareVm.cmp3()"></i></th></tr></thead>
+                    <tbody>
+                        <tr><td style="height:47px;">JAN 2014</td></tr>
+                        <tr><td style="height:47px;">05/12/2016 09:00am</td></tr>
+                        <tr><td style="height:47px;">321</td></tr>
+                        <tr class="compare-font"> <td style="height:65px;"> 20%<br><img src="../images/icon/green-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"><td style="height:65px;">10%<br><img src="../images/icon/red-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"><td style="height:80px;">1232323<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"> <td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"><td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td> </tr>
+                        <tr class="compare-font"><td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td> </tr>
+                        <tr class="compare-font"> <td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-2" style="padding:0px;margin:0px;" ng-hide="compareVm.c3">
+                <table class="table table-responsive compare-table col-md-2">
+
+                    <tbody>
+                        <tr>
+                            <td rowspan="10" class="compare-form" style="vertical-align: top !important">
+
+                                <form>
+                                    <div class="form-group">
+                                        <label>TOP 5 PERFOMERS</label>
+                                        <select class="form-control" data-ng-model="compareVm.Top5third" data-ng-change="compareVm.Top5PerformerThirdChange()">
+                                            <option ng-selected="selected" value=""> Select any One</option>
+                                            <option data-ng-repeat="performer in compareVm.top5performer" value="{{performer.AccountDetailId}}">{{performer.AccountNumber}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>PIN USERS</label>
+                                        <select class="form-control" data-ng-model="compareVm.Pinedthird" data-ng-change="compareVm.PinedUserThirdChange()">
+                                            <option ng-selected="selected" value="">Select any One</option>
+                                            <option data-ng-repeat="pined in compareVm.pineduser" value="{{pined.AccountDetailId}}">{{pined.AccountNumber}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ACCOUNT ID</label>
+                                        <input type="text" class="form-control" placeholder="Please enter account ID" data-ng-model="compareVm.AccountIdthird">
+                                    </div>
+                                    <a class="green-button" ng-click="compareVm.compareThird()">COMPARE</a>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2" style="padding:0px;margin:0px;" ng-show="compareVm.c4">
+                <table class="table table-responsive compare-table col-md-2">
+                    <thead><tr><th>ROBERT BROWN<i class="fa fa-close close-btn" ng-click="compareVm.cmp4()"></i></th></tr></thead>
+                    <tbody>
+                        <tr><td style="height:47px;">JAN 2014</td></tr>
+                        <tr><td style="height:47px;">05/12/2016 09:00am</td></tr>
+                        <tr><td style="height:47px;">321</td></tr>
+                        <tr class="compare-font"> <td style="height:65px;"> 20%<br><img src="../images/icon/green-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"><td style="height:65px;">10%<br><img src="../images/icon/red-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"><td style="height:80px;">1232323<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"> <td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"><td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td> </tr>
+                        <tr class="compare-font"><td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td> </tr>
+                        <tr class="compare-font"> <td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-2" style="padding:0px;margin:0px;" ng-hide="compareVm.c4">
+                <table class="table table-responsive compare-table col-md-2">
+
+                    <tbody>
+                        <tr>
+                            <td rowspan="10" class="compare-form" style="vertical-align: top !important">
+
+                                <form>
+                                    <div class="form-group">
+                                        <label>TOP 5 PERFOMERS</label>
+                                        <select class="form-control" data-ng-model="compareVm.Top5fourth" data-ng-change="compareVm.Top5PerformerFourthChange()">
+                                            <option ng-selected="selected" value="">Select any One</option>
+                                            <option data-ng-repeat="performer in compareVm.top5performer" value="{{performer.AccountDetailId}}">{{performer.AccountNumber}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>PIN USERS</label>
+                                        <select class="form-control" data-ng-model="compareVm.Pinedfourth" data-ng-change="compareVm.PinedUserFourthChange()">
+                                            <option ng-selected="selected" value="">Select any One</option>
+                                            <option data-ng-repeat="pined in compareVm.pineduser" value="{{pined.AccountDetailId}}">{{pined.AccountNumber}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ACCOUNT ID</label>
+                                        <input type="text" class="form-control" placeholder="Please enter account ID" data-ng-model="compareVm.AccountIdfourth">
+                                    </div>
+                                    <a class="green-button" ng-click="compareVm.compareFourth()">COMPARE</a>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2" style="padding:0px;margin:0px;" ng-show="compareVm.c5">
+                <table class="table table-responsive compare-table col-md-2">
+                    <thead><tr><th>ROBERT BROWN<i class="fa fa-close close-btn" ng-click="compareVm.cmp5()"></i></th></tr></thead>
+                    <tbody>
+                        <tr><td style="height:47px;">JAN 2014</td></tr>
+                        <tr><td style="height:47px;">05/12/2016 09:00am</td></tr>
+                        <tr><td style="height:47px;">321</td></tr>
+                        <tr class="compare-font"> <td style="height:65px;"> 20%<br><img src="../images/icon/green-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"><td style="height:65px;">10%<br><img src="../images/icon/red-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"><td style="height:80px;">1232323<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"> <td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+                        <tr class="compare-font"><td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td> </tr>
+                        <tr class="compare-font"><td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td> </tr>
+                        <tr class="compare-font"> <td style="height:80px;">10%<br><img src="../images/icon/cruv-progress.png" alt=""></td></tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-2" style="padding:0px;margin:0px;" ng-hide="compareVm.c5">
+                <table class="table table-responsive compare-table col-md-2">
+
+                    <tbody>
+                        <tr>
+                            <td rowspan="10" class="compare-form" style="vertical-align: top !important">
+
+                                <form>
+                                    <div class="form-group">
+                                        <label>TOP 5 PERFOMERS</label>
+                                        <select class="form-control" data-ng-model="compareVm.Top5fifth" data-ng-change="compareVm.Top5PerformerFifthChange()">
+                                            <option ng-selected="selected" value="">Select any One</option>
+                                            <option data-ng-repeat="performer in compareVm.top5performer" value="{{performer.AccountDetailId}}">{{performer.AccountNumber}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>PIN USERS</label>
+                                        <select class="form-control" data-ng-model="compareVm.Pinedfifth" data-ng-change="compareVm.PinedUserFifthChange()">
+                                            <option ng-selected="selected" value="">Select any One</option>
+                                            <option data-ng-repeat="pined in compareVm.pineduser" value="{{pined.AccountDetailId}}">{{pined.AccountNumber}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ACCOUNT ID</label>
+                                        <input type="text" class="form-control" placeholder="Please enter account ID" data-ng-model="compareVm.AccountIdfifth">
+                                    </div>
+                                    <a class="green-button" ng-click="compareVm.compareFifth()">COMPARE</a>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>-->
+
+
+
+
+        </div>
+    </div>
+</div>
+</div>

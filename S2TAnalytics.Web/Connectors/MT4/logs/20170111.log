@@ -1,0 +1,8 @@
+0	2017.01.11 00:38:29.599		MetaTrader 4 Manager API build 985 initialized
+0	2017.01.11 00:38:29.952	US05-live.mt4tradeserver.com:443	Connect
+65	2017.01.11 00:38:43.292	US05-live.mt4tradeserver.com:443	'889': login failed (Invalid account)
+0	2017.01.11 00:38:43.375		Remove: manager 21930D18
+0	2017.01.11 00:39:33.105		MetaTrader 4 Manager API build 985 initialized
+0	2017.01.11 00:39:34.170	US05-live.mt4tradeserver.com:443	Connect
+65	2017.01.11 00:39:50.550	US05-live.mt4tradeserver.com:443	'889': login failed (Invalid account)
+0	2017.01.11 00:39:50.613		Remove: manager 21956518

@@ -1,0 +1,112 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+
+    <script src="~/Scripts/intlTelInput.js"></script>
+    <link href="~/Content/intlTelInput.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        var serviceBase = '@Url.Content("~/")';
+    </script>
+    @Scripts.Render("~/bundles/adminApp")
+    @Scripts.Render("~/bundles/adminServices")
+    @Scripts.Render("~/bundles/directives")
+    @Scripts.Render("~/bundles/adminControllers")
+    @*<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />*@
+    @*<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/icon/favicon.ico">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js"></script>
+    <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>*@
+ 
+    <link rel="stylesheet" href="/Assets/vendor/bootstrap4/css/bootstrap.min.css">
+    
+    <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/icon/favicon.ico">
+    <link rel="stylesheet" href="/Assets/vendor/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="/Assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Assets/vendor/jscrollpane/jquery.jscrollpane.css">
+    <link rel="stylesheet" href="/Assets/vendor/chartist/chartist.min.css">
+    <link rel="stylesheet" href="/Assets/vendor/DataTables/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/Assets/vendor/DataTables/Responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/Assets/vendor/DataTables/Buttons/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="/Assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css">
+    <link href="~/Content/toastr/toastr.min.css" rel="stylesheet" />
+
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
+    <script src="~/Scripts/intlTelInput.js"></script>
+    <link href="~/Content/intlTelInput.css" rel="stylesheet" />
+  
+</head>
+<body class="">
+    <div ng-app="S2TAnalyticsAdminApp" ui-view>
+        @RenderBody()
+    </div>
+    <!-- Vendor JS -->
+    <script type="text/javascript" src="/Assets/vendor/jquery/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/tether/js/tether.min.js"></script>
+    @*<script type="text/javascript" src="/Assets/vendor/bootstrap4/js/bootstrap.min.js"></script>*@
+    
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    
+    <script src="~/Scripts/bootstrap-dialog.min.js"></script>
+    
+    <script type="text/javascript" src="/Assets/vendor/detectmobilebrowser/detectmobilebrowser.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/jscrollpane/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/jscrollpane/mwheelIntent.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/jscrollpane/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/chartist/chartist.min.js"></script>
+    <!--<script type="text/javascript" src="/Assets/vendor/DataTables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/Responsive/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/Responsive/js/responsive.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/Buttons/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/Buttons/js/buttons.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/JSZip/jszip.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/pdfmake/build/pdfmake.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/pdfmake/build/vfs_fonts.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/Buttons/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/Buttons/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/DataTables/Buttons/js/buttons.colVis.min.js"></script>-->
+    <script type="text/javascript" src="/Assets/vendor/flot/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/flot/jquery.flot.pie.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script type="text/javascript" src="/Assets/vendor/TinyColor/tinycolor.js"></script>
+    <script src="~/Scripts/toastr/toastr.min.js"></script>
+
+  
+  
+    @*<script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-toggle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/rzslider.min.js"></script>*@
+
+    @*@Scripts.Render("~/bundles/jquery")
+      @Scripts.Render("~/bundles/bootstrap")*@
+    @*@RenderSection("scripts", required: false)*@
+    <script>
+
+    </script>
+</body>
+</html>
+
+
+
+

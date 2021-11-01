@@ -1,0 +1,25 @@
+0	2017.01.09 10:31:23.207		MetaTrader 4 Manager API build 985 initialized
+0	2017.01.09 10:31:24.036	us03-demo.mt4tradeserver.com:443	Connect
+0	2017.01.09 10:31:24.549	us03-demo.mt4tradeserver.com:443	'995': login (server build 1010)
+0	2017.01.09 10:32:23.600	us03-demo.mt4tradeserver.com:443	Connect
+65	2017.01.09 10:32:34.999	us03-demo.mt4tradeserver.com:443	'9951': login failed (Invalid account)
+0	2017.01.09 10:32:35.289		Remove: manager 8DFB7E0
+0	2017.01.09 10:32:39.993	us03-demo.mt4tradeserver.com:443	Connect
+0	2017.01.09 10:32:40.308	us03-demo.mt4tradeserver.com:443	'995': login (server build 1010)
+0	2017.01.09 10:36:01.242	us03-demo.mt4tradeserver.com:443	'995': disconnect
+0	2017.01.09 10:36:01.242		Remove: manager 8DFB7E0
+0	2017.01.09 10:38:20.567	us03-demo.mt4tradeserver.com:443	'995': disconnect
+0	2017.01.09 10:38:20.567		Remove: manager 8DCC990
+0	2017.01.09 19:21:44.683		MetaTrader 4 Manager API build 985 initialized
+0	2017.01.09 19:21:45.140	US05-live.mt4tradeserver.com:443	Connect
+65	2017.01.09 19:22:10.338	US05-live.mt4tradeserver.com:443	'889': login failed (Invalid account)
+0	2017.01.09 19:22:10.866		Remove: manager 8A88398
+0	2017.01.09 19:22:29.191		MetaTrader 4 Manager API build 985 initialized
+0	2017.01.09 19:22:29.569	US05-live.mt4tradeserver.com:443	Connect
+65	2017.01.09 19:22:50.672	US05-live.mt4tradeserver.com:443	'889': login failed (Invalid account)
+0	2017.01.09 19:22:50.776		Remove: manager 8A88398
+0	2017.01.09 19:49:18.202		MetaTrader 4 Manager API build 985 initialized
+0	2017.01.09 19:49:18.453	US05-live.mt4tradeserver.com:443	Connect
+0	2017.01.09 19:49:18.764	US05-live.mt4tradeserver.com:443	'899': login (server build 1010)
+0	2017.01.09 19:49:39.636	US05-live.mt4tradeserver.com:443	'899': disconnect
+0	2017.01.09 19:49:39.637		Remove: manager 83AE8C8

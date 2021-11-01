@@ -1,0 +1,455 @@
+﻿
+<div class="row account-info">
+    <div class="container box-shadow">
+        <div class="about col-4">
+            <!--<div class="col-xs-5 padding0">
+                <h2><span><a href="#" prevent-default ng-show="!accountVm.editName" ng-click="accountVm.editName=true" set-focus="phone">{{accountVm.User.FirstName}} {{accountVm.User.LastName}}</a></span></h2>
+                <input type="text" id="phone" ng-model="accountVm.User.Name" ng-focus="accountVm.editName=true;" ng-blur="accountVm.changeUserDetails()" ng-show="accountVm.editName" />
+                <!--<h3>
+                    <strong>DOB</strong>:
+                    <input id="DOB" date-picker ng-model="accountVm.User.DOB" class="date-picker form-control">
+                </h3>-a->
+            </div>-->
+            <!--<div class="col-xs-7 padding0">  -->
+                <div class="col-xs-12 padding0">
+                    <form>
+                        <div class="form-group country-select mb10" style="display: block;">
+                            <label class="control-label col-sm-2">Country:</label>
+                            <input id="userCountry" type="text" class="userCountrySelector" ng-model="accountVm.User.Country" ng-change="accountVm.changeUserDetails()" />
+                            <input type="hidden" id="user_country_code" />
+                            <!--<select class="form-control col-sm-10">
+                        <option><img src="../images/sg.png">singapore</option>
+                        <option>india</option>
+                    </select>-->
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                    <a href="#" class="change-password" prevent-default data-toggle="modal" data-target="#changePassword">Change Password</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        <div class="col-4 contact">
+            <div class="contact-col">
+                <i class="fa fa-phone"></i>
+                <span class="blue" ng-show="!accountVm.editPhone">
+                    <a href="#" prevent-default ng-click="accountVm.editPhone=true" ng-show="accountVm.User.PhoneCountryCode!=''" set-focus="phone"> + {{accountVm.User.CountryCode}} - {{accountVm.User.PhoneNumber}}</a></span>
+                <div ng-show="accountVm.editPhone">
+                    <input id="phone" country-Phone ng-model="accountVm.User.PhoneNumber"  ng-focus="accountVm.editPhone=true;" />
+                    </div>
+                   <i class="fa fa-edit pull-right" ng-show="!accountVm.editPhone" ng-click="accountVm.editPhone=true"></i>
+              </div>
+            <div class="contact-col">
+                <i class="fa fa-envelope"></i>
+                <span class="blue"><a href="#" prevent-default >{{accountVm.User.EmailID}}</a></span>
+                <!--<span class="blue" ng-show="!accountVm.editEmail"><a href="#" prevent-default ng-show="!accountVm.editEmail" ng-click="accountVm.editEmail=true" set-focus="emailId">{{accountVm.User.EmailID}}</a></span>-->
+                <!--<a href="#" prevent-default ng-show="!accountVm.editEmail" ng-click="accountVm.editEmail=true" set-focus="emailId">{{accountVm.User.EmailID}}</a>-->
+                <!--<input type="text" id="emailId" ng-model="accountVm.User.EmailID" ng-blur="accountVm.changeUserDetails()" ng-show="accountVm.editEmail" />-->
+                <!--<i class="fa fa-edit pull-right" ng-show="!accountVm.editEmail" ng-click="accountVm.editEmail=true"></i>-->
+            </div>
+        </div>
+        <div class="incoice-generate col-4">
+            <h3>Generate Invoice:</h3>
+            <span class="date-icon"><input type="text" month-picker id="invoiceMonth" class="date-picker form-control" data-ng-model="accountVm.selectedDate"></span><br>
+
+            <a href="#" prevent-default ng-click="accountVm.emailInvoice()"><i class="fa fa-envelope"></i></a>
+            <a href="#" prevent-default ng-click="accountVm.generateInvoice()"><i class="fa fa-download"></i></a>
+            <a href="{{accountVm.InvoicePDF}}" id="downloadPDF" download ng-hide="true"></a>
+        </div>
+        <div class="col-4 active-payment">
+            <h3>Active payment details</h3>
+            <i class="fa fa-credit-card"></i>
+            <h4 ng-bind="accountVm.ActiveCard"></h4>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+<div class="row plan-detail">
+    <div class="container ">
+        <div class="col-sm-3 subscribe-plan box-shadow">
+            <div class="title text-left">
+                <img src="../images/icon/tactics.png" alt="">
+                <h3>SUBSCRIPTION PLAN</h3>
+            </div>
+            <div class="body" ng-class="accountVm.SubscriptionPlan.TermLengthId==0?'body privew':'body'">
+               <img src="../images/icon/advance.png" alt=""><!--<div ng-if="accountVm.SubscriptionPlan.TermLengthId==0"></div>-->
+                <h2 ng-bind="accountVm.SubscriptionPlan.Name"></h2>
+                <p class="red-text" ng-if="mainVM.TotalDays!= 0&&mainVM.DaysLeft == 0">Your trail period has been expired</p>
+                <p class="red-text" ng-if="mainVM.TotalDays!= 0&&mainVM.DaysLeft != 0">Your trail period ends in {{mainVM.DaysLeft}} days</p>
+                <ul>
+                    <li ng-repeat="widget in accountVm.SubscriptionPlan.Widgets">{{widget}}</li>
+                </ul>
+                <a class="green-button" href="#" ng-click="mainVM.PrevPlan = accountVm.SubscriptionPlan.Name; mainVM.requestSuccess=false;" prevent-default data-toggle="modal" data-target=".bs-example-modal-lg">CHANGE PLAN</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="col-sm-8 payment-method box-shadow">
+            <div class="title">
+                <img src="../images/icon/give-money.png" alt="">
+
+                <h3>Please select your payment method</h3>
+            </div>
+
+            <div class="col-sm-7 left-col">
+                <div class="card-block" ng-repeat="userCard in accountVm.UserCards">
+                    <input type="checkbox" name="userCard{{$index}}" id="userCard{{$index}}" class="css-checkbox" ng-model="userCard.IsChecked">
+                    <label for="userCard{{$index}}" class="css-label pull-left" style="font-size: 15px !important;"></label>
+                    <h4 class="bold"><i class="fa fa-credit-card"></i>{{userCard.DisplayCardName}}</h4>
+                    <h4 class="pull-right"><strong>Card Type:</strong> <span ng-bind="userCard.PaymentTypeName"></span></h4>
+                    <h4><strong>Added on:</strong> <span ng-bind="userCard.CreatedDate | date:'MM-dd-yyyy'"></span></h4>
+                    <span class="swipe-button pull-right"><input id="toggle-demo{{$index}}" card-status="{{userCard.IsActive}}" type="checkbox" onchange="" data-toggle="toggle"></span>
+                </div>
+                <div class="card-block light-green" ng-if="accountVm.UserCards==null || accountVm.UserCards.length==0">
+                    <input type="checkbox" name="userCardDefault" id="userCardDefault" class="css-checkbox" >
+                    <label for="userCardDefault" class="css-label pull-left" style="font-size: 15px !important;">No Card is Active</label>
+
+                </div>
+                <!--<div class="card-block">
+                    <input type="checkbox">
+                    <h4 class="bold"><i class="fa fa-credit-card"></i>XXXXXXXXXXX3232</h4>
+                    <h4 class="pull-right"><strong>Payment Type:</strong> Credit Card</h4>
+                    <h4><strong>Added on:</strong> 12-12-2016</h4>
+                    <span class="swipe-button pull-right"><input id="toggle-demo1" type="checkbox" data-toggle="toggle"></span>
+                </div>-->
+                <div class="text-center">
+                    <a class="green-button" href="#" prevent-default ng-click="accountVm.addPaymentMethod=true">ADD PAYMENT METHOD</a>
+                    <a class="delete-button" href="#" prevent-default ng-click="accountVm.deleteCards()">delete</a>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-5 right-col" ng-show="accountVm.addPaymentMethod">
+                <h5>payment Profile</h5>
+                <form class="form-horizontal" name="AddCardForm">
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-5 control-label">Payment type</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" ng-options="paymentType.stringValue as paymentType.DisplayName for paymentType in accountVm.PaymentTypes"
+                                    name="paymentType" data-ng-model="accountVm.Card.PaymentType" required-error-message="Required" validator="required">
+                                <option value="">Select Card Type</option>
+                            </select>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-5 control-label">Card holder name</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" name="CardName" type="text" data-ng-model="accountVm.Card.CardName"
+                                   validator="required" required-error-message="Required">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-5 control-label">Card number</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" name="CardNumber" type="text"  data-ng-model="accountVm.Card.CardNumber"
+                                   validator="required" required-error-message="Required">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-5 control-label">Expiry date</label>
+                        <div class="col-sm-7">
+                            <input id="ExpiryDate" name="ExpiryDate" month-picker class="form-control" type="text" data-ng-model="accountVm.Card.ExpiryDate"
+                                   validator="required" required-error-message="Required">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-5 control-label">CVV*</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" name="CVV" type="text" data-ng-model="accountVm.Card.CVV"
+                                   validator="required" required-error-message="Required">
+                        </div>
+                        <div class="col-sm-1"><i class="fa fa-info"></i></div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <!--<div class="form-group">
+                        <label for="inputPassword" class="col-sm-5 control-label">Select your  country</label>
+                        <div class="col-sm-7">
+                            <select class="form-control">
+                                <option>Singapor</option>
+                                <option>test</option>
+                            </select>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>-->
+
+                    
+                    <div class="text-center">
+                        <button class="green-button saveCard" ng-disabled="accountVm.IsSaveDisabled" validation-submit="AddCardForm" ng-click="accountVm.saveCard()">Save Details</button>
+                        <!--<button type="reset" class="_reset" validation-reset="AddCardForm">Reset</button>-->
+                        <button type="reset" class="delete-button" id="_reset" validation-reset="AddCardForm">Reset</button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+<div class="row bottom-info">
+    <div class="container ">
+        <div ng-if="mainVM.isEmailNotification" class="col-sm-5 email-noti box-shadow">
+            <div class="title"><h4><i class="fa fa-envelope"></i>EMAIL NOTIFICATIONS SETTINGS</h4></div>
+            <ul>
+                <li ng-repeat="emailNotification in accountVm.emailNotificationSettingsEnum">
+                    {{emailNotification.DisplayName}} 	<span class="swipe-button pull-right"><input id="{{emailNotification.stringValue}}" email-notification-settings-id="{{emailNotification.HasAccess}}" type="checkbox" data-toggle="toggle"></span>
+                </li>
+                <!--<li>
+                    Weekly top performers' & pinned traders' trends <span class="swipe-button pull-right"><input id="toggle-demo1" type="checkbox" data-toggle="toggle"></span>
+                </li>
+                <li>
+                    Monthly top performers' & pinned traders <span class="swipe-button pull-right"><input id="toggle-demo" type="checkbox" data-toggle="toggle"></span>
+                </li>
+                <li>
+                    Quarterly top performers' & pinned traders' trends 	<span class="swipe-button pull-right"><input id="toggle-demo1" type="checkbox" data-toggle="toggle"></span>
+                </li>
+                <li>
+                    Half yearly top performers' & pinned traders' trends <span class="swipe-button pull-right"><input id="toggle-demo" type="checkbox" data-toggle="toggle"></span>
+                </li>
+                <li>
+                    Yearly top performers' & pinned traders' trends <span class="swipe-button pull-right"><input id="toggle-demo1" type="checkbox" data-toggle="toggle"></span>
+                </li>-->
+            </ul>
+        </div>
+        <div class="col-sm-7 billing-tab box-shadow balance-block">
+            <div>
+                <div id="tabs">
+                    <div class="title">
+                        <ul>
+                            <li><a prevent-default href="#billing" ng-click="accountVm.ShowBilling=true;accountVm.ShowInvoice=false">Billing Info</a></li>
+                            <li><a prevent-default href="#invoice" ng-click="accountVm.ShowBilling=false;accountVm.ShowInvoice=true">invoice History</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="billing" ng-show="accountVm.ShowBilling">
+                        <div ng-show="accountVm.savePanel">
+                            <form class="form-horizontal billing-address-form" name="BillingAddressForm">
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-sm-2 control-label">Street Address</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="Address" placeholder="Street Address" validator="required"
+                                               required-error-message="Required" ng-model="accountVm.userBillingInfo.Address">
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="col-md-6 padding0">
+                                    <div class="form-group">
+                                        <label for="inputPassword" class="col-sm-4 control-label">Country</label>
+                                        <div class="col-sm-8 margin-top-7">
+                                            <input id="country" type="text" class="countrySelector" />
+                                            <input type="hidden" id="country_code" />
+
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword" class="col-sm-4 control-label">City</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="City" placeholder="City" validator="required"
+                                                   required-error-message="Required" ng-model="accountVm.userBillingInfo.City">
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword" class="col-sm-4 control-label">Phone Number</label>
+                                        <div class="col-sm-8 margin-top-7">
+                                            <!--<div class="col-sm-4">
+                                                <input class="form-control" type="text" name="CountryCode" placeholder="+65" validator="required"
+                                                       required-error-message="Required" ng-model="accountVm.userBillingInfo.CountryCode">
+                                            </div>-->
+                                            
+                                                <input class="form-control" billing-Phone name="Phone" validator="required"
+                                                       required-error-message="Required" ng-model="accountVm.userBillingInfo.PhoneNumber">
+                                         
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 padding0">
+                                    <div class="form-group">
+                                        <label for="inputPassword" class="col-sm-4 control-label">State</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="State" placeholder="State" validator="required"
+                                                   required-error-message="Required" ng-model="accountVm.userBillingInfo.State">
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword" class="col-sm-4 control-label">Zip Code*</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="ZipCode" placeholder="Zip Code" validator="required"
+                                                   required-error-message="Required" ng-model="accountVm.userBillingInfo.ZipCode">
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <div class="text-center">
+                                    <button class="green-button saveBillingAddress" ng-disabled="accountVm.IsSaveBillingDisabled" validation-submit="BillingAddressForm" ng-click="accountVm.saveBillingAddress()">Save Details</button>
+                                    <button type="reset" validation-reset="BillingAddressForm" class="resetBilling">RESET ALL</button>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="listing-billing" ng-hide="accountVm.savePanel" style="display:block">
+                            <div class="col-ms-12 address-col" ng-repeat="userBillingAddress in accountVm.UserBillingAddresses">
+                                <input type="checkbox" name="userBillingAddress{{$index}}" id="userBillingAddress{{$index}}" class="css-checkbox" ng-model="userBillingAddress.IsChecked" ng-change="accountVm.checkBillingAddress(userBillingAddress.Id)">
+                                <label for="userBillingAddress{{$index}}" class="css-label pull-left"></label>
+                                <div class="pull-left">
+                                    <h6 class="block" ng-bind="userBillingAddress.Address"></h6>
+                                    <h6><i class="fa fa-globe"></i><span ng-bind="userBillingAddress.Country"></span></h6>
+                                    <h6><i class="fa fa-mobile"></i>+{{userBillingAddress.CountryCode}} {{userBillingAddress.PhoneNumber}}</h6>
+                                    <h6>Zipcode: {{userBillingAddress.ZipCode}}</h6>
+                                </div>
+                                <span class="swipe-button pull-right margin10"><input id="userBillingAddressActive{{$index}}" billing-address-status="{{userBillingAddress.IsActive}}" type="checkbox" data-toggle="toggle"></span>
+                            </div>
+                            <!--<div class="col-ms-12 address-col">
+                                <input type="checkbox" name="id9" id="id9" class="css-checkbox">
+                                <label for="id9" class="css-label pull-left"></label>
+                                <div class="pull-left">
+                                    <h6 class="block">34/1313  Colmore Row Birmingham</h6>
+                                    <h6><i class="fa fa-globe"></i>Singapore</h6>
+                                    <h6><i class="fa fa-mobile"></i>+65 90001210</h6>
+                                    <h6>Zipcode: 23423</h6>
+                                </div>
+                                <span class="swipe-button pull-right margin10">
+                                    <input id="toggle-demo11" type="checkbox" data-toggle="toggle">
+                                </span>
+                            </div>-->
+                            <div class="text-center text-center-further">
+                                <a class="green-button savbill" href="#" prevent-default ng-click="accountVm.savePanel=true">ADD ADDRESS</a>
+                                <button type="reset" class="delete-button" ng-click="accountVm.getUserBillingAddressById()">EDIT</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div id="invoice" ng-show="accountVm.ShowInvoice">
+                        <table class="table table-hover manage-user margin10">
+                            <thead>
+                                <tr>
+                                    <th class="fix"><input type="checkbox" name="1" id="1" class="css-checkbox"><label for="1" class="css-label"></label></th>
+                                    <th class="sorted fix">Plan<div class="sort-arrow"><i class="fa fa-sort-asc"></i><i class="fa fa-sort-desc"></i></div></th>
+                                    <th class="sorted">
+                                        Month/Year
+                                        <div class="sort-arrow"><i class="fa fa-sort-asc"></i><i class="fa fa-sort-desc"></i></div>
+                                    </th>
+                                    <th class="sorted">Fee <div class="sort-arrow"><i class="fa fa-sort-asc"></i><i class="fa fa-sort-desc"></i></div></th>
+                                    <th class="sorted">Status <div class="sort-arrow"><i class="fa fa-sort-asc"></i><i class="fa fa-sort-desc"></i></div></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="invoiceHistory in accountVm.userInvoiceHistory">
+                                    <th scope="row" class="fix">
+                                        <input type="checkbox" name="invoiceHistory{{$index}}" id="invoiceHistory{{$index}}" class="css-checkbox" ng-model="invoiceHistory.IsChecked">
+                                        <label for="invoiceHistory{{$index}}" class="css-label"></label>
+                                    </th>
+                                    <td class="name fix" ng-bind="invoiceHistory.PlanName"></td>
+                                    <td ng-bind="invoiceHistory.TransactionDate | date:MMM-YYYY"></td>
+                                    <td ng-bind="invoiceHistory.Price"></td>
+                                    <td ng-if="invoiceHistory.Paid">Paid</td>
+                                    <td ng-if="!invoiceHistory.Paid">Unpaid</td>
+                                </tr>
+                                <tr ng-if="accountVm.userInvoiceHistory.length==0">
+                                    <td colspan="5" class="text-center">No invoice found</td>
+                                </tr>
+                                <!--<tr>
+                                    <th scope="row" class="fix">
+                                        <input type="checkbox" name="3" id="3" class="css-checkbox">
+                                        <label for="3" class="css-label"></label>
+                                    </th>
+                                    <td class="name fix">Airi Satou</td>
+                                    <td>Jan-2017</td>
+                                    <td>$1000</td>
+                                    <td>PAID</td>
+                                </tr>-->
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content black">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title bold fsize20" id="myModalLabel">Change Password</h4>
+            </div>
+
+            <div class="modal-body plan-change">
+                <div class="row">
+                    <form name="ChangePasswordForm">
+                        <div class="form-group">
+                            <input type="password" class="form-control" maxlength="20" placeholder="Old Password" name="OldPassword" data-ng-model="accountVm.OldPassword"
+                                   required-error-message="Required" validator="required,passwordlength">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" maxlength="20" placeholder="New Password" name="NewPassword" data-ng-model="accountVm.NewPassword"
+                                   required-error-message="Required" validator="required,passwordlength">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" maxlength="20" class="form-control" placeholder="Confirm password" name="ConfirmPassword"
+                                   data-ng-model="accountVm.ConfirmPassword" data-pwd={{accountVm.NewPassword}}
+                                   required-error-message="Required" validator="required,confirmpassword,passwordlength">
+                        </div>
+
+
+
+
+                        <div class="clearfix"></div>
+
+                        <div class="text-center">
+                            <button class="green-button" ng-disabled="accountVm.IsSubmitDisabled" validation-submit="ChangePasswordForm" ng-click="accountVm.changePassword()">Submit</button>
+                            <button type="reset" validation-reset="ChangePasswordForm" class=" green-button grey">RESET ALL</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+
+    $(function () {
+        $("#tabs").tabs();
+    });
+    $("#country").countrySelect();
+    $("#userCountry").countrySelect();
+    //$('#ExpiryDate').MonthPicker({ MinMonth: 1 });
+</script>

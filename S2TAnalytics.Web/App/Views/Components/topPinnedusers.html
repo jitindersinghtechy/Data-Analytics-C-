@@ -1,0 +1,284 @@
+﻿<div class="pull-right right-menu">
+    <ul>
+        <li class="dropdown">
+            <select class="form-control performers-filters pull-right margin-right-5px" ng-model="vm.TimeLine" ng-change="vm.getTopPinnedUsersByFilters ()"
+                    ng-options="timeLine.DisplayName for timeLine in vm.TimeLines track by timeLine.stringValue">
+                <option value="">TimeLine</option>
+            </select>
+        </li>
+        <li class="dropdown">
+            <select class="form-control performers-filters  pull-right" ng-model="vm.Country" ng-change="vm.getTopPinnedUsersByFilters ()"
+                    ng-options="country for country in vm.Countries">
+                <option value="">Country</option>
+            </select>
+        </li>
+        <li><a  prevent-default href="#"><i class="fa fa-filter"></i></a></li>
+        <li class="dropdown" ng-if="vm.isEmbedWidget">
+            <a  prevent-default href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+            <ul class="dropdown-menu">
+           
+                <li><a href="#" prevent-default ng-click="vm.ShowScript()">Embed Widget</a></li>
+                <!--<li><a  prevent-default href="#">Export API</a></li>-->
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="body">
+    <div id="pinnedUsers">
+        <div class="item" ng-repeat="pinnedUser in vm.PinnedUsers" ng-hide="vm.NoPinnedUserFound">
+            <div class="performers-card">
+                <h4>
+                    <strong ng-bind="pinnedUser.PerformerName"></strong>
+                </h4>
+                <h2 ng-bind="pinnedUser.ROI"></h2>
+                <h4>ROI%</h4>
+                <h3>
+                    Max DD%:
+                    <span ng-bind="pinnedUser.DD"></span>
+                </h3>
+                <h3>
+                    Win%:
+                    <span ng-bind="pinnedUser.WIN"></span>
+                </h3>
+                <h3>
+                    Sharpe Ratio:
+                    <span ng-bind="pinnedUser.SharpRatio"></span>
+                </h3>
+                <div class="card-overlay">
+                    <ul>
+                        <li ng-if="vm.isPinnedUsers">
+                            <a href="#" prevent-default id="pin-user" title="Pin User" ng-click="vm.updatePinnedUsers(pinnedUser.AccountDetailId)">
+                                <img src="/Images/icon/push-pin.png" alt="">
+                            </a>
+                        </li>
+                        <li ng-if="vm.isCompare">
+                            <a href="#" prevent-default title="Compare" ng-click="vm.updateCompareUsers(pinnedUser.AccountDetailId)">
+                                <img src="/Images/icon/weight-balance.png" alt="">
+                            </a>
+                        </li>
+                        <li ng-if="vm.isViewDetail">
+                            <a href="#UserDetails/{{pinnedUser.AccountDetailId}}" title="View Details">
+                                <img src="/Images/icon/eye.png" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="widget-main-container" ng-show="vm.NoPinnedUserFound">
+            <div class="box box-block bg-white tile tile-1 mb-2 main-widget-box">
+                <div class="row row-md">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <div>
+                            <div class="t-content no-result">
+                                No user pinned yet.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="embedScriptTPUPopup" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content black">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title bold fsize20" id="myModalLabel">Embed Script</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="copy-clip">
+                            <div class="scrolly-auto" id="txtTopPinnedUsersScript">
+                            </div>
+                            <button type="button" class="btn btn-success btn-lg btn-block confirm-btn" ng-click="vm.CopyToClipboard()">COPY TO CLIPBOARD</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="add-link">
+                            <h2>Add Domain Link</h2>
+                            <div class="form-group">
+                                <!--<input type="text" class="form-control" id="" placeholder="Add Domain ">-->
+                                <tags-input ng-model="vm.tags" placeholder="Add Domain" on-tag-adding="vm.checkDomain($tag)">
+                                    <auto-complete load-on-focus="true" min-length="0"
+                                                   load-on-empty="false"></auto-complete>
+                                </tags-input>
+                                <a class="btn btn-success" href="#" prevent-default ng-click="vm.SaveEmbedWidgetPermission()">PROCEED</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <form name="ChangePasswordForm">
+                        <div class="form-group">
+                            <textarea rows="8" style="width:100%" readonly="readonly" id="txtTopPinnedUsersScript"></textarea>
+
+                        </div>
+                        <div class="form-group">
+                            <tags-input ng-model="vm.tags" placeholder="Add Domain" on-tag-adding="vm.checkDomain($tag)">
+                                <auto-complete load-on-focus="true" min-length="0"
+                                               load-on-empty="false"></auto-complete>
+                            </tags-input>
+                            <button ng-click="vm.SaveEmbedWidgetPermission()">Apply</button>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="text-center">
+                            <button class="green-button" style="width:auto" ng-click="vm.CopyToClipboard()">Copy to Clipboard</button>
+                        </div>
+
+                    </form>
+                </div>-->
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!--<div class="row">
+    <div class="col-md-12">
+        <div class="widget-main-container" ng-hide="vm.NoPinnedUserFound">
+            <div class="panel-title margin-bottom-5">
+                <h3><i class="fa fa-dashboard"></i>TOP 5 PINNED USERS</h3>
+                <div class="panel-title-actions pull-right">
+                    <form class="form-material">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item dropdown">
+                                <select class="form-control performers-filters  pull-right" ng-model="vm.Country" ng-change="vm.getTopPinnedUsersByFilters ()"
+                                        ng-options="country for country in vm.Countries">
+                                    <option value="">Country</option>
+                                </select>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <select class="form-control performers-filters pull-right margin-right-5px" ng-model="vm.TimeLine" ng-change="vm.getTopPinnedUsersByFilters ()"
+                                        ng-options="timeLine.DisplayName for timeLine in vm.TimeLines track by timeLine.stringValue">
+                                    <option value="">TimeLine</option> <!--ng-click="getAllConversations()"-a->
+                                </select>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            <div class="box box-block bg-white tile tile-1 mb-2 main-widget-box col-2-fix">
+                <div class="row row-md">
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12" ng-repeat="pinnedUser in vm.PinnedUsers">
+                        <div class="box box-block bg-white tile tile-1 mb-0">
+                            <div class="overlay-icons">
+                                <ul class="overlay-icons-list">
+                                    <li ng-click="vm.unpinUser(pinnedUser)" title="Pin User"><span class="ti-pin-alt"></span></li>
+                                    <li title="Compare"><i class="fa fa-balance-scale"></i></li>
+                                    <li title="View Details">
+                                        <a href="#UserDetails/{{pinnedUser.AccountDetailId}}">
+                                            <span class="ti-eye"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="t-content">
+                                <h6 class="text-uppercase mb-1" ng-bind="pinnedUser.PerformerName"></h6>
+                                <h1 class="mb-1" ng-bind="pinnedUser.ROI"></h1>
+                                <div class="row tile-content">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">ROI %</div>
+                                </div>
+                                <div class="row tile-content">
+                                    <div class="col-md-8 col-sm-8 col-xs-8 tile-content-titles">Max DD% :</div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4" ng-bind="pinnedUser.DD"></div>
+                                </div>
+                                <div class="row tile-content">
+                                    <div class="col-md-8 col-sm-8 col-xs-8 tile-content-titles">Win% :</div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4" ng-bind="pinnedUser.WIN"></div>
+                                </div>
+                                <div class="row tile-content">
+                                    <div class="col-md-8 col-sm-8 col-xs-8 tile-content-titles">Sharp Ratio% :</div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4" ng-bind="pinnedUser.SharpRatio"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="widget-main-container" ng-show="vm.NoPinnedUserFound">
+            <div class="box box-block bg-white tile tile-1 mb-2 main-widget-box">
+                <div class="row row-md">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <div>
+
+                            <div class="t-content no-result">
+                                No user pinned yet.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<div class="box box-block bg-white pinned-users">
+    <div id="table-1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap4">
+        <div class="row padding-5px-right-left font-weight-bold">
+            <div class="col-md-3">
+                <h5 class="mb-1">Top Pinned Users</h5>
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <form class="form-material">
+                    <select class="form-control performers-filters  pull-right" ng-model="vm.Country" ng-change="vm.getTopPinnedUsersByFilters ()"
+                            ng-options="country for country in vm.Countries">
+                        <option value="">Country</option>
+                    </select>
+                    <select class="form-control performers-filters pull-right margin-right-5px" ng-model="vm.TimeLine" ng-change="vm.getTopPinnedUsersByFilters ()"
+                            ng-options="timeLine.DisplayName for timeLine in vm.TimeLines track by timeLine.stringValue">
+                        <option value="">TimeLine</option> <!--ng-click="getAllConversations()"-a->
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="row padding-5px-right-left">
+            <div class="col-md-12">
+                <ul class="top-performers">
+
+                    <li class="text-center" ng-repeat="pinnedUser in vm.PinnedUsers">
+                        <span class="=pull-right" ng-click="vm.unpinUser(pinnedUser)">unpin</span>
+                        <!--<a href="#" prevent-default class="" ng-click="vm.openPerformerDetails(pinnedUser)">-a->
+                            <a href="#UserDetails/{{pinnedUser.AccountDetailId}}">
+                                <div class="col-md-12 padding-bottom-10px">
+                                    <span class="top-performer-name" ng-bind="pinnedUser.Name"></span><br />
+                                    <span class="top-performer-roi-percent" ng-bind="vm.getAccountStatsValueByTimeLine('ROI', pinnedUser )"></span><br />
+                                    <span class="margin-bottom-20px">ROI%</span><br />
+                                    <div class="col-md-7 col-md-offset-1 text-left">
+                                        <span class="">Max DD% :</span><br />
+                                    </div>
+                                    <div class="col-md-4 text-left">
+                                        <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('DD', pinnedUser )"></span><br />
+                                    </div>
+                                    <div class="col-md-7 col-md-offset-1 text-left">
+                                        <span class="">Win% :</span><br />
+                                    </div>
+                                    <div class="col-md-4 text-left">
+                                        <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('WINRate', pinnedUser )"></span><br />
+                                    </div>
+                                    <div class="col-md-7 col-md-offset-1 text-left">
+                                        <span class="">Sharpe Ratio :</span><br />
+                                    </div>
+                                    <div class="col-md-4 text-left">
+                                        <span class="" ng-bind="vm.getAccountStatsValueByTimeLine('SharpRatio', pinnedUser )"></span><br />
+                                    </div>
+                                </div>
+                            </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>-->

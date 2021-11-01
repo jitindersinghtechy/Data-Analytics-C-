@@ -1,0 +1,12 @@
+0	2017.01.12 11:44:33.334		MetaTrader 4 Manager API build 985 initialized
+6	2017.01.12 11:44:35.629	hkjh	Connect (No connection)
+0	2017.01.12 11:44:35.725		Remove: manager 91BF400
+0	2017.01.12 22:05:32.894		MetaTrader 4 Manager API build 985 initialized
+0	2017.01.12 22:05:33.191	US05-live.mt4tradeserver.com:443	Connect
+0	2017.01.12 22:05:33.550	US05-live.mt4tradeserver.com:443	'899': login (server build 1010)
+0	2017.01.12 22:07:06.787	US05-live.mt4tradeserver.com:443	Connect
+0	2017.01.12 22:07:07.141	US05-live.mt4tradeserver.com:443	'899': login (server build 1010)
+0	2017.01.12 22:08:26.894	US05-live.mt4tradeserver.com:443	'899': disconnect
+0	2017.01.12 22:08:26.894		Remove: manager 9FC54B0
+0	2017.01.12 22:08:26.996	US05-live.mt4tradeserver.com:443	'899': disconnect
+0	2017.01.12 22:08:26.996		Remove: manager BC04F60

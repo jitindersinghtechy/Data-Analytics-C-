@@ -1,0 +1,116 @@
+﻿<div class="site-content-nonav">
+    <!-- Content -->
+    <div class="content-area py-1">
+        <div class="container-fluid">
+            <h1 class="page-title">Manage Coupon</h1>
+            <div class="row row-md mb-2">
+                <div>
+                    <div class="card">
+                        <div class="card-header text-uppercase">
+                            <div class="float-xs-left">
+                                <b>COUPON LIST</b>
+                            </div>
+                            <div class="float-xs-right">
+                                
+                                
+                                
+                                
+                                <div class="float-xs-left">
+                                    
+                                    <a href="javascript:;"  class="btn-default btn coupon-Popup" prevent-default data-toggle="modal" ng-click="vm.ResetValidation()" data-target="#couponPopUp">Add New Coupon</a>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+
+                            <div class="box-block-small">
+                                <table class="table table-striped table-bordered dataTable no-footer" id="table-2" style="font-size:11px;">
+                                    <thead>
+                                        <tr>
+                                            <!--<i ng-class="vm.sortColumn =='Name' ?vm.orderBy==true?'fa fa-sort-desc':'fa fa-sort-asc':''"></i>
+                                            <i ng-class="vm.sortColumn != 'Name' ?'fa fa-sort':''"></i>-->
+                                           
+                                            <th>Coupon Code</th>
+                                            <th>Amount</th>
+                                            <th>Coupon Description</th>
+                                            <th class="no-sort">Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="coupon in  vm.Coupons">
+                                            
+                                            <td>{{coupon.Code}}</td>
+                                            <td>{{coupon.Amount}}</td>
+                                            <td>{{coupon.Description}}</td>
+                                            <td><button type="button" ng-click="vm.DeleteCoupon(coupon.Id)" class="btn delete-button">Delete</button></td>
+                                        </tr>
+                                        <tr class="odd" ng-if="vm.Coupons<1"><td valign="top" colspan="10" class="dataTables_empty">No Coupon available in Grid</td></tr>
+                                    </tbody>
+                                </table>
+
+                             
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal" id="couponPopUp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content black">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title bold fsize20" id="myModalLabel">Add New Coupon</h4>
+                </div>
+
+                <div class="modal-body plan-change">
+                    <div class="row">
+                        <form name="CouponForm">
+                            <div class="form-group">
+                                <input type="text" name="code"  placeholder="Code" class="form-control" maxlength="20" data-ng-model="vm.Coupon.Code"
+                                       required-error-message="Required" validator="required">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="number" name="price" placeholder="Amount" class="form-control" maxlength="20" data-ng-model="vm.Coupon.Amount"
+                                       required-error-message="Required" validator="required">
+                            </div>
+                            
+                            <div class="form-group">
+                                <textarea  name="description" placeholder="Description" required-error-message="Required" validator="required" maxlength="500" class="form-control" 
+                                      data-ng-model="vm.Coupon.Description"></textarea>
+                                <!--<input placeholder="Description" required-error-message="Required" validator="required" maxlength="20" class="form-control" 
+                                      data-ng-model="vm.Coupon.Description" />-->
+                                       
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="text-center">
+                                <button class="btn btn-success waves-effect" type="button" validation-submit="CouponForm" ng-click="vm.AddCoupon()" >Save</button>
+                                <button type="reset" id="reset1" validation-reset="CouponForm" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

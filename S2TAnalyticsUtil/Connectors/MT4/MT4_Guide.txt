@@ -1,0 +1,100 @@
+Please place "mtmanapi.dll" file somewhere in your local drive, and pass the path while 
+invoking "CreateWrapper()" method
+
+	-------------------
+	//Namespace Reference
+	-------------------
+
+	using P23.MetaTrader4.Manager.Contracts;
+	using P23.MetaTrader4.Manager;
+
+	-------------------
+	//required Methods
+	-------------------
+        public static ClrWrapper CreateWrapper(int login, string password, string server, string metaTraderLibraryPath)
+        {
+            return new ClrWrapper(GetCredentials(login, password, server), metaTraderLibraryPath);
+        }
+	//metaTraderLibraryPath: Where we keep "mtmanapi.dll" File
+	//@"C:\mtmanapi.dll"
+
+
+        public static ConnectionParameters GetCredentials(int login, string password, string server)
+        {
+            return new ConnectionParameters { Login = login, Password = password, Server = server };
+        }
+
+
+
+	----------------------------------
+	///Using MT4 Connector
+	----------------------------------
+	static ClrWrapper mt;
+	mt = Helper.CreateWrapper(995, "Welcome2021@", "us03-demo.mt4tradeserver.com:443", @"C:\MT4\mtmanapi\mtmanapi.dll");
+
+        //Account Summary for all accounts
+        public UserRecord GetAccountSummaryByAccount(int account)
+        {
+            try
+            {
+                return mt.UsersRequest().ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        //Account Summary by account
+        public UserRecord GetAccountSummaryByAccount(int account)
+        {
+            try
+            {
+                return mt.UsersRequest().Where(a => a.Login == account).FirstOrDefault();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+	///To get list of Transactions of all accounts
+        public IList<TradeRecord> GetUserHistoryByAccount(int account, DateTime from, DateTime to)
+        {
+            try
+            {
+                return mt.TradesUserHistory(account, (uint)(Int32)(from.Subtract(new DateTime(1970, 1, 1))).TotalSeconds, (uint)(Int32)(to.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        //Get Orders (Market and Pending both) by account
+        public IList<TradeRecord> GetOrdersByAccount(int account)
+        {
+            try
+            {
+                return mt.TradesRequest().Where(a => a.Login == account).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        //Get Orders (Market and Pending both) for all accounts
+        public IList<TradeRecord> GetOrdersByAll()
+        {
+            try
+            {
+                return mt.TradesRequest();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }

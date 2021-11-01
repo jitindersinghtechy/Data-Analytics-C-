@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EEE794A7-ED48-454D-BD8A-0890EDF5994B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>S2TAnalytics.Infrastructure</RootNamespace>
+    <AssemblyName>S2TAnalytics.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GoogleMaps.LocationServices, Version=0.1.5926.26040, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleMaps.LocationServices.0.9.8.6\lib\net40\GoogleMaps.LocationServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.4.0.70, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="MongoDB.Driver, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.4.0\lib\net45\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.4.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Legacy, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.2.4.0\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OANDACustomRestLibrary">
+      <HintPath>..\S2TAnalyticsELT\Connectors\Oanda\OANDACustomRestLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="P23.MetaTrader4.Manager.ClrWrapper">
+      <HintPath>..\S2TAnalyticsELT\Connectors\MT4\P23.MetaTrader4.Manager.ClrWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="P23.MetaTrader4.Manager.Contracts">
+      <HintPath>..\S2TAnalyticsELT\Connectors\MT4\P23.MetaTrader4.Manager.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Stripe.net, Version=7.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stripe.net.7.0.3\lib\net45\Stripe.net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper\MT4ELTHelper.cs" />
+    <Compile Include="Interfaces\IAccountDetailService.cs" />
+    <Compile Include="Interfaces\IAdminMainServices.cs" />
+    <Compile Include="Interfaces\IAdminSubscriberService.cs" />
+    <Compile Include="Interfaces\IAdminViewDetailService.cs" />
+    <Compile Include="Interfaces\IAdminPlansService.cs" />
+    <Compile Include="Interfaces\IAuthenticateService.cs" />
+    <Compile Include="Interfaces\IAdminAuthenticateService.cs" />
+    <Compile Include="Interfaces\ICompareService.cs" />
+    <Compile Include="Interfaces\IConfigureService.cs" />
+    <Compile Include="Interfaces\IAdminCouponService.cs" />
+    <Compile Include="Interfaces\IELTService.cs" />
+    <Compile Include="Interfaces\IPerformersService.cs" />
+    <Compile Include="Interfaces\IUserAccountService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\AdminNotificationModel.cs" />
+    <Compile Include="Models\AdminPlansWidgetModel.cs" />
+    <Compile Include="Models\AdminSubscriberModel.cs" />
+    <Compile Include="Models\AdminSubscriberPlanModel.cs" />
+    <Compile Include="Models\CardModel.cs" />
+    <Compile Include="Models\ContactModel.cs" />
+    <Compile Include="Models\CouponDetailModel.cs" />
+    <Compile Include="Models\DatasourceModel.cs" />
+    <Compile Include="Models\AccountStatsModel.cs" />
+    <Compile Include="Models\AccountDetailModel.cs" />
+    <Compile Include="Models\AccountTransactionHistoryModel.cs" />
+    <Compile Include="Models\CompareModel.cs" />
+    <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\DataSourceQueueModel.cs" />
+    <Compile Include="Models\EmailNotificationSettingsModel.cs" />
+    <Compile Include="Models\InstrumentModel.cs" />
+    <Compile Include="Models\InstrumentStatsModel.cs" />
+    <Compile Include="Models\InvoiceModel.cs" />
+    <Compile Include="Models\MT4UserRequestModel.cs" />
+    <Compile Include="Models\MultiselectModel.cs" />
+    <Compile Include="Models\OandaAccountsModel.cs" />
+    <Compile Include="Models\PerformersModel.cs" />
+    <Compile Include="Models\PinnedUsersModel.cs" />
+    <Compile Include="Models\RateOfReturnsModel.cs" />
+    <Compile Include="Models\RequestPlanModel.cs" />
+    <Compile Include="Models\SubscriptionPlanModel.cs" />
+    <Compile Include="Models\UpdateUserModel.cs" />
+    <Compile Include="Models\UserBillingInfoModel.cs" />
+    <Compile Include="Models\UserEmbedWidgetPermissionModel.cs" />
+    <Compile Include="Models\UserInvoiceHistoryModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserPlanModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AccountDetailService.cs" />
+    <Compile Include="Services\AdminAuthenticateService.cs" />
+    <Compile Include="Services\AdminMainServices.cs" />
+    <Compile Include="Services\AdminPlansService.cs" />
+    <Compile Include="Services\AdminSubscriberService.cs" />
+    <Compile Include="Services\AdminViewDetailService.cs" />
+    <Compile Include="Services\AuthenticateService.cs" />
+    <Compile Include="Services\CompareService.cs" />
+    <Compile Include="Services\ConfigureService.cs" />
+    <Compile Include="Services\AdminCouponService.cs" />
+    <Compile Include="Services\ELTService.cs" />
+    <Compile Include="Services\PerformanceComparisonService.cs" />
+    <Compile Include="Services\PerformersService.cs" />
+    <Compile Include="Services\UserAccountService.cs" />
+    <Compile Include="Services\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\S2TAnalytics.Common\S2TAnalytics.Common.csproj">
+      <Project>{9bb798fc-75c9-47c6-81f9-19ca68bc4cd6}</Project>
+      <Name>S2TAnalytics.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\S2TAnalytics.DAL\S2TAnalytics.DAL.csproj">
+      <Project>{0c05c442-d235-4398-b925-24dc9dc64ff5}</Project>
+      <Name>S2TAnalytics.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GoogleMaps.LocationServices.readme.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

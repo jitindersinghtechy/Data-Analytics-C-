@@ -1,0 +1,33 @@
+-------------------
+//Namespace Reference
+-------------------
+using OANDARestLibrary;
+using OANDARestLibrary.TradeLibrary;
+using OANDARestLibrary.TradeLibrary.DataTypes;
+using System.Reflection;
+using OANDARestLibrary.TradeLibrary.DataTypes.Communications;
+using System.Web.Http.Cors;
+using OANDACustomRestLibrary.TradeLibrary.DataTypes;
+
+--------------------------------------------------------------------------------
+/// Retrieves all the accounts belonging to the user
+/// <param name="user">the username to use -- only needed on sandbox-- otherwise identified by the token used</param>
+/// <returns>list of accounts, including basic information about the accounts</returns>
+
+GetAccountListAsync(string AccessToken, bool isDemo = false, string user = "")
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+///retrieves a list of transactions in descending order
+///This method is used to get incremental Transaction History (as this returns 500 records)
+//Initially for the first time for each users, we need to Invoke "GetFullTransactionHistoryAsync()"
+GetTransactionListAsync(string AccountNumber, string AccessToken, bool isDemo = false, int startFrom = 1)
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+///retrieves a list of ALL transactions in descending order for an Account
+///Initially for the first time for each users, we need to Invoke this method 
+///for incremental download of history we will invole "GetTransactionListAsync()"
+GetFullTransactionHistoryAsync(string accountId, string AccessToken, bool isDemo = false)
+--------------------------------------------------------------------------------
+

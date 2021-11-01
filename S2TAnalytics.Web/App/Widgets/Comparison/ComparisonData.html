@@ -1,0 +1,63 @@
+﻿<div class="title">
+    <div id="CompareDataHead1" class="display-IB">
+        <img src="http://analyticsv1.azurewebsites.net/images/icon/graph-line-screen.png" alt="">
+        <h3>PERFORMANCE </h3>
+    </div>
+    <div class="pull-right right-menu">
+        <ul>
+            <li class="dropdown ">
+                <a href="#" prevent-default class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span ng-bind="vm.Timeline.DisplayName"></span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu graph-filters-fix-width-height">
+                    <li ng-repeat="timeLine in vm.TimeLines" class="border-top" ng-class="vm.getClass(timeLine)">
+                        <a ng-click="vm.Timeline = timeLine; vm.getTopPerformersByFilters();">{{timeLine.DisplayName}}</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <div class="multiselect-button hidden" ng-dropdown-multiselect="" checkboxes="true" options="vm.Countries" selected-model="vm.SelectedCountries"
+                     ng-hide="vm.IsDrillDownVisible || vm.IsDrillDown2Visible" extra-settings="vm.CountrySettings"></div> <!--events="{ onItemSelect: vm.onCountrySelect, onItemDeselect: vm.onCountryDeselect }"-->
+                <div ng-dropdown-multiselect="" checkboxes="true" class="hidden" options="vm.Cities" ng-show="vm.IsDrillDownVisible" selected-model="vm.SelectedCities"
+                     extra-settings="vm.CitySettings"></div>  <!--events="{ onItemSelect: vm.onCitySelect, onItemDeselect: vm.onCityDeselect }"-->
+                <div ng-dropdown-multiselect="" checkboxes="true" class="hidden" options="vm.Accounts" ng-show="vm.IsDrillDown2Visible" selected-model="vm.SelectedAccounts"
+                     extra-settings="vm.AccountSettings"></div>  <!--events="{ onItemSelect: vm.onUserSelect, onItemDeselect: vm.onUserDeselect }"-->
+            </li>
+            <li class="dropdown">
+                <a href="#" prevent-default class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-line-chart" ng-if="vm.chartType == 'line'"></i>
+                    <i class="fa fa-bar-chart" ng-if="vm.chartType == 'column'"></i>
+                    <i class="fa fa-area-chart" ng-if="vm.chartType == 'areaspline'"></i>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" prevent-default ng-click="vm.chartType = 'line';vm.click()"><i class="fa fa-line-chart"></i></a></li>
+                    <li><a href="#" prevent-default ng-click="vm.chartType = 'column';vm.click()"><i class="fa fa-bar-chart"></i></a></li>
+                    <li><a href="#" prevent-default ng-click="vm.chartType = 'areaspline';vm.click()"><i class="fa fa-area-chart"></i></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="body" id="comparisonDataContainer" style="min-width: 380px;" ng-show="vm.loadComplete"></div>
+
+<div class="loader" ng-show="!vm.loadComplete">
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__bar"></div>
+    <div class="loader__ball"></div>
+</div>
+<script>
+        Highcharts.setOptions({
+            lang: {
+                thousandsSep: ",",
+                noData: "No Data To Display"
+            },
+            //colors: ['#99b841', '#687444', '#cbfea6', '#687444', '#caee62'],
+            colors: ['#a3bf2c', '#1a420d', '#2a3229', '#fcc449', '#fb702b', '#a185eb', '#d5429b', '#34495e', '#677F57', '#36b888'],
+        });
+</script>
+<!--<div class="sk-rotating-plane margin-top-150" ng-show="!vm.loadComplete"></div>-->

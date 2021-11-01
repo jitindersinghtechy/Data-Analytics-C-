@@ -1,0 +1,158 @@
+﻿<div class="report-user">
+
+    <div class="container">
+
+        <div class="row page-header text-uppercase">
+            <div class="pull-left">
+                <img src="../images/icon/settings-red.png" alt=""> <h1><strong>ACCOUNT SETTING</strong></h1>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div class="col-md-6 account-info">
+            <div class="col-md-12 padding0 box-shadow">
+                <div class="desc-col">
+                    <h2><span><a href="#" prevent-default ng-show="!userAccountVm.editName" ng-click="userAccountVm.editName=true">{{userAccountVm.User.FirstName}} {{userAccountVm.User.LastName}}</a></span></h2>
+                    <input type="text" id="phone" ng-model="userAccountVm.User.Name" ng-focus="userAccountVm.editName=true;" ng-blur="userAccountVm.changeUserDetails()" ng-show="userAccountVm.editName" />
+                    <a href="#" class="change-password" prevent-default data-toggle="modal" data-target="#changePassword">Change Password</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="desc-col">
+                    <h3>Date Of Birth</h3>
+                    <span class="date-icon">
+
+
+                        <input id="DOB1" date-picker2  ng-model="userAccountVm.User.DOB" class="date-picker form-control">
+                        <!--<datepicker date-format="dd/MM/yyyy">
+                            <input type="text" id="datepicker" ng-model="userAccountVm.User.DOB" class="date-picker form-control" ng-change="userAccountVm.changeUserDetails()">
+                        </datepicker>-->
+
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="desc-col">
+                    <h3>Country</h3>
+                    <input id="userCountry" type="text" class="userCountrySelector" ng-model="userAccountVm.User.Country" ng-change="userAccountVm.changeUserDetails()" />
+                    <input type="hidden" id="user_country_code" />
+                    <!--<div class="form-group country-select">
+                        <select class="form-control col-sm-10">
+                            <option>singapor</option>
+                            <option>india</option>
+                        </select>
+                    </div>-->
+                    <div class="clearfix"></div>
+                </div>
+                <div class="desc-col">
+                    <h3>Phone Number</h3>
+                    <div class="contact-col">
+                        <span class="blue" ng-show="!userAccountVm.editPhone"><a href="#" prevent-default ng-show="!userAccountVm.editPhone" ng-click="userAccountVm.editPhone=true" set-focus="phone">+{{userAccountVm.User.CountryCode}}-{{userAccountVm.User.PhoneNumber}}</a></span>
+                        <!--<input type="text" id="countryCode" class="countryCode" ng-model="userAccountVm.User.CountryCode" ng-focus="userAccountVm.editPhone=true;" ng-blur="userAccountVm.editPhone=false;userAccountVm.changeUserDetails()" ng-show="userAccountVm.editPhone" />
+                        <input type="text" id="phone" ng-model="userAccountVm.User.PhoneNumber" ng-focus="userAccountVm.editPhone=true;" ng-blur="userAccountVm.editPhone=false;userAccountVm.changeUserDetails()" ng-show="userAccountVm.editPhone" />-->
+
+                        <div ng-show="userAccountVm.editPhone">
+                            <input id="phone" user-Account-Phone ng-model="userAccountVm.User.PhoneNumber" ng-focus="userAccountVm.editPhone=true;" />
+                        </div>
+                        <i class="fa fa-edit pull-right" ng-show="!userAccountVm.editPhone" ng-click="userAccountVm.editPhone=true"></i>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="desc-col">
+                    <h3>Email Address</h3>
+                    <div class="contact-col">
+                        <span class="blue"><a href="#" prevent-default >{{userAccountVm.User.EmailID}}</a></span>
+                        <!--<span class="blue"><a href="#" prevent-default ng-show="!userAccountVm.editEmail" ng-click="userAccountVm.editEmail=true" set-focus="emailId">{{userAccountVm.User.EmailID}}</a></span>
+                        <input type="text" id="emailId" ng-model="userAccountVm.User.EmailID" ng-blur="userAccountVm.changeUserDetails()" ng-show="userAccountVm.editEmail" />
+                        <i class="fa fa-edit pull-right" ng-show="!userAccountVm.editEmail" ng-click="userAccountVm.editEmail=true"></i>-->
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-md-6 bottom-info">
+            <div ng-if="mainVM.isEmailNotification" class="col-sm-12 email-noti box-shadow balance-block">
+                <div class="title"><h4><i class="fa fa-envelope"></i>EMAIL NOTIFICATIONS SETTINGS</h4></div>
+                <ul>
+                    <li ng-repeat="emailNotification in userAccountVm.emailNotificationSettingsEnum">
+                        {{emailNotification.DisplayName}} 	<span class="swipe-button pull-right"><input id="{{emailNotification.stringValue}}" email-notification-settings-id="{{emailNotification.HasAccess}}" type="checkbox" data-toggle="toggle"></span>
+                    </li>
+                    <!--<li>
+                        Daily top performers' & pinned traders' trends 	<span class="swipe-button pull-right"><input id="toggle-demo" type="checkbox" data-toggle="toggle"></span>
+                    </li>
+                    <li>
+                        Weekly top performers' & pinned traders' trends <span class="swipe-button pull-right"><input id="toggle-demo1" type="checkbox" data-toggle="toggle"></span>
+                    </li>
+                    <li>
+                        Monthly top performers' & pinned traders <span class="swipe-button pull-right"><input id="toggle-demo" type="checkbox" data-toggle="toggle"></span>
+                    </li>
+                    <li>
+                        Quarterly top performers' & pinned traders' trends 	<span class="swipe-button pull-right"><input id="toggle-demo1" type="checkbox" data-toggle="toggle"></span>
+                    </li>
+                    <li>
+                        Half yearly top performers' & pinned traders' trends <span class="swipe-button pull-right"><input id="toggle-demo" type="checkbox" data-toggle="toggle"></span>
+                    </li>
+                    <li>
+                        Yearly top performers' & pinned traders' trends <span class="swipe-button pull-right"><input id="toggle-demo1" type="checkbox" data-toggle="toggle"></span>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="modal" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content black">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title bold fsize20" id="myModalLabel">Change Password</h4>
+            </div>
+
+            <div class="modal-body plan-change">
+                <div class="row">
+                    <form name="ChangePasswordForm">
+                        <div class="form-group">
+                            <input type="password" class="form-control" maxlength="20" placeholder="Old Password" name="OldPassword" data-ng-model="userAccountVm.OldPassword"
+                                   required-error-message="Required" validator="required,passwordlength">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" maxlength="20" placeholder="New Password" name="NewPassword" data-ng-model="userAccountVm.NewPassword"
+                                   required-error-message="Required" validator="required,passwordlength">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" maxlength="20" class="form-control" placeholder="Confirm password" name="ConfirmPassword"
+                                   data-ng-model="userAccountVm.ConfirmPassword" data-pwd={{userAccountVm.NewPassword}}
+                                   required-error-message="Required" validator="required,confirmpassword,passwordlength">
+                        </div>
+
+
+
+
+                        <div class="clearfix"></div>
+
+                        <div class="text-center">
+                            <button class="green-button change-password" ng-disabled="userAccountVm.IsSubmitDisabled" validation-submit="ChangePasswordForm" ng-click="userAccountVm.changePassword()">Submit</button>
+                            <button type="reset" validation-reset="ChangePasswordForm" class="resetPassword">RESET ALL</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $("#userCountry").countrySelect();
+</script>

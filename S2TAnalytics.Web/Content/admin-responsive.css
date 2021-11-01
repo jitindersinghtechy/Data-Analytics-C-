@@ -1,0 +1,239 @@
+@charset "utf-8";
+/* CSS Document */
+@media only screen and (max-width:1366px) {
+.container {
+	width: 94%;
+}
+.account-info .contact.col-4 {
+	width: 225px;
+}
+.account-info .about.col-4 {
+	width: 390px;
+}
+}
+
+@media only screen and (max-width:1200px) {
+.account-info .incoice-generate.col-4 {
+	width: 287px;
+	border: none;
+}
+.account-info .contact.col-4 {
+	width: 280px;
+}
+.account-info .about.col-4 {
+	width: 390px;
+}
+.active-payment.col-4 {
+	border-right: 0;
+	padding: 20px 10px;
+}
+.account-info {
+	min-height: 190px;
+}
+.payment-method .left-col {
+	border-right: 0px solid #ccc;
+	min-height: 260px;
+	width: 100%;
+}
+.swipe-button.pull-right {
+	float: right !important;
+	display: block;
+	margin-top: 17px;
+}
+.card-block h4 {
+	line-height: 55px;
+}
+.payment-method .right-col {
+	width: 100%;
+}
+.payment-method .control-label {
+	width: 150px !important;
+}
+}
+
+
+
+@media only screen and (max-width:768px) {
+.account-info .about.col-4 {
+	width: 50%;
+}
+.account-info .contact.col-4 {
+	width: 50%;
+	border: none;
+}
+.account-info .incoice-generate.col-4 {
+	width: 50%;
+	border-right: 1px solid #d4d4d4;
+}
+.plan-detail .subscribe-plan, .subscribe-plan .body ul li, .subscribe-plan .body ul {
+	text-align: center;
+	width: 100%;
+	padding: 0;
+	line-height: 35px;
+	display: block;
+	float: none;
+}
+.payment-method {
+	box-shadow: 0px 2px 9px 2px #d2d2d2;
+	margin-left: 0;
+	width: 100%;
+	margin-top: 10px;
+}
+.email-noti {
+	box-shadow: 0px 2px 9px 2px #d2d2d2;
+	min-height: 365px;
+	width: 100%;
+}
+.billing-tab {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	margin-top: 10px;
+}
+#billing .control-label {
+	width: 150px !important;
+}
+#billing .form-group > div {
+	width: 75% !important;
+}
+#billing {
+	min-height: 360px;
+}
+}
+
+@media only screen and (max-width:640px) {
+.account-info .about.col-4, .account-info .contact.col-4, .account-info .incoice-generate.col-4 {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #ccc;
+}
+.account-info {
+	min-height: 350px;
+	width: 100%;
+	border: none;
+}
+.payment-method .left-col {
+	min-height: 330px;
+}
+.payment-method .control-label {
+	display: block;
+}
+.payment-method .right-col {
+	min-height: 600px;
+}
+#billing .control-label {
+	display: block;
+}
+#billing div {
+	padding: 0 !important;
+	width: 100% !important;
+}
+#billing {
+	min-height: 550px;
+}
+#billing .text-center {
+	width: 97% !important;
+}
+.payment-method .right-col h5 {
+	font-size: 22px;
+}
+.payment-method .right-col .form-group > div {
+	padding: 0 !important;
+}
+#billing .col-sm-4 {
+	width: 20% !important;
+	float: left;
+}
+#billing .col-sm-8 .col-sm-8 {
+	width: 80% !important;
+	float: left;
+	padding-left: 10px !important;
+}
+#billing .col-sm-4.control-label {
+	float: none;
+	display: block;
+}
+#billing .form-group > .col-sm-8, #billing .form-group .col-sm-10 {
+	width: 100% !important;
+}
+.swipe-button.pull-right {
+	margin-top: 0;
+}
+.card-block {
+	height: 100px;
+}
+.payment-method {
+	margin-top: 20px;
+}
+}
+
+@media only screen and (max-width:480px) {
+.card-block h4 {
+	line-height: 25px;
+}
+.swipe-button.pull-right {
+	float: left !important;
+	display: block;
+	margin-top: 6px;
+	margin-right: 0;
+}
+.email-noti .swipe-button.pull-right {
+	display: block;
+	margin: 0;
+	float: none !important;
+}
+.email-noti {
+	min-height: 495px;
+	width: 100%;
+	padding: 20px 10px;
+}
+.account-info {
+	min-height: 370px;
+}
+#billing {
+    min-height: 570px;
+}
+}
+
+@media only screen and (max-width:375px) {
+.card-block h4 {
+	line-height: 25px;
+	display: block!important;
+	width: 100% !important
+}
+.card-block .swipe-button.pull-right {
+	float: right !important;
+	display: block;
+	margin-top: -40px;
+	margin-right: 30px;
+}
+.account-info .about.col-4, .account-info .contact.col-4, .account-info .incoice-generate.col-4 {
+	height: auto;
+	padding: 20px 10px;
+}
+.account-info {
+	min-height: 470px;
+}
+.account-info .about h2 {
+	font-size: 22px;
+}
+	.billing-tab .title ul li {
+    padding: 0px 10px;
+	}
+		.payment-method .left-col {
+    min-height: 390px;
+}
+	#billing {
+    min-height: 590px;
+}
+	
+}
+
+@media only screen and (max-width:320px) {
+	.card-block {
+    height: 120px;
+}
+	.card-block .swipe-button.pull-right {
+    margin-top: 0;
+}
+}
